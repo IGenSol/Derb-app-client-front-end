@@ -12,6 +12,7 @@ import Store from "./pages/Store/Store";
 import ShowCase from "./components/ShowCase/ShowCase";
 
 import { GlobalStyle } from "./style/globalStyle";
+import Account from "./pages/Account/Account";
 
 function App() {
   return (
@@ -25,9 +26,11 @@ function App() {
           <Route path="/store" exact component={Store} />
           <Route path="/discover" exact component={Discover} />
           <Route path="/show-case" exact component={ShowCase} />
+          <Route path="/account" exact component={Account} />
         </Switch>
-      </ThemeProvider>
+      </ThemeProvider>y
     </Router>
+
   );
 }
 
