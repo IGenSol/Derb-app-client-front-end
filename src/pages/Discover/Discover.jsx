@@ -23,6 +23,8 @@ const Following = () => {
         </article>
       </aside>
 
+      {/* GGd */}
+
       <article className="user-profiles-wrapper">
         {profiles.map((profile, index) => {
           return (
