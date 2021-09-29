@@ -1,40 +1,39 @@
 import React from 'react'
 import { Tabs } from 'antd';
 import { Loginstyle, Signupstyle, Inputstyle } from "./Account.style"
-import { FacebookIcon, GoogleIcon } from "../../svgs/index"
-
+import { FacebookIcon, GoogleIcon, Inputusericon, Inputpassword, Emailicon } from "../../svgs/index"
 
 const Login = () => {
+
+
     return (
         <Inputstyle>
             <article className="input-wrapper">
-                <input
-                    type="text"
-                    name="Username"
-                    placeholder="Username"
-                    className="site-searchbar"
-                />
-                <span className="icon-wrapper">
-                    {/* <SearchIcon /> */}
-                </span>
-                <input
-                    type="text"
-                    name="Password"
-                    placeholder="Password"
-                    className="site-searchbar"
-                />
-                <span className="icon-wrapper">
-                    {/* <SearchIcon /> */}
-                </span>
+
+                <article className="inputouter">
+                    <span className="inputicon"><Inputusericon /></span>
+                    <input
+                        type="text"
+                        name="udername"
+                        placeholder="Username"
+                    />
+                </article>
+                <article className="inputouter">
+                    <span className="inputicon"><Inputpassword /></span>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                    />
+                </article>
+
 
                 <button className="login-btn">Login</button>
-
                 <p>or continue with</p>
-
                 <span className="icon"><FacebookIcon />   <GoogleIcon /></span>
 
             </article>
-        </Inputstyle>
+        </Inputstyle >
     )
 }
 
@@ -43,59 +42,49 @@ const Signup = () => {
     return (
         <Inputstyle>
             <article className="input-wrapper">
-                <input
-                    type="text"
-                    name="Username"
-                    placeholder="Username"
-                    className="site-searchbar"
-                />
-                <span className="icon-wrapper">
-                    {/* <SearchIcon /> */}
-                </span>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="site-searchbar"
-                />
-                <span className="icon-wrapper">
-                    {/* <SearchIcon /> */}
-                </span>
-                <input
-                    type="text"
-                    name="password"
-                    placeholder="Password"
-                    className="site-searchbar"
-                />
-                <span className="icon-wrapper">
-                    {/* <SearchIcon /> */}
-                </span>
-                <input
-                    type="text"
-                    name="conformpassword"
-                    placeholder="Conform-Password"
-                    className="site-searchbar"
-                />
-                <span className="icon-wrapper">
-                    {/* <SearchIcon /> */}
-                </span>
+                <article className="inputouter">
+                    <span className="inputicon"><Inputusericon /></span>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                    />
+                </article>
+                <article className="inputouter">
+                    <span className="inputicon"><Emailicon /></span>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your Email adress"
+                    />
+                </article>
+                <article className="inputouter">
+                    <span className="inputicon"><Inputpassword /></span>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                    />
+                </article>
+                <article className="inputouter">
+                    <span className="inputicon"><Inputpassword /></span>
+                    <input
+                        type="password"
+                        name="conforimpassword"
+                        placeholder="Conforim Password"
+                    />
+                </article>
 
                 <button className="login-btn">Sign up</button>
-
                 <p>or continue with</p>
-
                 <span className="icon"><FacebookIcon />   <GoogleIcon /></span>
 
             </article>
-        </Inputstyle>
+        </Inputstyle >
     )
 }
 
-
-
-
-
-const Useraccount = () => {
+const Accountwrapper = () => {
 
     const { TabPane } = Tabs;
 
@@ -121,27 +110,20 @@ const Useraccount = () => {
             </Tabs>
 
         </Signupstyle >
-
-
-
-
     )
 }
-
 
 function Account() {
     return (
         <Loginstyle>
             <picture className="image-wrapper">
                 <img
-                    src="./images/site-logo.png"
+                    src="./images/account-logo.png"
                     alt="Site Logo"
                     className="account-logo"
                 />
             </picture>
-            <Useraccount />
-
-
+            <Accountwrapper />
         </Loginstyle>
     )
 }
