@@ -2,12 +2,17 @@ const THEMES = {
   colors: {
     PRIMARY_COLOR: "#ffb602",
     JASMINE_COLOR: "#FFE79A",
+    LIGHT_ORANGE_COLOR: "#f7ecd2",
 
     DARK_COLOR: "#222222",
     WHITE_COLOR: "#fff",
     BEAU_BLUE_COLOR: "#CADCEC",
     SILVER_SAND_COlOR: "#C1C6CB",
     RED_COLOR: "#C41E3D",
+    GREEN_COLOR: "#86d38f",
+    RICH_BLACK_COLOR: "#0a0a0a",
+    BLACK_COLOR: "#000",
+    PLATINUM_COLOR: "#e7e7e7",
 
     SECONDARY_COLOR: "#777777",
     ALTO_COLOR: "#dddddd",
@@ -19,6 +24,7 @@ const THEMES = {
     SPANISH_GRAY_COLOR: "#999999",
     CADET_GREY_COLOR: "#969FA8",
     GRAY_COLOR: "#b7b7b7",
+    DIM_GRAY_COLOR: "#f6f6f6",
   },
 
   fontWeights: {

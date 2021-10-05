@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { EyeIcon, HeartIcon } from "../../svgs";
 import { LiveCardStyle } from "./Card.style";
 
@@ -67,7 +69,9 @@ function LiveCard(props) {
   const { productImage, imageAlt } = props;
   return (
     <LiveCardStyle>
-      <button className="buynow-btn">buy Now</button>
+      <Link to="./show-case" className="buynow-btn">
+        buy Now
+      </Link>
       {productImage && (
         <picture className="image-thumbnail">
           <img src={productImage} alt={imageAlt} className="thumbnail" />

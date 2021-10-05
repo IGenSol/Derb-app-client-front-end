@@ -9,11 +9,11 @@ function Feed() {
   return (
     <FeedStyle>
       <aside className="following-wrapper">
-        <h4 className="heading">My Following</h4>
+        <h4 className="title">My Following</h4>
 
         <article className="following-suggestion-profie">
           {followingProfiles.map((profile, index) => {
-            return <Card key={index} cardType="profileCard" {...profile} />;
+            return <Card key={index} cardType="verticalCard" {...profile} />;
           })}
         </article>
       </aside>
@@ -22,7 +22,7 @@ function Feed() {
         {profiles.map((profile, index) => {
           return (
             <article key={index} className="user-profile">
-              <Card cardType="profileCard" {...profile} />
+              <Card cardType="verticalCard" {...profile} />
               <Card cardType="liveCard" {...profile} />
             </article>
           );
