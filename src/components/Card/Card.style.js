@@ -189,7 +189,7 @@ export const LiveCardStyle = styled.figure`
   }
 `;
 
-export const ProfileCardStyle = styled.figure`
+export const VerticalCardStyle = styled.figure`
   ${FlexboxStyle({ justify: "flex-start" })};
 
   margin-bottom: 2rem;
@@ -210,6 +210,12 @@ export const ProfileCardStyle = styled.figure`
     }
   }
 
+  .card-icon {
+    > svg {
+      width: 4.5rem;
+    }
+  }
+
   .user-details {
     background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
 
@@ -221,11 +227,12 @@ export const ProfileCardStyle = styled.figure`
 
     z-index: -1;
 
-    .name {
+    .heading {
       font-size: 1.5rem;
+      color: ${(p) => p.theme.colors.BLACK_COLOR};
     }
 
-    .place {
+    .sub-heading {
       color: ${(p) => p.theme.colors.MEDIUM_GRAY_COLOR};
     }
   }
