@@ -9,6 +9,8 @@ import Discover from "./pages/Discover/Discover";
 import Home from "./pages/Home/Home";
 import Feed from "./pages/Feed/Feed";
 import Store from "./pages/Store/Store";
+import ShowCase from "./components/ShowCase/ShowCase";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 import { GlobalStyle } from "./style/globalStyle";
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/home" exact component={Home} />
           <Route path="/store" exact component={Store} />
           <Route path="/discover" exact component={Discover} />
+          <Route path="/show-case" exact component={ShowCase} />
+          <Route path="/dashboard" exact component={Dashboard} />
         </Switch>
       </ThemeProvider>
     </Router>

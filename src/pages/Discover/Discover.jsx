@@ -18,16 +18,18 @@ const Following = () => {
 
         <article className="following-suggestion-profie">
           {followingProfiles.map((profile, index) => {
-            return <Card key={index} cardType="profileCard" {...profile} />;
+            return <Card key={index} cardType="verticalCard" {...profile} />;
           })}
         </article>
       </aside>
+
+      {/* GGd */}
 
       <article className="user-profiles-wrapper">
         {profiles.map((profile, index) => {
           return (
             <article key={index} className="user-profile">
-              <Card cardType="profileCard" {...profile} />
+              <Card cardType="verticalCard" {...profile} />
               <Card cardType="liveCard" {...profile} />
             </article>
           );
