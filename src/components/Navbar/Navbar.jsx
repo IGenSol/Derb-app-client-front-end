@@ -9,13 +9,13 @@ import { NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
 const UserProfile = () => {
   return (
     <UserProfileStyle>
-      <picture className="user-profile-placeholder-wrapper">
+      <Link to="/dashboard" className="user-profile-placeholder-wrapper">
         <img
           src="./images/icons/user-icon.png"
           alt="Profile Placeholder"
           className="user-profile-placeholder"
         />
-      </picture>
+      </Link>
       <span className="down-arrow-icon">
         <DownArrow />
       </span>
