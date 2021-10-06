@@ -28,7 +28,7 @@ export const FeedStyle = styled.main`
 
     z-index: 3;
 
-    .heading {
+    .title {
       color: ${(p) => p.theme.colors.GRAY_COLOR};
       font-size: 1.6rem;
       margin-bottom: 3rem;

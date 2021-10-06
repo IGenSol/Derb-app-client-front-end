@@ -25,7 +25,7 @@ export const discoverItems = [
         imageAlt: "Commenters Profile Picture",
       },
       {
-        name: "Jahangir Khan",
+        heading: "Jahangir Khan",
         text: "I wonder  could buy this product",
         image: "./images/users/user-one.jpg",
         imageAlt: "Commenters Profile Picture",
@@ -64,7 +64,7 @@ export const discoverItems = [
         imageAlt: "Commenters Profile Picture",
       },
       {
-        name: "Jahangir Khan",
+        heading: "Jahangir Khan",
         text: "I wonder  could buy this product",
         image: "./images/users/user-one.jpg",
         imageAlt: "Commenters Profile Picture",
@@ -103,7 +103,7 @@ export const discoverItems = [
         imageAlt: "Commenters Profile Picture",
       },
       {
-        name: "Jahangir Khan",
+        heading: "Jahangir Khan",
         text: "I wonder  could buy this product",
         image: "./images/users/user-one.jpg",
         imageAlt: "Commenters Profile Picture",
@@ -142,7 +142,7 @@ export const discoverItems = [
         imageAlt: "Commenters Profile Picture",
       },
       {
-        name: "Jahangir Khan",
+        heading: "Jahangir Khan",
         text: "I wonder  could buy this product",
         image: "./images/users/user-one.jpg",
         imageAlt: "Commenters Profile Picture",
@@ -181,7 +181,7 @@ export const discoverItems = [
         imageAlt: "Commenters Profile Picture",
       },
       {
-        name: "Jahangir Khan",
+        heading: "Jahangir Khan",
         text: "I wonder  could buy this product",
         image: "./images/users/user-one.jpg",
         imageAlt: "Commenters Profile Picture",
@@ -220,7 +220,7 @@ export const discoverItems = [
         imageAlt: "Commenters Profile Picture",
       },
       {
-        name: "Jahangir Khan",
+        heading: "Jahangir Khan",
         text: "I wonder  could buy this product",
         image: "./images/users/user-one.jpg",
         imageAlt: "Commenters Profile Picture",
@@ -239,35 +239,35 @@ export const followingProfiles = [
   {
     image: "./images/users/user-one.jpg",
     imageAlt: "User Profile Image",
-    name: "Jahangir Khan",
+    heading: "Jahangir Khan",
   },
   {
     image: "./images/users/user-two.jpg",
     imageAlt: "User Profile Image",
-    name: "Haris Khan",
+    heading: "Haris Khan",
   },
   {
     image: "./images/users/user-four.jpg",
     imageAlt: "User Profile Image",
-    name: "Sarim Khan",
+    heading: "Sarim Khan",
   },
   {
     image: "./images/users/user-three.jpg",
     imageAlt: "User Profile Image",
-    name: "Nadeem Khan",
+    heading: "Nadeem Khan",
   },
   {
     image: "./images/users/user-one.jpg",
     imageAlt: "User Profile Image",
-    name: "Hassan Khan",
+    heading: "Hassan Khan",
   },
 ];
 
 export const profiles = [
   {
     image: "./images/users/user-one.jpg",
-    name: "Jahangir Khan",
-    place: "Pakistan",
+    heading: "Jahangir Khan",
+    subHeading: "Pakistan",
     productImage: "./images/products-images/camera-image.jpg",
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-two.jpg",
@@ -313,8 +313,8 @@ export const profiles = [
   },
   {
     image: "./images/users/user-one.jpg",
-    name: "Jahangir Khan",
-    place: "Pakistan",
+    heading: "Jahangir Khan",
+    subHeading: "Pakistan",
     productImage: "./images/products-images/camera-image.jpg",
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-two.jpg",
@@ -360,8 +360,8 @@ export const profiles = [
   },
   {
     image: "./images/users/user-one.jpg",
-    name: "Jahangir Khan",
-    place: "Pakistan",
+    heading: "Jahangir Khan",
+    subHeading: "Pakistan",
     productImage: "./images/products-images/camera-image.jpg",
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-two.jpg",
@@ -407,8 +407,8 @@ export const profiles = [
   },
   {
     image: "./images/users/user-one.jpg",
-    name: "Jahangir Khan",
-    place: "Pakistan",
+    heading: "Jahangir Khan",
+    subHeading: "Pakistan",
     productImage: "./images/products-images/camera-image.jpg",
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-two.jpg",
@@ -454,8 +454,8 @@ export const profiles = [
   },
   {
     image: "./images/users/user-one.jpg",
-    name: "Jahangir Khan",
-    place: "Pakistan",
+    heading: "Jahangir Khan",
+    subHeading: "Pakistan",
     productImage: "./images/products-images/camera-image.jpg",
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-two.jpg",
@@ -501,8 +501,8 @@ export const profiles = [
   },
   {
     image: "./images/users/user-one.jpg",
-    name: "Jahangir Khan",
-    place: "Pakistan",
+    heading: "Jahangir Khan",
+    subHeading: "Pakistan",
     productImage: "./images/products-images/camera-image.jpg",
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-two.jpg",

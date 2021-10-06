@@ -2,7 +2,7 @@ import React from "react";
 
 import HorizontalCard from "./HorizontalCard";
 import LiveCard from "./LiveCard";
-import ProfileCard from "./ProfileCard";
+import VerticalCard from "./VerticalCard";
 
 function Card(props) {
   const { cardType } = props;
@@ -13,8 +13,8 @@ function Card(props) {
     case "liveCard":
       return <LiveCard {...props} />;
 
-    case "profileCard":
-      return <ProfileCard {...props} />;
+    case "verticalCard":
+      return <VerticalCard {...props} />;
 
     default:
       <HorizontalCard {...props} />;

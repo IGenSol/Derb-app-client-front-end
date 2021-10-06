@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home";
 import Feed from "./pages/Feed/Feed";
 import Store from "./pages/Store/Store";
 import ShowCase from "./components/ShowCase/ShowCase";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 import { GlobalStyle } from "./style/globalStyle";
 import Account from "./pages/Account/Account";
@@ -27,10 +28,11 @@ function App() {
           <Route path="/discover" exact component={Discover} />
           <Route path="/show-case" exact component={ShowCase} />
           <Route path="/account" exact component={Account} />
+          <Route path="/dashboard" exact component={Dashboard} />
         </Switch>
-      </ThemeProvider>y
+      </ThemeProvider>
+      y
     </Router>
-
   );
 }
 
