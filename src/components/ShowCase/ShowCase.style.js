@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 import {
-    CommonButton,
-    CommonGridStyle,
-    CommonSpacing,
-    CustomContainer,
-    FlexboxStyle,
+  CommonButton,
+  CommonGridStyle,
+  CommonSpacing,
+  CustomContainer,
+  FlexboxStyle,
 } from "../../style/commomStyle";
 
 export const ShowCaseStyle = styled.main`
@@ -61,6 +61,8 @@ export const ProductFooterStyle = styled.article`
     }
 
     .ingrediants-wrapper {
+      width: 16rem;
+
       .ingrediants {
         list-style: none;
 
@@ -94,6 +96,12 @@ export const ProductFooterStyle = styled.article`
     }
   }
 
+  .quantity {
+    .heading {
+      margin-bottom: 2rem;
+    }
+  }
+
   .buttons-wrapper {
     ${FlexboxStyle({ justify: "center" })};
 
@@ -106,6 +114,7 @@ export const ProductFooterStyle = styled.article`
       width: 100%;
       max-width: 30rem;
       font-size: 1.8rem;
+      text-align: center;
     }
   }
 `;

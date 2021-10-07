@@ -92,8 +92,6 @@ export const SidebarStyle = styled.aside`
       .nav-item-link {
         ${FlexboxStyle({ justify: "flex-start" })}
 
-        color: ${(p) => p.theme.colors.BLACK_COLOR};
-
         font-weight: 700;
         padding: 1rem 3rem;
 
@@ -115,6 +113,7 @@ export const SidebarStyle = styled.aside`
         }
 
         .link-text {
+          color: ${(p) => p.theme.colors.BLACK_COLOR};
           font-size: 2rem;
         }
       }

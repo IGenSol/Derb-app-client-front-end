@@ -94,7 +94,7 @@ const Sidebar = () => {
         {sideMenus.map((sideMenu, index) => {
           const { icon, linkText, url } = sideMenu;
           return (
-            <li className="nav-item">
+            <li key={index} className="nav-item">
               <a href={url} className="nav-item-link">
                 <span className="icon">{icon}</span>
                 <p className="link-text">{linkText}</p>
