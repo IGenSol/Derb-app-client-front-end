@@ -20,11 +20,15 @@ const THEMES = {
     CULTURED_GRAY_COLOR: "#f2f2f2",
     MEDIUM_GRAY_COLOR: "#CECFD3",
     LIGHT_GRAY_COLOR: "#f9f9f9",
+    FADE_COLOR: "#F4F4F4",
+    WEB_GRAY_COLOR: "#787f85",
     DULL_GRAY_COLOR: "#f8f8f8",
     SPANISH_GRAY_COLOR: "#999999",
     CADET_GREY_COLOR: "#969FA8",
     GRAY_COLOR: "#b7b7b7",
     DIM_GRAY_COLOR: "#f6f6f6",
+
+    DARK_SILVER_COLOR: "#aaaaaa",
   },
 
   fontWeights: {

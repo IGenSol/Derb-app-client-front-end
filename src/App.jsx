@@ -11,6 +11,8 @@ import Feed from "./pages/Feed/Feed";
 import Store from "./pages/Store/Store";
 import ShowCase from "./components/ShowCase/ShowCase";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import LoginForm from "./pages/LoginForm/LoginForm";
+import CartList from "./pages/CartList/CartList";
 
 import { GlobalStyle } from "./style/globalStyle";
 
@@ -26,7 +28,9 @@ function App() {
           <Route path="/store" exact component={Store} />
           <Route path="/discover" exact component={Discover} />
           <Route path="/show-case" exact component={ShowCase} />
+          <Route path="/login-form" exact component={LoginForm} />
           <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/cart-list" exact component={CartList} />
         </Switch>
       </ThemeProvider>
     </Router>
