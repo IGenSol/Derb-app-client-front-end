@@ -10,10 +10,10 @@ export const FeedStyle = styled.main`
   ${CustomContainer};
   ${CommonSpacing};
   ${CommonGridStyle({
-    columns: "30rem 1fr",
-    columnGap: "8rem",
-    align: "flex-start",
-  })};
+  columns: "30rem 1fr",
+  columnGap: "8rem",
+  align: "flex-start",
+})};
 
   margin-top: 4rem;
 
@@ -28,6 +28,11 @@ export const FeedStyle = styled.main`
 
     z-index: 3;
 
+    @media (max-width:${(p) => p.theme.breakPoints.tablets}){
+      display: none;
+
+    }
+
     .title {
       color: ${(p) => p.theme.colors.GRAY_COLOR};
       font-size: 1.6rem;
@@ -37,9 +42,9 @@ export const FeedStyle = styled.main`
 
   .user-profiles-wrapper {
     ${CommonGridStyle({
-      columns: "1fr 1fr",
-      rowGap: "4.4rem",
-      columnGap: "2.5rem",
-    })};
+  columns: "1fr 1fr",
+  rowGap: "4.4rem",
+  columnGap: "2.5rem",
+})};
   }
 `;
