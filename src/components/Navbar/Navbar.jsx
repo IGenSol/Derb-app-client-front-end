@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal, Button } from 'antd';
+
 
 
 import { menubarItems } from "../../mockData/navbarData";
-import { DownArrow, SearchIcon, Uploadimageicon } from "../../svgs";
+import { DownArrow, SearchIcon, UploadImageIcon } from "../../svgs";
 
 import { Imagestyle, Modelstyle, NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
 
@@ -19,53 +19,48 @@ const AddPost = (props) => {
 
   const { okbtn, cancelbtn, visible } = props;
   return (
-
-    <Modal
+    <Modelstyle
       title="Add Post"
       visible={visible}
       onOk={okbtn}
       onCancel={cancelbtn}
       footer={null}
+      wrapClassName="add-post-popup"
     >
-      <Modelstyle>
+      <article>
+        <img src="./images/icons/user-icon.png" className="profileimg" alt="UserIcon" />
+        <input
+          type="text"
+          name="Addpost"
+          placeholder="Add Post..."
+          className="add-post"
+        />
+      </article>
+
+      <article >
+        {
+          file &&
+          <img src={file} className="postimg" />
+        }
+
+      </article>
+      <article className="footer">
         <article>
-          <img src="./images/icons/user-icon.png" alt="" />
-          <input
-            type="text"
-            name="Addpost"
-            placeholder="Add Post..."
-            className="add-post"
-          />
-        </article>
-        <article></article>
-        <article >
-          {
-            file &&
-            <img src={file} className="postimg" ></img>
-          }
+          <Imagestyle>
+            <label class="custom-file-upload" >
+              <input type="file" onChange={handleChange} />
+              <span className="icon"><UploadImageIcon /></span>
+            </label>
+          </Imagestyle>
 
         </article>
-        <article className="footer">
-          <article>
-            <Imagestyle>
-              <label class="custom-file-upload" >
-                <input type="file" onChange={handleChange} />
-                <span className="icon"><Uploadimageicon /></span>
-              </label>
-            </Imagestyle>
-
-          </article>
-          <article>
-            <button className="add-post-btn">Add Post</button>
-          </article>
+        <article>
+          <button className="add-post-btn">Add Post</button>
         </article>
+      </article>
 
 
-
-
-
-      </Modelstyle >
-    </Modal>
+    </Modelstyle >
 
 
   );
@@ -77,9 +72,6 @@ const UserProfile = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
-
-
 
   const handleOk = () => {
     setIsModalVisible(false);

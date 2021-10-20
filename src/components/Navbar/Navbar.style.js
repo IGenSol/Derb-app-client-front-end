@@ -5,6 +5,7 @@ import {
   CustomContainer,
   FlexboxStyle,
 } from "../../style/commomStyle";
+import { Modal } from 'antd';
 
 export const NavbarStyle = styled.nav`
   background: ${(p) => p.theme.colors.WHITE_COLOR};
@@ -140,13 +141,14 @@ export const UserProfileStyle = styled.article`
   }
 `;
 
-export const Modelstyle = styled.article`
-
+export const Modelstyle = styled(Modal)`
 ${FlexboxStyle({
   justify: "start",
   direction: "column"
 })};
-img{
+
+
+.profileimg{
     width: 5rem;
   }
 input{
@@ -183,14 +185,10 @@ input{
 export const Imagestyle = styled.div`
 
 margin-top: 2rem;
+
 input[type="file"] {
   display: none;
 }
-
-img{
-   margin-top: 4rem;
-   width:20rem;
-   }
 
 .icon{
   >svg{

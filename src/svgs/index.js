@@ -1390,7 +1390,7 @@ export const TwitterIcon = () => {
   );
 }
 
-export const Uploadimageicon = () => {
+export const UploadImageIcon = () => {
   return (
 
 
