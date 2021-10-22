@@ -14,32 +14,32 @@ export const sideMenus = [
   {
     icon: <DashboardIcon />,
     linkText: "Dashboard",
-    url: "#",
+    url: "/dashboard",
   },
   {
     icon: <ProductIcon />,
     linkText: "Products",
-    url: "#",
+    url: "/dashboard/products",
   },
   {
     icon: <OrderIcon />,
     linkText: "Order",
-    url: "#",
+    url: "/dashboard/orders",
   },
   {
     icon: <UserIcon />,
     linkText: "Profile",
-    url: "#",
+    url: "/dashboard/profile",
   },
   {
     icon: <SettingIcon />,
     linkText: "Settings",
-    url: "#",
+    url: "/dashboard/settings",
   },
   {
     icon: <LogoutIcon />,
     linkText: "Logout",
-    url: "#",
+    url: "/dashboard/logout",
   },
 ];
 
