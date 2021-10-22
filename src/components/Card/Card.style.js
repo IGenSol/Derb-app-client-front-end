@@ -237,3 +237,22 @@ export const VerticalCardStyle = styled.figure`
     }
   }
 `;
+
+export const ProductCardStyle = styled.figure`
+  .thumbnail-wrapper {
+    display: block;
+    width: 40rem;
+
+    .thumbnail {
+      max-width: 100%;
+    }
+  }
+
+  .card-detail {
+    .price {
+      strike {
+        color: ${(p) => p.theme.colors.PRIMARY_COLOR};
+      }
+    }
+  }
+`;

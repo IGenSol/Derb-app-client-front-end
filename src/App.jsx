@@ -10,7 +10,7 @@ import Home from "./pages/Home/Home";
 import Feed from "./pages/Feed/Feed";
 import Store from "./pages/Store/Store";
 import ShowCase from "./components/ShowCase/ShowCase";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import DashboardLayout from "./pages/Dashboard/DashboardLayout";
 import LoginForm from "./pages/LoginForm/LoginForm";
 import CartList from "./pages/CartList/CartList";
 
@@ -29,7 +29,7 @@ function App() {
           <Route path="/discover" exact component={Discover} />
           <Route path="/show-case" exact component={ShowCase} />
           <Route path="/login-form" exact component={LoginForm} />
-          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/dashboard" exact component={DashboardLayout} />
           <Route path="/cart-list" exact component={CartList} />
         </Switch>
       </ThemeProvider>
