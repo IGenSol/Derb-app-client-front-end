@@ -75,6 +75,7 @@ export const LoginStyle = styled.form`
     }
 
     .custom-input {
+      background: none;
       width: 100%;
       padding: 1rem;
 
@@ -123,6 +124,9 @@ export const Signupstyle = styled.main`
 
     background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
 
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+
     .icon {
       > svg {
         fill: ${(p) => p.theme.colors.DARK_SILVER_COLOR};
@@ -132,6 +136,8 @@ export const Signupstyle = styled.main`
     }
 
     .custom-input {
+      background: none;
+
       padding: 1.9rem;
       width: 100%;
       border: none;

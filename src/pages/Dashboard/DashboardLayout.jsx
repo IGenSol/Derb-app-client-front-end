@@ -3,10 +3,11 @@ import { Menu } from "antd";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { sideMenus } from "../../mockData/dashboard";
+import Products from "./Subpages/Products/Products";
+import Order from "./Subpages/Orders/Order";
+import Dashboard from "./Subpages/Dashboard/Dashboard";
 
 import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
-import Dashboard from "./Subpages/Dashboard/Dashboard";
-import Products from "./Subpages/Products/Products";
 
 const Sidebar = () => {
   return (
@@ -62,6 +63,7 @@ function DashboardLayout() {
           <Switch>
             <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/dashboard/products" exact component={Products} />
+            <Route path="/dashboard/orders" exact component={Order} />
           </Switch>
         </Router>
       </section>

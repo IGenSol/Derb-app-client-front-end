@@ -1,22 +1,30 @@
 import React from "react";
 
+import { DeleteIcon, EditIcon } from "../../svgs/index";
 import { ProductCardStyle } from "./Card.style";
 
-function ProductCard() {
+function ProductCard(props) {
+  const { image, imageAlt, heading, price, oldPrice } = props;
   return (
     <ProductCardStyle>
-      <picture className="thumbnail-wrapper">
-        <img
-          src="/images/products-images/cream-image.jpg"
-          alt="Product Image"
-          className="thumbnail"
-        />
-      </picture>
+      {image && (
+        <picture className="thumbnail-wrapper">
+          <article className="image-hover-buttons">
+            <button className="icon">
+              <EditIcon />
+            </button>
+            <button className="icon">
+              <DeleteIcon />
+            </button>
+          </article>
+          <img src={image} alt={imageAlt} className="thumbnail" />
+        </picture>
+      )}
 
       <figcaption className="card-detail">
-        <h2 className="heading">Cocooil Cream</h2>
+        <h2 className="heading">{heading}</h2>
         <h3 className="price">
-          $500 <strike>$600</strike>
+          ${price} <strike>${oldPrice}</strike>
         </h3>
       </figcaption>
     </ProductCardStyle>
