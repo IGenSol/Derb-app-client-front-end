@@ -59,7 +59,7 @@ export const counters = [
   {
     icon: <PendingIcon />,
     heading: "25",
-    subHeading: "Orders Pending",
+    subHeading: "Orders",
   },
 ];
 
