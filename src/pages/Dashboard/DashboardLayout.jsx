@@ -1,13 +1,22 @@
-import React from "react";
-import { Menu } from "antd";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React from 'react';
 
-import { sideMenus } from "../../mockData/dashboard";
-import Products from "./Subpages/Products/Products";
-import Order from "./Subpages/Orders/Order";
-import Dashboard from "./Subpages/Dashboard/Dashboard";
+import { Menu } from 'antd';
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
-import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
+import { sideMenus } from '../../mockData/dashboard';
+import {
+  DashboardLayoutStyle,
+  SidebarStyle,
+} from './DashboardLayout.style';
+import Dashboard from './Subpages/Dashboard/Dashboard';
+import Order from './Subpages/Orders/Order';
+import Products from './Subpages/Products/Products';
+import Profile from './Subpages/Profile/Profile';
 
 const Sidebar = () => {
   return (
@@ -64,6 +73,7 @@ function DashboardLayout() {
             <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/dashboard/products" exact component={Products} />
             <Route path="/dashboard/orders" exact component={Order} />
+            <Route path="/dashboard/profile" exact component={Profile} />
           </Switch>
         </Router>
       </section>
