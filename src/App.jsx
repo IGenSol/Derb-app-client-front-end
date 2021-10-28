@@ -13,6 +13,7 @@ import ShowCase from "./components/ShowCase/ShowCase";
 import DashboardLayout from "./pages/Dashboard/DashboardLayout";
 import LoginForm from "./pages/LoginForm/LoginForm";
 import CartList from "./pages/CartList/CartList";
+import UserProfile from "./components/UserProfile/UserProfile";
 
 import { GlobalStyle } from "./style/globalStyle";
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login-form" exact component={LoginForm} />
           <Route path="/dashboard" exact component={DashboardLayout} />
           <Route path="/cart-list" exact component={CartList} />
+          <Route path="/user-profile" exact component={UserProfile} />
         </Switch>
       </ThemeProvider>
     </Router>
