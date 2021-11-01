@@ -19,7 +19,6 @@ const UserProfile = () => {
       <span className="down-arrow-icon">
         <DownArrow />
       </span>
-      <button className="add-post-btn">Add Post</button>
     </UserProfileStyle>
   );
 };

@@ -132,10 +132,4 @@ export const UserProfileStyle = styled.article`
       width: 1rem;
     }
   }
-
-  .add-post-btn {
-    ${CommonButton({ padding: "1rem" })};
-
-    margin-left: 1.5rem;
-  }
 `;

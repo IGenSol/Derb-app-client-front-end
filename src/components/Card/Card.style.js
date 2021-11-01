@@ -225,7 +225,7 @@ export const VerticalCardStyle = styled.figure`
     padding-left: 5rem;
     border-radius: 1rem;
 
-    z-index: -1;
+    z-index: 0;
 
     .heading {
       font-size: 1.5rem;
