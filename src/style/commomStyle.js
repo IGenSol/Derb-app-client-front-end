@@ -1,11 +1,11 @@
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
 export const FlexboxStyle = ({ align, justify, direction, rowgap }) => css`
   display: flex;
   align-items: ${align || "center"};
   justify-content: ${justify || "space-between"};
   flex-direction: ${direction || "row"};
-  row-gap: ${rowgap || "0rem"}
+  row-gap: ${rowgap || "0rem"};
 `;
 
 export const CommonGridStyle = ({ columns, rowGap, columnGap, align }) => css`
