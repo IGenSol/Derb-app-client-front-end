@@ -2,9 +2,9 @@ import React from "react";
 import { VerticalCardStyle } from "./Card.style";
 
 function VerticalCard(props) {
-  const { icon, image, imageAlt, heading, subHeading, className } = props;
+  const { icon, image, imageAlt, heading, subHeading, className, url } = props;
   return (
-    <VerticalCardStyle className={className}>
+    <VerticalCardStyle to={url} className={className}>
       {image ? (
         image && (
           <picture className="thumbnail-wrapper">

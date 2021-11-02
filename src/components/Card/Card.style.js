@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { FlexboxStyle } from "../../style/commomStyle";
@@ -189,7 +190,7 @@ export const LiveCardStyle = styled.figure`
   }
 `;
 
-export const VerticalCardStyle = styled.figure`
+export const VerticalCardStyle = styled(Link)`
   ${FlexboxStyle({ justify: "flex-start" })};
 
   margin-bottom: 2rem;

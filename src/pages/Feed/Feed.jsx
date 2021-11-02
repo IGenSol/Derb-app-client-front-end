@@ -9,12 +9,19 @@ import { FeedStyle } from "./Feed.style";
 function Feed() {
   return (
     <FeedStyle>
-      <aside className="following-wrapper">
-        <h4 className="title">My Following</h4>
+      <aside className="friends-wrapper">
+        <h4 className="title">Friends</h4>
 
-        <article className="following-suggestion-profie">
+        <article className="friends-list">
           {followingProfiles.map((profile, index) => {
-            return <Card key={index} cardType="verticalCard" {...profile} />;
+            return (
+              <Card
+                key={index}
+                className="friend-card"
+                cardType="verticalCard"
+                {...profile}
+              />
+            );
           })}
         </article>
       </aside>

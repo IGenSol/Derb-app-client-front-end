@@ -20,7 +20,7 @@ export const FeedStyle = styled.main`
 
   padding-top: 4rem;
 
-  .following-wrapper {
+  .friends-wrapper {
     position: sticky;
     -webkit-poistion: sticky;
     left: 0;
@@ -36,6 +36,36 @@ export const FeedStyle = styled.main`
       color: ${(p) => p.theme.colors.GRAY_COLOR};
       font-size: 1.6rem;
       margin-bottom: 3rem;
+      text-transform: uppercase;
+    }
+
+    .friends-list {
+      height: 35rem;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        width: 0.5rem;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: ${(p) => p.theme.colors.GRAY_COLOR};
+      }
+
+      .friend-card {
+        margin-bottom: 1rem;
+
+        .thumbnail-wrapper {
+          width: 6rem;
+        }
+
+        .user-details {
+          margin-left: -3.5rem;
+
+          .heading {
+            font-weight: 500;
+          }
+        }
+      }
     }
   }
 
