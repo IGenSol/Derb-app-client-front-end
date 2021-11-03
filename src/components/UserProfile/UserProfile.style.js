@@ -8,12 +8,12 @@ import {
 } from "../../style/commomStyle";
 
 export const UserProfileStyle = styled.main`
-  ${CustomContainer};
   ${CommonSpacing};
 
-  .user-details {
-    ${CommonGridStyle({ columns: "1fr 30rem", columnGap: "15rem" })};
+  max-width: 102.4rem;
+  margin: 0 auto;
 
+  .user-details {
     margin-top: 5rem;
 
     @media (max-width: ${(p) => p.theme.breakPoints.tablets}) {
@@ -21,6 +21,8 @@ export const UserProfileStyle = styled.main`
     }
 
     .user-profile {
+      ${CommonGridStyle({ columns: "1fr 30rem", columnGap: "15rem" })};
+
       .user-info {
         ${CommonGridStyle({
           columns: "3rem 1fr",
@@ -58,55 +60,90 @@ export const UserProfileStyle = styled.main`
         }
       }
 
-      .user-connections {
-        ${CommonGridStyle({ columns: "repeat(3, 1fr)" })};
+      .buttons-wrapper {
+        text-align: center;
 
-        .counter {
-          background: ${(p) => p.theme.colors.LIGHT_ORANGE_COLOR};
+        .profile-button {
+          ${CommonButton};
 
-          text-align: center;
-          margin-top: 3rem;
-          padding: 1.5rem;
-          border-radius: 1rem;
+          width: 80%;
 
-          .counter-no {
-            font-weight: 700;
-          }
-        }
-      }
-
-      .about-user {
-        margin-top: 3rem;
-
-        .heading {
-          font-weight: 600;
-          margin-bottom: 1rem;
-        }
-
-        .tags-wrapper {
-          ${FlexboxStyle};
-
-          flex-wrap: wrap;
-
-          .tags {
-            background: ${(p) => p.theme.colors.LIGHT_ORANGE_COLOR};
-            padding: 1rem 2rem;
-            border-radius: 5rem;
-            margin: 1rem 0;
-          }
+          margin-bottom: 2rem;
         }
       }
     }
 
-    .buttons-wrapper {
-      text-align: center;
+    .user-connections {
+      ${CommonGridStyle({ columns: "repeat(3, 1fr)" })};
 
-      .profile-button {
-        ${CommonButton};
+      .counter {
+        background: ${(p) => p.theme.colors.LIGHT_ORANGE_COLOR};
 
-        width: 80%;
+        text-align: center;
+        margin-top: 3rem;
+        padding: 1.5rem;
+        border-radius: 1rem;
 
-        margin-bottom: 2rem;
+        .counter-no {
+          font-weight: 700;
+        }
+      }
+    }
+
+    .about-user {
+      margin-top: 3rem;
+
+      .heading {
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .tags-wrapper {
+        ${FlexboxStyle};
+
+        flex-wrap: wrap;
+
+        .tags {
+          background: ${(p) => p.theme.colors.LIGHT_ORANGE_COLOR};
+          padding: 1rem 2rem;
+          border-radius: 5rem;
+          margin: 1rem 0;
+        }
+      }
+    }
+  }
+`;
+
+export const ProfileTabsStyle = styled.section`
+  margin-top: 3rem;
+
+  .profile-tabs {
+    .ant-tabs-tab {
+      &:hover {
+        color: ${(p) => p.theme.colors.PRIMARY_COLOR};
+      }
+
+      &.ant-tabs-tab-active {
+        .ant-tabs-tab-btn {
+          color: ${(p) => p.theme.colors.BLACK_COLOR};
+        }
+      }
+
+      .ant-tabs-tab-btn {
+        color: ${(p) => p.theme.colors.BLACK_COLOR};
+        font-weight: 600;
+      }
+    }
+
+    .ant-tabs-ink-bar {
+      background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+    }
+
+    .ant-tabs-content-holder {
+      .posts-wrapper {
+        ${CommonGridStyle};
+
+        padding: 3rem 1rem;
       }
     }
   }

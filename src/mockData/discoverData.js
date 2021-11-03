@@ -239,26 +239,49 @@ export const followingProfiles = [
   {
     image: "./images/users/user-one.jpg",
     imageAlt: "User Profile Image",
+    url: "/user-profile",
     heading: "Jahangir Khan",
   },
   {
     image: "./images/users/user-two.jpg",
     imageAlt: "User Profile Image",
+    url: "/user-profile",
     heading: "Haris Khan",
   },
   {
     image: "./images/users/user-four.jpg",
     imageAlt: "User Profile Image",
+    url: "/user-profile",
     heading: "Sarim Khan",
   },
   {
     image: "./images/users/user-three.jpg",
     imageAlt: "User Profile Image",
+    url: "/user-profile",
     heading: "Nadeem Khan",
   },
   {
     image: "./images/users/user-one.jpg",
     imageAlt: "User Profile Image",
+    url: "/user-profile",
+    heading: "Hassan Khan",
+  },
+  {
+    image: "./images/users/user-four.jpg",
+    imageAlt: "User Profile Image",
+    url: "/user-profile",
+    heading: "Sarim Khan",
+  },
+  {
+    image: "./images/users/user-three.jpg",
+    imageAlt: "User Profile Image",
+    url: "/user-profile",
+    heading: "Nadeem Khan",
+  },
+  {
+    image: "./images/users/user-one.jpg",
+    imageAlt: "User Profile Image",
+    url: "/user-profile",
     heading: "Hassan Khan",
   },
 ];

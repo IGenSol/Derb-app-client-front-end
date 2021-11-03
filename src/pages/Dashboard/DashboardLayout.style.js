@@ -7,30 +7,50 @@ import {
 } from "../../style/commomStyle";
 
 export const DashboardLayoutStyle = styled.main`
+  ${CommonGridStyle({ columns: "40.4rem auto", align: "flex-start" })}
+
   ${CustomContainer};
   ${CommonSpacing};
 
+  @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+    grid-template-columns: 1fr;
+  }
+
   margin-top: 9.3rem;
-
-  .title {
-    text-align: center;
-    font-weight: 900;
-    text-transform: uppercase;
-
-    font-size: 3rem;
-  }
-
-  .dashboard-body {
-    ${CommonGridStyle({ columns: "40.4rem auto", align: "flex-start" })}
-
-    margin-top : 5rem;
-  }
 `;
 
 export const SidebarStyle = styled.aside`
   background: ${(p) => p.theme.colors.DIM_GRAY_COLOR};
 
-  position: sticky;
+  position: relative;
+
+  @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+    position: fixed;
+    top: 2rem;
+    left: 31rem;
+
+    width: 30rem;
+    height: 100vh;
+    overflow-y: auto;
+
+    z-index: 2;
+  }
+
+  &:after {
+    content: "";
+    width: 10rem;
+    height: 4rem;
+    background: ${(p) => p.theme.colors.LIGHT_ORANGE_COLOR};
+    position: absolute;
+    right: 0;
+    top: 1rem;
+    right: -63px;
+    top: 10rem;
+    z-index: 3;
+    border-radius: 0 1rem 1rem 0;
+
+    display: none;
+  }
 
   .profile-placeholder {
     position: absolute;
@@ -38,10 +58,20 @@ export const SidebarStyle = styled.aside`
     top: -5rem;
     transform: translateX(-50%);
 
+    @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+      position: relative;
+      top: 10rem;
+    }
+
     .profile-image {
       width: 15rem;
       height: 15rem;
       border-radius: 50%;
+
+      @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+        width: 10rem;
+        height: 10rem;
+      }
     }
 
     .user-status {
@@ -89,6 +119,10 @@ export const SidebarStyle = styled.aside`
 
     margin-top: 4.3rem;
     padding-left: 7rem;
+
+    @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+      padding: 0;
+    }
 
     .ant-menu-item {
       ${FlexboxStyle({ justify: "flex-start" })};

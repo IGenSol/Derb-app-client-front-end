@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Tabs } from 'antd';
+import { Tabs } from "antd";
 
 import {
   FacebookIcon,
@@ -8,12 +8,12 @@ import {
   TabSettingIcon,
   TwitterIcon,
   UserTabIcon,
-} from '../../../../svgs';
+} from "../../../../svgs";
 import {
   ProfileDetailsStyle,
   ProfileInfoStyle,
   ProfileStyle,
-} from './Profile.style';
+} from "./Profile.style";
 
 const ProfileDetails = () => {
   const { TabPane } = Tabs;
