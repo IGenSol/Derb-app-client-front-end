@@ -11,14 +11,26 @@ export const FeedStyle = styled.main`
   ${CustomContainer};
   ${CommonSpacing};
   ${CommonGridStyle({
-    columns: "30rem 1fr 30rem",
-    columnGap: "8rem",
+    columns: "1fr 2fr 1fr",
+    columnGap: "5rem",
     align: "flex-start",
   })};
 
   background: ${(p) => p.theme.colors.DIM_GRAY_COLOR};
 
   padding-top: 4rem;
+
+  @media (max-width: ${(p) => p.theme.breakPoints.extraLargeDevices}) {
+    grid-column-gap: 2rem;
+  }
+
+  @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: ${(p) => p.theme.breakPoints.largeDevices}) {
+    grid-template-columns: 1fr;
+  }
 
   .friends-wrapper {
     position: sticky;
@@ -32,6 +44,10 @@ export const FeedStyle = styled.main`
 
     z-index: 3;
 
+    @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+      display: none;
+    }
+
     .title {
       color: ${(p) => p.theme.colors.GRAY_COLOR};
       font-size: 1.6rem;
@@ -42,6 +58,7 @@ export const FeedStyle = styled.main`
     .friends-list {
       height: 35rem;
       overflow-x: auto;
+      padding-right: 1rem;
 
       &::-webkit-scrollbar {
         width: 0.5rem;
@@ -141,6 +158,10 @@ export const FeedStyle = styled.main`
     -webkit-poistion: sticky;
     right: 0;
     top: 10rem;
+
+    @media (max-width: ${(p) => p.theme.breakPoints.largeDevices}) {
+      display: none;
+    }
 
     .user-profile {
       background: ${(p) => p.theme.colors.WHITE_COLOR};

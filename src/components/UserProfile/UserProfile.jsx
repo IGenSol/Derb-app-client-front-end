@@ -25,7 +25,11 @@ const ProfileTabs = () => {
           </article>
         </TabPane>
         <TabPane tab="Tagged" key="2">
-          Content of Tab Pane 2
+          <article className="posts-wrapper">
+            {discoverItems.map((item, index) => {
+              return <Card cardType="liveCard" {...item} />;
+            })}
+          </article>
         </TabPane>
       </Tabs>
     </ProfileTabsStyle>
