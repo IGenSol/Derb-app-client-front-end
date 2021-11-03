@@ -48,6 +48,8 @@ export const SidebarStyle = styled.aside`
     top: 10rem;
     z-index: 3;
     border-radius: 0 1rem 1rem 0;
+
+    display: none;
   }
 
   .profile-placeholder {
