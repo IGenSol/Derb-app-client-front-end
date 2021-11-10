@@ -1,18 +1,35 @@
-import React from "react";
-
+import React, { useState } from "react";
+import classNames from "classnames/bind";
 import { Menu } from "antd";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
 import { sideMenus } from "../../mockData/dashboard";
-import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
-import Dashboard from "./Subpages/Dashboard/Dashboard";
-import Order from "./Subpages/Orders/Order";
-import Products from "./Subpages/Products/Products";
 import Profile from "./Subpages/Profile/Profile";
+import Products from "./Subpages/Products/Products";
+import Order from "./Subpages/Orders/Order";
+import Dashboard from "./Subpages/Dashboard/Dashboard";
+import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
 
 const Sidebar = () => {
+  const [isBarActive, setBarActive] = useState(false);
+
+  const toggleActive = () => {
+    return setBarActive(!isBarActive);
+  };
+
   return (
-    <SidebarStyle>
+    <SidebarStyle toggleActive={isBarActive}>
+      <article
+        className={classNames({
+          "toggle-icon": true,
+          "bar-active": isBarActive,
+        })}
+        onClick={toggleActive}
+      >
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+      </article>
       <picture className="profile-placeholder">
         <img
           src="./images/users/user-four.jpg"
@@ -58,6 +75,7 @@ function DashboardLayout() {
     <DashboardLayoutStyle>
       <Router>
         <Sidebar />
+
         <Switch>
           <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/dashboard/products" exact component={Products} />
