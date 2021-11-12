@@ -27,29 +27,52 @@ export const SidebarStyle = styled.aside`
   @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
     position: fixed;
     top: 2rem;
-    left: 31rem;
+    left: ${(p) => (p.toggleActive ? "0rem" : "-50rem")};
 
     width: 30rem;
     height: 100vh;
     overflow-y: auto;
 
+    transition: ${(p) => p.theme.transitions.customTransition};
     z-index: 2;
   }
 
-  &:after {
-    content: "";
-    width: 10rem;
-    height: 4rem;
-    background: ${(p) => p.theme.colors.LIGHT_ORANGE_COLOR};
-    position: absolute;
-    right: 0;
-    top: 1rem;
-    right: -63px;
-    top: 10rem;
-    z-index: 3;
-    border-radius: 0 1rem 1rem 0;
-
+  .toggle-icon {
     display: none;
+    position: fixed;
+    top: 10rem;
+    right: 1rem;
+
+    cursor: pointer;
+
+    @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+      display: block;
+    }
+
+    &.bar-active {
+      .bar {
+        &:first-child {
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          display: none;
+        }
+
+        &:last-child {
+          transform: translateY(-0.55rem) rotate(-45deg);
+        }
+      }
+    }
+
+    .bar {
+      width: 2.2rem;
+      height: 0.25rem;
+      border-radius: 0.1rem;
+      margin-top: 0.4rem;
+      background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+      transition: ${(p) => p.theme.transitions.customTransition};
+    }
   }
 
   .profile-placeholder {
