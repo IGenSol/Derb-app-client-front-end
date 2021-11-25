@@ -29,7 +29,7 @@ function App() {
           <Route path="/store" exact component={Store} />
           <Route path="/discover" exact component={Discover} />
           <Route path="/show-case" exact component={ShowCase} />
-          <Route path="/login-form" exact component={LoginForm} />
+          <Route path="/login" exact component={LoginForm} />
           <Route path="/dashboard" exact component={DashboardLayout} />
           <Route path="/cart-list" exact component={CartList} />
           <Route path="/user-profile" exact component={UserProfile} />

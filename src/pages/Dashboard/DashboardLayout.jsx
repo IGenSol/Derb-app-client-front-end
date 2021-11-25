@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import classNames from "classnames/bind";
+import classNames from "classnames";
 import { Menu } from "antd";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
