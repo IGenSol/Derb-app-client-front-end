@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { FlexboxStyle } from "../../style/commomStyle";
@@ -189,7 +190,7 @@ export const LiveCardStyle = styled.figure`
   }
 `;
 
-export const VerticalCardStyle = styled.figure`
+export const VerticalCardStyle = styled(Link)`
   ${FlexboxStyle({ justify: "flex-start" })};
 
   margin-bottom: 2rem;
@@ -225,7 +226,7 @@ export const VerticalCardStyle = styled.figure`
     padding-left: 5rem;
     border-radius: 1rem;
 
-    z-index: -1;
+    z-index: 0;
 
     .heading {
       font-size: 1.5rem;

@@ -40,6 +40,7 @@ const RecentOrders = () => {
 function Dashboard() {
   return (
     <DashboardStyle>
+      <h2 className="title">Dashboard</h2>
       <article className="counters-wrapper">
         {counters.map((counter, index) => {
           return (

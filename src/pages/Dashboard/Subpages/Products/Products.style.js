@@ -1,12 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import {
-  CommonGridStyle,
-  CommonSpacing,
-} from '../../../../style/commomStyle';
+import { CommonGridStyle, CommonSpacing } from "../../../../style/commomStyle";
 
-export const ProductStyle = styled.main`
-  ${CommonGridStyle({ columnGap: "3rem", rowGap: "3rem" })};
+export const ProductStyle = styled.section`
+  ${CommonGridStyle({
+    columns: "repeat(auto-fill, minmax(25rem, 1fr))",
+    columnGap: "3rem",
+    rowGap: "3rem",
+  })};
+
   ${CommonSpacing};
 <<<<<<< HEAD
   ${CommonGridStyle({ columns: "repeat(auto-fill, minmax(30rem, 1fr))", columnGap: "1rem", rowGap: "5rem" })};

@@ -2,6 +2,14 @@ import styled from "styled-components";
 import { CommonGridStyle } from "../../../../style/commomStyle";
 
 export const DashboardStyle = styled.main`
+  .title {
+    font-weight: 900;
+    text-transform: uppercase;
+
+    font-size: 3rem;
+    margin-bottom: 5rem;
+  }
+
   .counters-wrapper {
     ${CommonGridStyle};
 
