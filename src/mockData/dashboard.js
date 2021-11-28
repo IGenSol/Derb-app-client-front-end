@@ -19,7 +19,16 @@ export const sideMenus = [
   {
     icon: <ProductIcon />,
     linkText: "Products",
-    url: "/dashboard/products",
+    submenus: [
+      {
+        linkText: "Products List",
+        url: "/dashboard/products-list",
+      },
+      {
+        linkText: "Add Products",
+        url: "/dashboard/add-products",
+      },
+    ],
   },
   {
     icon: <OrderIcon />,
@@ -35,11 +44,6 @@ export const sideMenus = [
     icon: <SettingIcon />,
     linkText: "Settings",
     url: "/dashboard/settings",
-  },
-  {
-    icon: <LogoutIcon />,
-    linkText: "Logout",
-    url: "/dashboard/logout",
   },
 ];
 
