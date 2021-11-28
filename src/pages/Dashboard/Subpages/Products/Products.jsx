@@ -16,7 +16,7 @@ const Modal = (props) => {
     >
       <article className="popup-body">
         <label htmlFor="upload-product-photo" className="upload-photo">
-          <span class="icon">
+          <span className="icon">
             <CameraIcon />
           </span>
           <input type="file" id="upload-product-photo" />

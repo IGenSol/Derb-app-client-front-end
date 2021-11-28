@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tabs } from "antd";
+import axios from "axios";
 
 import { LoginFormstyle, LoginStyle, Signupstyle } from "./LoginForm.style";
 
@@ -10,6 +11,7 @@ import {
   Inputpassword,
   Emailicon,
 } from "../../svgs/index";
+import { setUserSession } from "../../utils/Common";
 
 const Signup = () => {
   return (
@@ -68,18 +70,52 @@ const Signup = () => {
   );
 };
 
-const Login = () => {
+const Login = (props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
+
+  const handleLogin = () => {
+    setError(null);
+    setLoading(true);
+
+    axios
+      .post("http://localhost:5000/api/users/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        setLoading(false);
+        if (res.data.message == "Login successfully") {
+          setUserSession(res.data.token, res.data.data.first_name);
+          props.history.push("/dashboard");
+        } else {
+          setError(res.data.message);
+        }
+        console.log(`response >> `, res);
+      })
+      .catch((err) => {
+        setError(err.res.data.message);
+        setLoading(false);
+        console.log(`error >>`, err);
+      });
+  };
+
   return (
     <LoginStyle>
+      {error && <p className="error">{error}</p>}
       <article className="input-container">
         <span className="icon">
           <Inputusericon />
         </span>
         <input
-          type="text"
-          name="udername"
+          type="email"
+          name="email"
           className="custom-input"
-          placeholder="Username"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </article>
       <article className="input-container">
@@ -91,10 +127,19 @@ const Login = () => {
           name="password"
           className="custom-input"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </article>
 
-      <button className="login-btn">Login</button>
+      <input
+        type="button"
+        className="login-btn"
+        disabled={loading}
+        onClick={handleLogin}
+        value={loading ? "loading..." : "Login"}
+      />
+
       <p className="continue-text">or continue with</p>
       <span className="social-icon">
         <FacebookIcon /> <GoogleIcon />
@@ -103,7 +148,7 @@ const Login = () => {
   );
 };
 
-function LoginForm() {
+function LoginForm(props) {
   const { TabPane } = Tabs;
 
   return (
@@ -125,7 +170,7 @@ function LoginForm() {
           tabBarGutter="0"
         >
           <TabPane tab="Login" key="Login">
-            <Login />
+            <Login {...props} />
           </TabPane>
 
           <TabPane tab="Signup" key="Signup">

@@ -9,12 +9,20 @@ import Products from "./Subpages/Products/Products";
 import Order from "./Subpages/Orders/Order";
 import Dashboard from "./Subpages/Dashboard/Dashboard";
 import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
+import { LogoutIcon } from "../../svgs";
+import { getUser, removeUserSession } from "../../utils/Common";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const [isBarActive, setBarActive] = useState(false);
+  const user = getUser();
 
   const toggleActive = () => {
     return setBarActive(!isBarActive);
+  };
+
+  const handleLogout = () => {
+    removeUserSession();
+    props.history.push("/login");
   };
 
   return (
@@ -40,7 +48,7 @@ const Sidebar = () => {
         <span className="user-status">Live Now</span>
       </picture>
 
-      <h3 className="name">Fashion Store</h3>
+      <h3 className="name">{user}</h3>
       <article className="dashboard-details">
         <p className="followers">
           <strong className="no">750</strong>
@@ -63,6 +71,13 @@ const Sidebar = () => {
             </Menu.Item>
           );
         })}
+
+        <button className="logout-button" onClick={handleLogout}>
+          <span className="icon">
+            <LogoutIcon />
+          </span>
+          Logout
+        </button>
       </Menu>
 
       <button className="live-button">Go Live</button>
@@ -70,11 +85,11 @@ const Sidebar = () => {
   );
 };
 
-function DashboardLayout() {
+function DashboardLayout(props) {
   return (
     <DashboardLayoutStyle>
       <Router>
-        <Sidebar />
+        <Sidebar {...props} />
 
         <Switch>
           <Route path="/dashboard" exact component={Dashboard} />

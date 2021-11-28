@@ -18,7 +18,7 @@ const RecentOrders = () => {
           </tr>
         </thead>
 
-        <tbody class="table-body">
+        <tbody className="table-body">
           {orders.map((order, index) => {
             const { orderId, details, status, statusClass } = order;
             return (

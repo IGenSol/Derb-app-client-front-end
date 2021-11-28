@@ -36,11 +36,6 @@ export const sideMenus = [
     linkText: "Settings",
     url: "/dashboard/settings",
   },
-  {
-    icon: <LogoutIcon />,
-    linkText: "Logout",
-    url: "/dashboard/logout",
-  },
 ];
 
 export const counters = [
