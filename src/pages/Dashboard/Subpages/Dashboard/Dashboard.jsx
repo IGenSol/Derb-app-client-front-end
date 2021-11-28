@@ -1,10 +1,28 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { counters, orders } from "../../../../mockData/dashboard";
 import Card from "../../../../components/Card/Card";
 import { DashboardStyle, RecentOrderStyle } from "./Dashboard.style";
 
 const RecentOrders = () => {
+
+  const [order, setorder] = useState([]);
+
+
+
+  useEffect(() => {
+    loadOrder();
+  }, []);
+
+  const loadOrder = async () => {
+    const data = await axios.get("http://localhost:3000/api/orders");
+    setorder(data.data.data);
+  };
+
+
+
+
+
   return (
     <RecentOrderStyle>
       <h2 className="table-heading">Recent Orders</h2>
@@ -19,14 +37,15 @@ const RecentOrders = () => {
         </thead>
 
         <tbody class="table-body">
-          {orders.map((order, index) => {
-            const { orderId, details, status, statusClass } = order;
+          {order.map((order, index) => {
+            const { id, product_name, status } = order;
             return (
               <tr key={index}>
-                <td>{orderId}</td>
-                <td>{details}</td>
+                <td>#{id}</td>
+                <td>{product_name}</td>
                 <td>
-                  <div className={`status ${statusClass}`}>{status}</div>
+                  {/* className={`status ${statusClass}`} */}
+                  <div >{status}</div>
                 </td>
               </tr>
             );

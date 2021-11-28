@@ -98,7 +98,6 @@ export const RecentOrderStyle = styled.section`
     }
 
     .table-body {
-      height: 30rem;
       overflow-y: auto;
 
       tr {
