@@ -59,6 +59,12 @@ export const LoginStyle = styled.form`
 
   margin: 0 auto;
 
+  .error {
+    text-align: center;
+    color: ${({ theme }) => theme.colors.RED_COLOR};
+    font-size: 1.4rem;
+  }
+
   .input-container {
     ${FlexboxStyle({ justify: "flex-start" })};
 

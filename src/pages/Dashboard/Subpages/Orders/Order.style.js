@@ -10,56 +10,122 @@ export const OrderStyle = styled.main`
     padding: 2rem 0;
   }
 
-  .orders-list {
-    margin-top: 3rem;
+  table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+
+    @media (max-width: ${(p) => p.theme.breakPoints.mobiles}) {
+      border: 0;
+    }
 
     thead {
-      background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+      @media (max-width: ${(p) => p.theme.breakPoints.mobiles}) {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
 
       tr {
-        td {
-          font-size: 1.7rem;
+        background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+
+        th {
+          color: ${(p) => p.theme.colors.WHITE_COLOR};
           font-weight: 600;
-          padding: 1rem;
         }
       }
     }
 
-    tbody {
-      tr {
-        td {
-          padding: 1rem;
-          font-weight: 600;
+    tr {
+      border: 1px solid #ddd;
+      padding: 0.35em;
 
-          .action-buttons-wrapper {
-            ${FlexboxStyle};
+      @media (max-width: ${(p) => p.theme.breakPoints.mobiles}) {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: 0.625em;
+      }
+    }
 
-            .action-button {
-              border: none;
-              background: none;
-              margin-right: 1rem;
+    td {
+      @media (max-width: ${(p) => p.theme.breakPoints.mobiles}) {
+        position: relative;
 
-              cursor: pointer;
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: 0.8em;
+        text-align: right;
 
-              &:first-of-type {
-                > svg {
-                  fill: ${(p) => p.theme.colors.GREEN_COLOR};
-                }
-              }
+        &::before {
+          ${FlexboxStyle({ justify: "center" })};
 
-              &:last-of-type {
-                > svg {
-                  fill: ${(p) => p.theme.colors.RED_COLOR};
-                }
-              }
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
 
-              > svg {
-                width: 2rem;
-              }
+          width: 8rem;
+          height: 100%;
+          background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      .action-buttons-wrapper {
+        ${FlexboxStyle({ justify: "center" })};
+
+        .action-button {
+          border: none;
+          background: none;
+          margin-right: 1rem;
+
+          cursor: pointer;
+
+          &:first-of-type {
+            > svg {
+              fill: ${(p) => p.theme.colors.GREEN_COLOR};
             }
+          }
+
+          &:last-of-type {
+            > svg {
+              fill: ${(p) => p.theme.colors.RED_COLOR};
+            }
+          }
+
+          > svg {
+            width: 2rem;
           }
         }
       }
+    }
+
+    th,
+    td {
+      padding: 0.625em;
+      text-align: center;
+    }
+
+    th {
+      font-size: 0.85em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
   }
 `;
