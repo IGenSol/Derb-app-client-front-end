@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { FlexboxStyle } from "../../style/commomStyle";
@@ -189,7 +190,7 @@ export const LiveCardStyle = styled.figure`
   }
 `;
 
-export const VerticalCardStyle = styled.figure`
+export const VerticalCardStyle = styled(Link)`
   ${FlexboxStyle({ justify: "flex-start" })};
 
   margin-bottom: 2rem;
@@ -225,7 +226,7 @@ export const VerticalCardStyle = styled.figure`
     padding-left: 5rem;
     border-radius: 1rem;
 
-    z-index: -1;
+    z-index: 0;
 
     .heading {
       font-size: 1.5rem;
@@ -234,6 +235,86 @@ export const VerticalCardStyle = styled.figure`
 
     .sub-heading {
       color: ${(p) => p.theme.colors.MEDIUM_GRAY_COLOR};
+    }
+  }
+`;
+
+export const ProductCardStyle = styled.figure`
+  .thumbnail-wrapper {
+    position: relative;
+    display: block;
+
+    width: 30rem;
+    height: 30rem;
+
+    overflow: hidden;
+
+    &:hover {
+      > .image-hover-buttons {
+        clip-path: unset;
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .image-hover-buttons {
+      ${FlexboxStyle({ justify: "center" })};
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: inherit;
+      background: rgba(0, 0, 0, 0.2);
+
+      z-index: 1;
+      clip-path: circle(50% at 50% 50%);
+      transform: scale(0.1);
+      opacity: 0;
+
+      transition: 0.15s linear all;
+
+      .icon {
+        ${FlexboxStyle({ justify: "center" })};
+
+        background: ${(p) => p.theme.colors.WHITE_COLOR};
+
+        margin-right: 1rem;
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        border: none;
+
+        cursor: pointer;
+
+        > svg {
+          width: 2.2rem;
+        }
+      }
+    }
+
+    .thumbnail {
+      max-width: 100%;
+    }
+  }
+
+  .card-detail {
+    .heading {
+      color: ${(p) => p.theme.colors.SECONDARY_COLOR};
+
+      font-size: 2.3rem;
+      padding-top: 2rem;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+
+      strike {
+        color: ${(p) => p.theme.colors.SILVER_SAND_COlOR};
+        font-size: 1.6rem;
+      }
     }
   }
 `;

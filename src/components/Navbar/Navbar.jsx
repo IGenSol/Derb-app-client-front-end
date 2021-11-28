@@ -11,7 +11,7 @@ const UserProfile = () => {
     <UserProfileStyle>
       <Link to="/dashboard" className="user-profile-placeholder-wrapper">
         <img
-          src="./images/icons/user-icon.png"
+          src="/images/icons/user-icon.png"
           alt="Profile Placeholder"
           className="user-profile-placeholder"
         />
@@ -19,7 +19,6 @@ const UserProfile = () => {
       <span className="down-arrow-icon">
         <DownArrow />
       </span>
-      <button className="add-post-btn">Add Post</button>
     </UserProfileStyle>
   );
 };
@@ -50,7 +49,7 @@ function Navbar() {
         <Link to="/">
           <picture className="logo-wrapper">
             <img
-              src="./images/site-logo.png"
+              src="/images/site-logo.png"
               alt="Site Logo"
               className="site-logo"
             />
