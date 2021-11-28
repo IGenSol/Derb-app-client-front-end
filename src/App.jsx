@@ -51,10 +51,10 @@ function App() {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route path="/" exact component={Feed} />
-          <Route path="/home" exact component={Home} />
+          <Route path="/" exact component={Discover} />
+          <Route path="/feed" exact component={Feed} />
           <Route path="/store" exact component={Store} />
-          <Route path="/discover" exact component={Discover} />
+          {/* <Route path="/discover" exact component={Discover} /> */}
           <Route path="/show-case" exact component={ShowCase} />
           <PublicRoute path="/login" component={LoginForm} />
           <PrivateRoute path="/dashboard" component={DashboardLayout} />

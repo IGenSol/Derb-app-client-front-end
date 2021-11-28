@@ -38,6 +38,7 @@ export const NavbarStyle = styled.nav`
       ${FlexboxStyle};
 
       flex: 1;
+      position: relative;
 
       .site-searchbar {
         background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};

@@ -4,27 +4,30 @@ import { DeleteIcon, EditIcon } from "../../svgs/index";
 import { ProductCardStyle } from "./Card.style";
 
 function ProductCard(props) {
-  const { image, imageAlt, heading, price, oldPrice } = props;
+  const { image, imageAlt, product_name, product_price, product_old_price } =
+    props;
   return (
     <ProductCardStyle>
-      {image && (
-        <picture className="thumbnail-wrapper">
-          <article className="image-hover-buttons">
-            <button className="icon">
-              <EditIcon />
-            </button>
-            <button className="icon">
-              <DeleteIcon />
-            </button>
-          </article>
-          <img src={image} alt={imageAlt} className="thumbnail" />
-        </picture>
-      )}
+      <picture className="thumbnail-wrapper">
+        <article className="image-hover-buttons">
+          <button className="icon">
+            <EditIcon />
+          </button>
+          <button className="icon">
+            <DeleteIcon />
+          </button>
+        </article>
+        <img
+          src="/images/products-images/cream-image.jpg"
+          alt="Product Image"
+          className="thumbnail"
+        />
+      </picture>
 
       <figcaption className="card-detail">
-        <h2 className="heading">{heading}</h2>
+        <h2 className="heading">{product_name}</h2>
         <h3 className="price">
-          ${price} <strike>${oldPrice}</strike>
+          ${product_price} <strike>${product_old_price}</strike>
         </h3>
       </figcaption>
     </ProductCardStyle>
