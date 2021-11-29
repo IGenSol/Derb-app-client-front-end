@@ -45,7 +45,7 @@ const Sidebar = (props) => {
       </article>
       <picture className="profile-placeholder">
         <img
-          src="./images/users/user-four.jpg"
+          src="/images/users/user-four.jpg"
           alt="User Image"
           className="profile-image"
         />
