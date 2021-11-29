@@ -37,8 +37,8 @@ export const NavbarStyle = styled.nav`
     .searchbar-wrapper {
       ${FlexboxStyle};
 
-      position: relative;
       flex: 1;
+      position: relative;
 
       .site-searchbar {
         background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
@@ -49,6 +49,13 @@ export const NavbarStyle = styled.nav`
         border-radius: 0.5rem;
 
         flex: 1;
+
+        @media (max-width: ${(p) => p.theme.breakPoints.smallDevices}) {
+          position: absolute;
+          top: 8rem;
+          left: 0;
+          width: 100%;
+        }
       }
 
       .icon-wrapper {
