@@ -4,8 +4,15 @@ import { DeleteIcon, EditIcon } from "../../svgs/index";
 import { ProductCardStyle } from "./Card.style";
 
 function ProductCard(props) {
-  const { image, imageAlt, product_name, product_price, product_old_price } =
-    props;
+  const {
+    image,
+    imageAlt,
+    product_name,
+    product_price,
+    product_old_price,
+    deleteProduct,
+    id,
+  } = props;
   return (
     <ProductCardStyle>
       <picture className="thumbnail-wrapper">
@@ -13,7 +20,7 @@ function ProductCard(props) {
           <button className="icon">
             <EditIcon />
           </button>
-          <button className="icon">
+          <button className="icon" onClick={() => deleteProduct(id)}>
             <DeleteIcon />
           </button>
         </article>

@@ -1,28 +1,36 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 import { CameraIcon } from "../../../../../svgs";
 import { AddProductsStyle } from "./AddProducts.style";
 
 function AddProducts() {
+  const [productId, setProductId] = useState(0);
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState(0);
   const [productDiscount, setProductDiscount] = useState(0);
   const [productCatagory, setProductCatagory] = useState("");
   const [productSize, setProductSize] = useState("");
+  const [productColor, setProductColor] = useState("");
   const [productDescription, setProductDescription] = useState("");
+
+  const url = "http://localhost:5000/api/products";
 
   const postProductData = (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/api/products";
     axios
       .post(url, {
+        product_id: productId,
         product_name: productName,
         product_price: productPrice,
-        product_id: 30,
+        category_id: productCatagory,
+        store_id: productSize,
+        description: productDescription,
+        product_color: productColor,
       })
-      .then(() => {
-        alert("data pushed");
+      .then((res) => {
+        console.log(`response >> ${JSON.stringify(res)}`);
       })
       .catch((err) => {
         console.log(`there is an error >> ${err}`);
@@ -83,6 +91,17 @@ function AddProducts() {
 
           <section className="form-content">
             <article className="input-layout">
+              <h3>Product ID:</h3>
+              <input
+                type="text"
+                className="custom-input"
+                placeholder="Product ID"
+                name="productId"
+                value={productId}
+                onChange={(e) => setProductId(e.target.value)}
+              />
+            </article>
+            <article className="input-layout">
               <h3>Product Name:</h3>
               <input
                 type="text"
@@ -103,7 +122,7 @@ function AddProducts() {
                 onChange={(e) => setProductPrice(e.target.value)}
               />
             </article>
-            <article className="input-layout">
+            {/* <article className="input-layout">
               <h3>Discount:</h3>
               <input
                 type="number"
@@ -112,7 +131,7 @@ function AddProducts() {
                 value={productDiscount}
                 onChange={(e) => setProductDiscount(e.target.value)}
               />
-            </article>
+            </article> */}
 
             <article className="input-layout">
               <h3>Product Category:</h3>
@@ -120,9 +139,9 @@ function AddProducts() {
                 className="custom-input"
                 onChange={(e) => setProductCatagory(e.target.value)}
               >
-                <option value="food">Food</option>
-                <option value="electronics">Electronic</option>
-                <option value="vehicle">Vechicle</option>
+                <option value="1">Food</option>
+                <option value="2">Electronic</option>
+                <option value="3">Vechicle</option>
               </select>
             </article>
 
@@ -132,10 +151,23 @@ function AddProducts() {
                 className="custom-input"
                 onChange={(e) => setProductSize(e.target.value)}
               >
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-                <option value="extraLarge">Extra Large</option>
+                <option value="11">Small</option>
+                <option value="12">Medium</option>
+                <option value="13">Large</option>
+                <option value="14">Extra Large</option>
+              </select>
+            </article>
+
+            <article className="input-layout">
+              <h3>Product Color:</h3>
+              <select
+                className="custom-input"
+                onChange={(e) => setProductColor(e.target.value)}
+              >
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">yellow</option>
               </select>
             </article>
             <article className="input-layout">
@@ -152,9 +184,13 @@ function AddProducts() {
           </section>
 
           <article className="card-footer">
-            <button className="add-product-button" onClick={postProductData}>
+            <Link
+              onClick={postProductData}
+              to="/dashboard/products-list"
+              className="add-product-button"
+            >
               Add Product
-            </button>
+            </Link>
           </article>
         </form>
       </article>
