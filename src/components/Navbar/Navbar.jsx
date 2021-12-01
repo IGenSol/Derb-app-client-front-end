@@ -92,8 +92,8 @@ const UserProfile = () => {
       <span className="down-arrow-icon">
         <DownArrow />
       </span>
-      <button className="add-post-btn" onClick={showModal}>Add Post</button>
-      <AddPost visible={isModalVisible} okbtn={handleOk} cancelbtn={handleCancel} />
+      {/* <button className="add-post-btn" onClick={showModal}>Add Post</button>
+      <AddPost visible={isModalVisible} okbtn={handleOk} cancelbtn={handleCancel} /> */}
 
     </UserProfileStyle>
   );
