@@ -11,12 +11,30 @@ export const AddProductsStyle = styled.main`
   .card {
     ${CommonSpacing};
 
+    .go-back-link {
+      ${FlexboxStyle({ justify: "flex-start" })};
+
+      color: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+      font-size: 2rem;
+      margin-bottom: 1rem;
+
+      .icon {
+        width: 2rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+
+        > svg {
+          fill: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+        }
+      }
+    }
+
     .title {
       margin-bottom: 5rem;
     }
 
     .card-body {
-      ${CommonGridStyle({ columns: "1fr 10rem 1fr" })};
+      ${CommonGridStyle({ columns: "30rem 10rem 1fr" })};
 
       margin-top: 1rem;
 

@@ -11,13 +11,14 @@ function ProductCard(props) {
     product_price,
     product_old_price,
     deleteProduct,
+    updateProduct,
     id,
   } = props;
   return (
     <ProductCardStyle>
       <picture className="thumbnail-wrapper">
         <article className="image-hover-buttons">
-          <button className="icon">
+          <button className="icon" onClick={() => updateProduct(id)}>
             <EditIcon />
           </button>
           <button className="icon" onClick={() => deleteProduct(id)}>

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { CameraIcon } from "../../../../../svgs";
+import { CameraIcon, LeftArrowIcon } from "../../../../../svgs";
 import { AddProductsStyle } from "./AddProducts.style";
 
-function AddProducts() {
+function AddProducts(props) {
   const [productId, setProductId] = useState(0);
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState(0);
@@ -35,11 +35,19 @@ function AddProducts() {
       .catch((err) => {
         console.log(`there is an error >> ${err}`);
       });
+
+    props.history.push("/dashboard/products-list");
   };
 
   return (
     <AddProductsStyle>
       <article className="card">
+        <Link to="/dashboard/products-list" className="go-back-link">
+          <span className="icon">
+            <LeftArrowIcon />
+          </span>
+          Back
+        </Link>
         <h3 className="title">Add Product</h3>
 
         <form className="card-body">
@@ -56,7 +64,7 @@ function AddProducts() {
             <input type="file" id="upload-product-photo" />
           </label>
 
-          <article>
+          <article className="product-images-list">
             <label htmlFor="upload-product-photo" className="upload-photo">
               <span className="silde-icon">
                 <CameraIcon />
@@ -184,13 +192,9 @@ function AddProducts() {
           </section>
 
           <article className="card-footer">
-            <Link
-              onClick={postProductData}
-              to="/dashboard/products-list"
-              className="add-product-button"
-            >
+            <button onClick={postProductData} className="add-product-button">
               Add Product
-            </Link>
+            </button>
           </article>
         </form>
       </article>

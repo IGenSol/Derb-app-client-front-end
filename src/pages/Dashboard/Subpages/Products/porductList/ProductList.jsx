@@ -5,7 +5,7 @@ import { ProductListStyle } from "./ProductList.style";
 import Card from "../../../../../components/Card/Card";
 import { Link } from "react-router-dom";
 
-function ProductList() {
+function ProductList(props) {
   const [products, setProducts] = useState([]);
   const url = "http://localhost:5000/api/products";
 
@@ -19,12 +19,24 @@ function ProductList() {
   };
 
   const deleteProduct = async (id) => {
-    debugger;
-    const data = await axios.delete(`${url}/${id}`).then((res) => {
+    await axios.delete(`${url}/${id}`).then((res) => {
       console.log(`item Deleted >> ${JSON.stringify(res)}`);
     });
 
     getProducts();
+  };
+
+  const updateProduct = async (id, data) => {
+    await axios
+      .put(`${url}/${id}`, data)
+      .then((res) => {
+        console.log(`item updated >> ${JSON.stringify(res)}`);
+      })
+      .catch((err) => {
+        console.log(`errors >> ${err}`);
+      });
+
+    props.history.push("/dashboard/add-products");
   };
 
   return (
@@ -44,6 +56,7 @@ function ProductList() {
               cardType="productCard"
               {...product}
               deleteProduct={deleteProduct}
+              updateProduct={updateProduct}
             />
           );
         })}

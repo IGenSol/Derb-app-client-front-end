@@ -11,8 +11,10 @@ import { LogoutIcon } from "../../svgs";
 import Profile from "./Subpages/Profile/Profile";
 import Order from "./Subpages/Orders/Order";
 import Dashboard from "./Subpages/Dashboard/Dashboard";
-import ProductList from "./Subpages/Products/porductList/ProductList";
+import ProductList from "./Subpages/Products/PorductList/ProductList";
 import AddProducts from "./Subpages/Products/AddProducts/AddProducts";
+import Catagories from "./Subpages/Products/Catagories/Catagories";
+import SubCatagories from "./Subpages/Products/SubCatagories/SubCatagories";
 
 import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
 
@@ -76,9 +78,9 @@ const Sidebar = (props) => {
                     const { icon, linkText, url } = submenu;
                     return (
                       <Menu.Item key={linkText}>
-                        <Link className="nav-item-link" to={url}>
+                        <a key={index} className="nav-item-link" href={url}>
                           {linkText}
-                        </Link>
+                        </a>
                       </Menu.Item>
                     );
                   })}
@@ -121,6 +123,12 @@ function DashboardLayout(props) {
             component={ProductList}
           />
           <Route path="/dashboard/add-products" exact component={AddProducts} />
+          <Route path="/dashboard/catagories" exact component={Catagories} />
+          <Route
+            path="/dashboard/sub-catagories"
+            exact
+            component={SubCatagories}
+          />
 
           <Route path="/dashboard/orders" exact component={Order} />
           <Route path="/dashboard/profile" exact component={Profile} />
