@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Modal } from "antd";
+
 import { CommonButton, FlexboxStyle } from "../../../../../style/commomStyle";
 
 export const CatagoriesStyle = styled.main`
@@ -61,6 +63,26 @@ export const CatagoriesStyle = styled.main`
           }
         }
       }
+    }
+  }
+`;
+
+export const AddCatagoryModalStyle = styled(Modal)`
+  .modal-body {
+    .custom-input {
+      width: 100%;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 0.1rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
+    }
+
+    .add-button {
+      ${CommonButton};
+
+      display: block;
+      margin-top: 1rem;
+      width: 100%;
     }
   }
 `;

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Modal } from "antd";
+
 import { CommonButton, FlexboxStyle } from "../../../../../style/commomStyle";
 
 export const SubCatagoriesStyle = styled.main`
@@ -61,6 +63,37 @@ export const SubCatagoriesStyle = styled.main`
           }
         }
       }
+    }
+  }
+`;
+
+export const AddSubCatagoryModalStyle = styled(Modal)`
+  .modal-body {
+    .catagory-list {
+      width: 100%;
+      margin: 1rem 0;
+      padding: 1rem;
+      outline: none;
+      border-radius: 0.5rem;
+      border: 0.1rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
+
+      cursor: pointer;
+    }
+
+    .custom-input {
+      width: 100%;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 0.1rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
+    }
+
+    .add-button {
+      ${CommonButton};
+
+      display: block;
+      margin-top: 1rem;
+      width: 100%;
     }
   }
 `;
