@@ -11,7 +11,7 @@ import { LogoutIcon } from "../../svgs";
 import Profile from "./Subpages/Profile/Profile";
 import Order from "./Subpages/Orders/Order";
 import Dashboard from "./Subpages/Dashboard/Dashboard";
-import ProductList from "./Subpages/Products/porductList/ProductList";
+import ProductList from "./Subpages/Products/PorductList/ProductList";
 import AddProducts from "./Subpages/Products/AddProducts/AddProducts";
 import Catagories from "./Subpages/Products/Catagories/Catagories";
 import SubCatagories from "./Subpages/Products/SubCatagories/SubCatagories";
