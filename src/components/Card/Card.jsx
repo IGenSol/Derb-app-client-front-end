@@ -2,6 +2,7 @@ import React from "react";
 
 import HorizontalCard from "./HorizontalCard";
 import LiveCard from "./LiveCard";
+import PostCard from "./PostCard";
 import ProductCard from "./ProductCard";
 import VerticalCard from "./VerticalCard";
 
@@ -19,6 +20,9 @@ function Card(props) {
 
     case "productCard":
       return <ProductCard {...props} />;
+
+    case "postCard":
+      return <PostCard {...props} />;
 
     default:
       <HorizontalCard {...props} />;

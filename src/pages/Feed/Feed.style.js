@@ -114,7 +114,11 @@ export const FeedStyle = styled.main`
       }
 
       .add-post-footer {
-        ${CommonGridStyle({ columns: "repeat(4, 1fr)", columnGap: "0" })};
+        ${CommonGridStyle({ columns: "repeat(3, 1fr)", columnGap: "0" })};
+
+        input[type="file"] {
+          display: none;
+        }
 
         .add-post-btn {
           ${FlexboxStyle({ justify: "center" })};

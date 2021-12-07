@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistroy } from "react-router-dom";
 import axios from "axios";
 
 import { CameraIcon, LeftArrowIcon } from "../../../../../svgs";
-import { AddProductsStyle } from "./AddProducts.style";
+import { UpdateProductsStyle } from "./UpdateProducts.style";
 
-function AddProducts(props) {
+function UpdateProducts(props) {
+  const { productSlug } = useParams();
   const [productId, setProductId] = useState(0);
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState(0);
@@ -14,6 +15,8 @@ function AddProducts(props) {
   const [productSize, setProductSize] = useState("");
   const [productColor, setProductColor] = useState("");
   const [productDescription, setProductDescription] = useState("");
+
+  console.log(`These are the props: ${props.product}`);
 
   const url = "http://localhost:5000/api/products";
 
@@ -40,7 +43,7 @@ function AddProducts(props) {
   };
 
   return (
-    <AddProductsStyle>
+    <UpdateProductsStyle>
       <article className="card">
         <Link to="/dashboard/products-list" className="go-back-link">
           <span className="icon">
@@ -193,13 +196,13 @@ function AddProducts(props) {
 
           <article className="card-footer">
             <button onClick={postProductData} className="add-product-button">
-              Add Product
+              Update Product
             </button>
           </article>
         </form>
       </article>
-    </AddProductsStyle>
+    </UpdateProductsStyle>
   );
 }
 
-export default AddProducts;
+export default UpdateProducts;

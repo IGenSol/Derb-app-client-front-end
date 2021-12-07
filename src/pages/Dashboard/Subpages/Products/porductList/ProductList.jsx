@@ -1,11 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import { ProductListStyle } from "./ProductList.style";
 import Card from "../../../../../components/Card/Card";
-import { products } from "../../../../../mockData/products";
 import { Link } from "react-router-dom";
+import UpdateProducts from "../UpdateProducts/UpdateProducts";
 
-function ProductList() {
+function ProductList(props) {
+  const [products, setProducts] = useState([]);
+  const url = "http://localhost:5000/api/products";
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    const data = await axios.get(url);
+    setProducts(data.data);
+  };
+
+  const deleteProduct = async (id) => {
+    await axios.delete(`${url}/${id}`).then((res) => {
+      console.log(`item Deleted >> ${JSON.stringify(res)}`);
+    });
+
+    getProducts();
+  };
+
+  const updateProduct = async (id, data) => {
+    debugger;
+
+    await axios
+      .put(`${url}/${id}`, data)
+      .then((res) => {
+        console.log(`item updated >> ${JSON.stringify(res)}`);
+      })
+      .catch((err) => {
+        console.log(`errors >> ${err}`);
+      });
+
+    <UpdateProducts data={data} />;
+    console.log(data);
+    props.history.push(`/dashboard/update-products/${id}`);
+  };
+
   return (
     <ProductListStyle>
       <article className="section-header">
@@ -17,7 +55,15 @@ function ProductList() {
 
       <article className="products-wrapper">
         {products.map((product, index) => {
-          return <Card key={index} cardType="productCard" {...product} />;
+          return (
+            <Card
+              key={index}
+              cardType="productCard"
+              {...product}
+              deleteProduct={deleteProduct}
+              updateProduct={updateProduct}
+            />
+          );
         })}
       </article>
     </ProductListStyle>

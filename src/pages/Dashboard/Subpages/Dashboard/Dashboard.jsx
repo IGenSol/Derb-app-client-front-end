@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import { counters, orders } from "../../../../mockData/dashboard";
 import Card from "../../../../components/Card/Card";
 import { DashboardStyle, RecentOrderStyle } from "./Dashboard.style";
 
 const RecentOrders = () => {
-
-  const [order, setorder] = useState([]);
-
-
+  const [orders, setOrders] = useState([]);
+  const url = "http://localhost:5000/api/orders";
 
   useEffect(() => {
-    loadOrder();
+    getOrders();
   }, []);
 
-  const loadOrder = async () => {
-    const data = await axios.get("http://localhost:3000/api/orders");
-    setorder(data.data.data);
+  const getOrders = async () => {
+    const data = await axios.get(url);
+
+    setOrders(data.data.data);
   };
-
-
-
-
 
   return (
     <RecentOrderStyle>
@@ -36,16 +32,14 @@ const RecentOrders = () => {
           </tr>
         </thead>
 
-        <tbody class="table-body">
-          {order.map((order, index) => {
-            const { id, product_name, status } = order;
+        <tbody className="table-body">
+          {orders.map((order, index) => {
             return (
               <tr key={index}>
-                <td>#{id}</td>
-                <td>{product_name}</td>
+                <td>#{order.product_id}</td>
+                <td>{order.image}</td>
                 <td>
-                  {/* className={`status ${statusClass}`} */}
-                  <div >{status}</div>
+                  <div className={`status ${order.status}`}>{order.status}</div>
                 </td>
               </tr>
             );

@@ -19,11 +19,22 @@ export const topBeltDetails = [
 ];
 
 export const menubarItems = [
-
   {
-    url: "/home",
+    url: "/",
     linkText: "Home",
     icon: <HomeIcon />,
+  },
+
+  // {
+  //   url: "/home",
+  //   linkText: "Home",
+  //   icon: <HomeIcon />,
+  // },
+
+  {
+    url: "/feed",
+    linkText: "Feed",
+    icon: <FeedIcon />,
   },
 
   {
@@ -32,19 +43,12 @@ export const menubarItems = [
     icon: <FeedIcon />,
   },
 
-
-
   {
     url: "/store",
     linkText: "Store",
     icon: <CartIcon />,
   },
 
-  // {
-  //   url: "/discover",
-  //   linkText: "Discover",
-  //   icon: <DescoverIcon />,
-  // },
   {
     url: "/activity",
     linkText: "Activity",

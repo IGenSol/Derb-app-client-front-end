@@ -79,11 +79,12 @@ export const RecentOrderStyle = styled.section`
   .table-heading {
     font-weight: 800;
     font-size: 2.3rem;
+    margin-top: 4rem;
   }
 
   .orders-table {
     width: 100%;
-    margin-top: 4rem;
+    margin-top: 1.5rem;
 
     thead {
       background: ${(p) => p.theme.colors.LIGHT_ORANGE_COLOR};
@@ -113,16 +114,16 @@ export const RecentOrderStyle = styled.section`
             width: 12rem;
             text-align: center;
 
-            &.pending {
-              background: ${(p) => p.theme.colors.RED_COLOR};
-            }
-
-            &.shipped {
+            &.PENDING {
               background: ${(p) => p.theme.colors.PRIMARY_COLOR};
             }
 
-            &.confirmed {
+            &.DELIVERED {
               background: ${(p) => p.theme.colors.GREEN_COLOR};
+            }
+
+            &.CANCELED {
+              background: ${(p) => p.theme.colors.RED_COLOR};
             }
           }
         }

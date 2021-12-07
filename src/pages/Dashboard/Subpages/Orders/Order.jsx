@@ -6,26 +6,22 @@ import { OrderStyle } from "./Order.style";
 import axios from "axios";
 
 function Order() {
-
-  const [order, setOrder] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const ordersUrl = "http://localhost:5000/api/orders";
 
   useEffect(() => {
-
-    LoadData();
-
+    getOrders();
   }, []);
 
-  const LoadData = async () => {
+  const getOrders = async () => {
+    const ordersData = await axios.get(ordersUrl);
+    setOrders(ordersData.data.data);
+  };
 
-    const data = await axios.get("http://localhost:3000/api/orders");
-    setOrder(data.data.data);
-
-  }
-
-  // var today = order.created_date;
-  // today = mm + '/' + dd + '/' + yyyy;
-
-
+  const deleteOrders = async (id) => {
+    await axios.delete(`${ordersUrl}/${id}`);
+    getOrders();
+  };
 
   return (
     <OrderStyle>
@@ -35,7 +31,8 @@ function Order() {
         <thead>
           <tr>
             <th scope="col">Order ID</th>
-            <th scope="col">Product Name</th>
+            <th scope="col">Name</th>
+            <th scope="col">Product</th>
             <th scope="col">Amount</th>
             <th scope="col">Date</th>
             <th scope="col">Status</th>
@@ -43,37 +40,34 @@ function Order() {
           </tr>
         </thead>
         <tbody>
-
-          {order.map((order, index) => {
-
-            const { id, created_date, product_price, product_name, status } = order;
-
+          {orders.map((order, index) => {
             return (
-
               <tr key={index}>
-                <td data-label="Order ID">{id}</td>
-                <td data-label="Product Name">{product_name}</td>
-                <td data-label="Amount">{product_price}</td>
-                <td data-label="Date">{created_date}</td>
+                <td data-label="Order ID">{order.product_id}</td>
+                <td data-label="Name">{order.first_name}</td>
+                <td data-label="Product">{order.product_name}</td>
+                <td data-label="Amount">${order.product_price}</td>
+                <td data-label="Date">03/01/2016 </td>
                 <td data-label="Status">
-                  <span className="pending">{status}</span>
+                  <span className="pending">{order.status}</span>
                 </td>
+
                 <td data-label="Action">
                   <article className="action-buttons-wrapper">
                     <button className="action-button">
                       <EditIcon />
                     </button>
-                    <button className="action-button">
+                    <button
+                      className="action-button"
+                      onClick={() => deleteOrders(order.id)}
+                    >
                       <DeleteIcon />
                     </button>
                   </article>
                 </td>
               </tr>
-
-
-            )
+            );
           })}
-
         </tbody>
       </table>
 
