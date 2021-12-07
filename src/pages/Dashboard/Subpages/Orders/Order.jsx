@@ -19,7 +19,9 @@ function Order() {
   };
 
   const deleteOrders = async (id) => {
-    await axios.delete(`${ordersUrl}/${id}`);
+    await axios.delete(`${ordersUrl}/${id}`).then((res) => {
+      console.log(`response >> ${res}`);
+    });
     getOrders();
   };
 
@@ -57,10 +59,7 @@ function Order() {
                     <button className="action-button">
                       <EditIcon />
                     </button>
-                    <button
-                      className="action-button"
-                      onClick={deleteOrders(order.id)}
-                    >
+                    <button className="action-button">
                       <DeleteIcon />
                     </button>
                   </article>
