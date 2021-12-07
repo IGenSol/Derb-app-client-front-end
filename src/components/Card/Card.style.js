@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Modal } from "antd";
+import { Link } from "react-router-dom";
 
-import { FlexboxStyle } from "../../style/commomStyle";
+import { CommonGridStyle, FlexboxStyle } from "../../style/commomStyle";
 
 export const HorizontalCardStyle = styled.figure`
   ${FlexboxStyle};
@@ -314,6 +315,151 @@ export const ProductCardStyle = styled.figure`
       strike {
         color: ${(p) => p.theme.colors.SILVER_SAND_COlOR};
         font-size: 1.6rem;
+      }
+    }
+  }
+`;
+
+export const DeleteModalSytle = styled(Modal)`
+  .button-wrapper {
+    ${FlexboxStyle({ justify: "flex-end" })};
+
+    margin-top: 2rem;
+
+    button {
+      padding: 0.7rem 2rem;
+      margin-left: 1rem;
+      border-radius: 0.3rem;
+      border: none;
+
+      cursor: pointer;
+
+      &.delete-button {
+        background: ${({ theme }) => theme.colors.RED_COLOR};
+        color: ${({ theme }) => theme.colors.WHITE_COLOR};
+      }
+    }
+  }
+`;
+
+export const PostCardStyle = styled.figure`
+  .card-header {
+    ${FlexboxStyle};
+
+    .user-details {
+      ${FlexboxStyle({ justify: "flex-start" })};
+
+      .user-img {
+        width: 5rem;
+        height: 5rem;
+
+        border-radius: 50%;
+      }
+
+      .user-info {
+        margin-left: 1rem;
+
+        .user-name {
+          font-size: 1.7rem;
+          font-weight: 700;
+        }
+
+        .post-date {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .more-options {
+      .more-option-button {
+        background: none;
+        border: none;
+
+        cursor: pointer;
+
+        > svg {
+          width: 1.3rem;
+          fill: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+        }
+      }
+    }
+  }
+`;
+
+export const CardBodyStyle = styled.figcaption`
+  margin-top: 1.5rem;
+
+  .post-text {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .image-wrapper {
+    display: grid;
+    place-items: center;
+
+    .post-image {
+      max-width: 100%;
+      border-radius: 1rem;
+      margin: 1rem 0;
+      height: 40rem;
+    }
+  }
+`;
+
+export const PostFooterStyle = styled.article`
+  border-top: 0.1rem solid ${({ theme }) => theme.colors.DIM_GRAY_COLOR};
+
+  .post-buttons-wrapper {
+    ${CommonGridStyle({ columns: "1fr 1fr 1fr" })};
+
+    border-bottom: 0.1rem solid #f9f9fb;
+
+    .post-button {
+      ${FlexboxStyle({ justify: "flex-start" })};
+
+      color: ${({ theme }) => theme.colors.SILVER_SAND_COlOR};
+      background: none;
+      border: none;
+      padding: 1rem;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      .icon {
+        fill: ${({ theme }) => theme.colors.SILVER_SAND_COlOR};
+
+        width: 2rem;
+        margin-top: 0.4rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .comment-box-wrapper {
+    ${FlexboxStyle};
+
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 5rem;
+    background: ${({ theme }) => theme.colors.CULTURED_GRAY_COLOR};
+
+    .comment-input-box {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: none;
+    }
+
+    .send-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding-top: 0.5rem;
+
+      > svg {
+        width: 1.6rem;
+        fill: ${({ theme }) => theme.colors.DARK_SILVER_COLOR};
       }
     }
   }

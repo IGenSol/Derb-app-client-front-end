@@ -88,7 +88,11 @@ const Login = (props) => {
       .then((res) => {
         setLoading(false);
         if (res.data.message == "Login successfully") {
-          setUserSession(res.data.token, res.data.data.first_name);
+          setUserSession(
+            res.data.token,
+            res.data.data.first_name,
+            res.data.data.id
+          );
           props.history.push("/dashboard");
         } else {
           setError(res.data.message);

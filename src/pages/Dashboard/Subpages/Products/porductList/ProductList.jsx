@@ -4,6 +4,7 @@ import axios from "axios";
 import { ProductListStyle } from "./ProductList.style";
 import Card from "../../../../../components/Card/Card";
 import { Link } from "react-router-dom";
+import UpdateProducts from "../UpdateProducts/UpdateProducts";
 
 function ProductList(props) {
   const [products, setProducts] = useState([]);
@@ -27,6 +28,8 @@ function ProductList(props) {
   };
 
   const updateProduct = async (id, data) => {
+    debugger;
+
     await axios
       .put(`${url}/${id}`, data)
       .then((res) => {
@@ -36,7 +39,9 @@ function ProductList(props) {
         console.log(`errors >> ${err}`);
       });
 
-    props.history.push("/dashboard/add-products");
+    <UpdateProducts data={data} />;
+    console.log(data);
+    props.history.push(`/dashboard/update-products/${id}`);
   };
 
   return (

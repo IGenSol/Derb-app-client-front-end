@@ -44,7 +44,7 @@ function Order() {
         <tbody>
           {orders.map((order, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <td data-label="Order ID">{order.product_id}</td>
                 <td data-label="Name">{order.first_name}</td>
                 <td data-label="Product">{order.product_name}</td>
@@ -59,7 +59,10 @@ function Order() {
                     <button className="action-button">
                       <EditIcon />
                     </button>
-                    <button className="action-button">
+                    <button
+                      className="action-button"
+                      onClick={() => deleteOrders(order.id)}
+                    >
                       <DeleteIcon />
                     </button>
                   </article>

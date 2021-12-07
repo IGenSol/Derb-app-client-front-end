@@ -11,12 +11,13 @@ import { LogoutIcon } from "../../svgs";
 import Profile from "./Subpages/Profile/Profile";
 import Order from "./Subpages/Orders/Order";
 import Dashboard from "./Subpages/Dashboard/Dashboard";
-import ProductList from "./Subpages/Products/PorductList/ProductList";
+import ProductList from "./Subpages/Products/porductList/ProductList";
 import AddProducts from "./Subpages/Products/AddProducts/AddProducts";
 import Catagories from "./Subpages/Products/Catagories/Catagories";
 import SubCatagories from "./Subpages/Products/SubCatagories/SubCatagories";
 
 import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
+import UpdateProducts from "./Subpages/Products/UpdateProducts/UpdateProducts";
 
 const Sidebar = (props) => {
   const [isBarActive, setBarActive] = useState(false);
@@ -123,6 +124,11 @@ function DashboardLayout(props) {
             component={ProductList}
           />
           <Route path="/dashboard/add-products" exact component={AddProducts} />
+          <Route
+            path="/dashboard/update-products/:productSlug"
+            exact
+            component={UpdateProducts}
+          />
           <Route path="/dashboard/catagories" exact component={Catagories} />
           <Route
             path="/dashboard/sub-catagories"

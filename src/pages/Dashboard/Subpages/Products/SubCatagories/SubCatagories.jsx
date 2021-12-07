@@ -1,14 +1,45 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 import { DeleteIcon, EditIcon } from "../../../../../svgs";
 
-import { SubCatagoriesStyle } from "./SubCatagories.style";
+import {
+  SubCatagoriesStyle,
+  AddSubCatagoryModalStyle,
+} from "./SubCatagories.style";
+
+const AddSubCatagoryModal = (props) => {
+  const { isModalVisible, handleOk, handleCancel } = props;
+
+  return (
+    <AddSubCatagoryModalStyle
+      visible={isModalVisible}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      title="Add Catagory"
+      footer={null}
+    >
+      <article className="modal-body">
+        <select className="catagory-list">
+          <option value="electronic">Electronic</option>
+          <option value="food">Food</option>
+          <option value="grocery">Grocery</option>
+          <option value="Cosmetics">Cosmetics</option>
+        </select>
+
+        <lable className="input-title">Category Image:</lable>
+        <input type="file" className="custom-input" />
+
+        <button className="add-button">Add Catagory</button>
+      </article>
+    </AddSubCatagoryModalStyle>
+  );
+};
 
 function SubCatagories() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [subCatagories, setSubCatagories] = useState([]);
-  const url = "http://localhost:5000/api/categories";
+  const url = "http://localhost:5000/api/subcategories";
 
   useEffect(() => {
     getSubCatagories();
@@ -24,13 +55,30 @@ function SubCatagories() {
     getSubCatagories();
   };
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <SubCatagoriesStyle>
       <section className="section-header">
         <h2 className="title">Sub Catagories</h2>
-        {/* <Link to="/dashboard/Add-subCatagoires" className="sub-catagory-link">
+        <button className="sub-catagory-link" onClick={showModal}>
           Add Subcatagories
-        </Link> */}
+        </button>
+        <AddSubCatagoryModal
+          isModalVisible={isModalVisible}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+        />
       </section>
 
       <table className="sub-catagories-table" width="100%">
@@ -51,16 +99,18 @@ function SubCatagories() {
             return (
               <tr>
                 <td>{index + 1}</td>
-                <td>ProductImage</td>
-                <td>{catagory.store_name}</td>
+                <td>{catagory.image}</td>
+                <td>{catagory.sub_category_name}</td>
                 <td>$250</td>
-                <td>{catagory.category_name}</td>
+                <td>{catagory.primary_category_id}</td>
                 <td>Pending</td>
                 <td>
                   <article className="button-wrapper">
                     <button
                       className="delete-button"
-                      onClick={deleteSubCatagory(catagory.id)}
+                      onClick={() =>
+                        deleteSubCatagory(catagory.sub_category_id)
+                      }
                     >
                       <DeleteIcon />
                     </button>

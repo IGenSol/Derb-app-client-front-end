@@ -1,11 +1,34 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import { DeleteIcon, EditIcon } from "../../../../../svgs";
-import { CatagoriesStyle } from "./Catagroies.style";
+import { AddCatagoryModalStyle, CatagoriesStyle } from "./Catagroies.style";
+
+const AddCatagoryModal = (props) => {
+  const { isModalVisible, handleOk, handleCancel } = props;
+
+  return (
+    <AddCatagoryModalStyle
+      visible={isModalVisible}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      title="Add Catagory"
+      footer={null}
+    >
+      <article className="modal-body">
+        <lable className="input-title">Category Name:</lable>
+        <input type="text" className="custom-input" />
+        <lable className="input-title">Category Image:</lable>
+        <input type="file" className="custom-input" />
+
+        <button className="add-button">Add Catagory</button>
+      </article>
+    </AddCatagoryModalStyle>
+  );
+};
 
 function Catagories() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [catagories, setCatagories] = useState([]);
   const [isStatusActive, setStatusActive] = useState(true);
   const [statusValue, setStatusValue] = useState("pending");
@@ -25,13 +48,30 @@ function Catagories() {
     getCatagories();
   };
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <CatagoriesStyle>
       <section className="section-header">
         <h2 className="title">Catagories</h2>
-        {/* <Link to="/dashboard/add-catagories" className="add-catagories-link">
+        <button className="add-catagories-link" onClick={showModal}>
           Add catagories
-        </Link> */}
+        </button>
+        <AddCatagoryModal
+          isModalVisible={isModalVisible}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+        />
       </section>
 
       <table className="catagories-table" width="100%">
@@ -71,7 +111,7 @@ function Catagories() {
                   <article className="button-wrapper">
                     <button
                       className="delete-button"
-                      onClick={deleteCatagory(catagory.category_id)}
+                      onClick={() => deleteCatagory(catagory.category_id)}
                     >
                       <DeleteIcon />
                     </button>
