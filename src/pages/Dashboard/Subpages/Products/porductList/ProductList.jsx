@@ -3,23 +3,29 @@ import axios from "axios";
 
 import { ProductListStyle } from "./ProductList.style";
 import Card from "../../../../../components/Card/Card";
-import { products } from "../../../../../mockData/products";
 import { Link } from "react-router-dom";
+import UpdateProducts from "../UpdateProducts/UpdateProducts";
 
-function ProductList() {
+function ProductList(props) {
   const [products, setProducts] = useState([]);
+  const url = "http://localhost:5000/api/products";
 
   useEffect(() => {
     getProducts();
   }, []);
 
   const getProducts = async () => {
-    const url = "http://localhost:5000/api/products";
     const data = await axios.get(url);
     setProducts(data.data);
   };
 
-  console.log(products);
+  const deleteProduct = async (id) => {
+    await axios.delete(`${url}/${id}`).then((res) => {
+      console.log(`item Deleted >> ${JSON.stringify(res)}`);
+    });
+
+    getProducts();
+  };
 
   return (
     <ProductListStyle>
@@ -32,7 +38,14 @@ function ProductList() {
 
       <article className="products-wrapper">
         {products.map((product, index) => {
-          return <Card key={index} cardType="productCard" {...product} />;
+          return (
+            <Card
+              key={index}
+              cardType="productCard"
+              {...product}
+              deleteProduct={deleteProduct}
+            />
+          );
         })}
       </article>
     </ProductListStyle>

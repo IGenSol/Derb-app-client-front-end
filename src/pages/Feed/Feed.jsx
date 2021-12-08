@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import Card from "../../components/Card/Card";
 import { followingProfiles, profiles } from "../../mockData/discoverData";
 import { CameraIcon, FileIcon, VideoIcon } from "../../svgs";
+import { getUserId } from "../../utils/Common";
 
 import { FeedStyle } from "./Feed.style";
 
 function Feed() {
+  const [posts, setPosts] = useState("");
+  const [postsData, setPostsData] = useState([]);
+  const userId = getUserId();
+  const url = "http://localhost:5000/api/posts";
+
+  console.log(`user id = ${userId}`);
+
+  const feedPost = () => {
+    axios
+      .post(url, {
+        post_description: posts,
+        user_id: userId,
+      })
+      .then((res) => {
+        alert("Successfully Posted");
+        setPosts = "";
+      })
+      .catch((err) => {
+        console.log(`error >> ${err}`);
+      });
+  };
+
+  const getPost = async () => {
+    const data = await axios.get(url);
+    setPostsData(data.data);
+  };
+
+  useEffect(() => {
+    getPost();
+  }, []);
+
   return (
     <FeedStyle>
       <aside className="friends-wrapper">
@@ -40,37 +73,36 @@ function Feed() {
               cols="30"
               rows="3"
               placeholder="Share Your thoughts.."
+              value={posts}
+              onChange={(e) => setPosts(e.target.value)}
             ></textarea>
           </article>
 
           <article className="add-post-footer">
-            <button className="add-post-btn">
+            <label htmlFor="upload-photo" className="add-post-btn">
+              <input type="file" id="upload-photo" />
               <span className="icon">
                 <CameraIcon />
               </span>
               Photo
-            </button>
-            <button className="add-post-btn">
+            </label>
+            <label htmlFor="upload-video" className="add-post-btn">
+              <input type="file" id="upload-video" />
               <span className="icon">
                 <VideoIcon />
               </span>
               Videos
+            </label>
+            <button className="add-post-btn" onClick={feedPost}>
+              Post
             </button>
-            <button className="add-post-btn">
-              <span className="icon">
-                <FileIcon />
-              </span>
-              File
-            </button>
-            <button className="add-post-btn">Post</button>
           </article>
         </article>
 
-        {profiles.map((profile, index) => {
+        {postsData.map((post, index) => {
           return (
             <article key={index} className="user-profile">
-              <Card cardType="verticalCard" {...profile} />
-              <Card cardType="liveCard" {...profile} />
+              <Card cardType="postCard" {...post} />
             </article>
           );
         })}

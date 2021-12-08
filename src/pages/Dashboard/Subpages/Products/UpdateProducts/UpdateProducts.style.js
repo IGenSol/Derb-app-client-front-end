@@ -7,7 +7,7 @@ import {
   FlexboxStyle,
 } from "../../../../../style/commomStyle";
 
-export const AddProductsStyle = styled.main`
+export const UpdateProductsStyle = styled.main`
   .card {
     ${CommonSpacing};
 
