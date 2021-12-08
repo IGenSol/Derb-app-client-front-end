@@ -37,7 +37,7 @@ const RecentOrders = () => {
             return (
               <tr key={index}>
                 <td>#{order.product_id}</td>
-                <td>{order.image}</td>
+                <td>{order.product_name}</td>
                 <td>
                   <div className={`status ${order.status}`}>{order.status}</div>
                 </td>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { DeleteIcon, EditIcon } from "../../svgs/index";
 import { DeleteModalSytle, ProductCardStyle } from "./Card.style";
@@ -56,9 +57,9 @@ function ProductCard(props) {
     <ProductCardStyle>
       <picture className="thumbnail-wrapper">
         <article className="image-hover-buttons">
-          <button className="icon" onClick={() => updateProduct(id, props)}>
+          <Link className="icon" to={`/dashboard/update-products/${id}`}>
             <EditIcon />
-          </button>
+          </Link>
           <button className="icon" onClick={showModal}>
             <DeleteIcon />
           </button>

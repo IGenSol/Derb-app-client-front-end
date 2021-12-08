@@ -27,23 +27,6 @@ function ProductList(props) {
     getProducts();
   };
 
-  const updateProduct = async (id, data) => {
-    debugger;
-
-    await axios
-      .put(`${url}/${id}`, data)
-      .then((res) => {
-        console.log(`item updated >> ${JSON.stringify(res)}`);
-      })
-      .catch((err) => {
-        console.log(`errors >> ${err}`);
-      });
-
-    <UpdateProducts data={data} />;
-    console.log(data);
-    props.history.push(`/dashboard/update-products/${id}`);
-  };
-
   return (
     <ProductListStyle>
       <article className="section-header">
@@ -61,7 +44,6 @@ function ProductList(props) {
               cardType="productCard"
               {...product}
               deleteProduct={deleteProduct}
-              updateProduct={updateProduct}
             />
           );
         })}
