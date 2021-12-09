@@ -30,6 +30,8 @@ const AddCatagoryModal = (props) => {
 function Catagories() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [catagories, setCatagories] = useState([]);
+  const [isStatusActive, setStatusActive] = useState(true);
+  const [statusValue, setStatusValue] = useState("pending");
   const url = "http://localhost:5000/api/categories";
 
   useEffect(() => {
@@ -94,7 +96,17 @@ function Catagories() {
                 <td>{catagory.store_name}</td>
                 <td>$250</td>
                 <td>{catagory.category_name}</td>
-                <td>Pending</td>
+                <td>
+                  {isStatusActive ? (
+                    statusValue
+                  ) : (
+                    <select onChange={(e) => setStatusValue(e.target.value)}>
+                      <option value="Pending">Pending</option>
+                      <option value="Canceled">Canceled</option>
+                      <option value="Deliverd">Deliverd</option>
+                    </select>
+                  )}
+                </td>
                 <td>
                   <article className="button-wrapper">
                     <button
@@ -103,7 +115,10 @@ function Catagories() {
                     >
                       <DeleteIcon />
                     </button>
-                    <button className="edit-button">
+                    <button
+                      className="edit-button"
+                      onClick={() => setStatusActive(!isStatusActive)}
+                    >
                       <EditIcon />
                     </button>
                   </article>

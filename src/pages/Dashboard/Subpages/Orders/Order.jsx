@@ -19,7 +19,9 @@ function Order() {
   };
 
   const deleteOrders = async (id) => {
-    await axios.delete(`${ordersUrl}/${id}`);
+    await axios.delete(`${ordersUrl}/${id}`).then((res) => {
+      console.log(`response >> ${res}`);
+    });
     getOrders();
   };
 
