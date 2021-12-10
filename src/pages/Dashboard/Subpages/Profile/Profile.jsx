@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Tabs } from "antd";
 
 import {
   FacebookIcon,
   InstagramIcon,
+  MoreButtonIcon,
   TabSettingIcon,
   TwitterIcon,
   UserTabIcon,
@@ -13,10 +14,147 @@ import {
   ProfileDetailsStyle,
   ProfileInfoStyle,
   ProfileStyle,
+  UpdateProfileModalStyle,
 } from "./Profile.style";
+import { getUserId } from "../../../../utils/Common";
+import axios from "axios";
 
-const ProfileDetails = () => {
+const UpdateProfileModal = (props) => {
+  const url = "http://localhost:5000/api/users";
+  const id = getUserId();
+  const { handleCancel, handleOk, isModalVisible } = props;
+  const [userData, setUserData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    mobile: "",
+  });
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const getUserData = async () => {
+    await axios
+      .get(`${url}/${id}`)
+      .then((res) => {
+        setUserData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onSubmitInput = (e) => {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitUpdateUser = async (e) => {
+    await axios
+      .put(`${url}/${id}`, userData)
+      .then(() => {
+        console.log("User Udpated");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    handleOk();
+  };
+
+  return (
+    <UpdateProfileModalStyle
+      title="Update Profile"
+      visible={isModalVisible}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      footer={null}
+    >
+      <form>
+        <input
+          type="text"
+          placeholder="First Name"
+          name="first_name"
+          className="custom-input"
+          value={userData.first_name}
+          onChange={(e) => onSubmitInput(e)}
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          name="last_name"
+          className="custom-input"
+          value={userData.last_name}
+          onChange={(e) => onSubmitInput(e)}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          className="custom-input"
+          value={userData.email}
+          onChange={(e) => onSubmitInput(e)}
+        />
+        <input
+          type="number"
+          placeholder="Mobile"
+          className="custom-input"
+          name="mobile"
+          value={userData.mobile}
+          onChange={(e) => onSubmitInput(e)}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          className="custom-input"
+          name="password"
+          value={userData.password}
+          onChange={(e) => onSubmitInput(e)}
+        />
+
+        <article className="modal-footer">
+          <button
+            className="update-button"
+            onClick={(e) => submitUpdateUser(e)}
+          >
+            Update
+          </button>
+          <button
+            className="cancel-button"
+            onClick={(e) => {
+              e.preventDefault();
+              handleCancel();
+            }}
+          >
+            Cancel
+          </button>
+        </article>
+      </form>
+    </UpdateProfileModalStyle>
+  );
+};
+
+const ProfileDetails = (props) => {
+  const { first_name, last_name, email, mobile, password } = props;
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { TabPane } = Tabs;
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <ProfileDetailsStyle>
       <Tabs defaultActiveKey="1" tabBarGutter={50}>
@@ -29,20 +167,35 @@ const ProfileDetails = () => {
           }
           key="1"
         >
-          <h3 className="heading">Profile</h3>
+          <article className="profile-header">
+            <h3 className="heading">Profile</h3>
+            <button className="more-option-button" onClick={showModal}>
+              <MoreButtonIcon />
+            </button>
+
+            <UpdateProfileModal
+              handleOk={handleOk}
+              handleCancel={handleCancel}
+              isModalVisible={isModalVisible}
+            />
+          </article>
 
           <article className="user-details">
             <article className="user-data">
               <h4 className="data-title">First Name :</h4>
-              <h4>Jahangir</h4>
+              <h4>{first_name}</h4>
             </article>
             <article className="user-data">
               <h4 className="data-title">Last Name :</h4>
-              <h4>Khan</h4>
+              <h4>{last_name}</h4>
             </article>
             <article className="user-data">
               <h4 className="data-title">Email :</h4>
-              <h4>jahangirjay5@gmail.com</h4>
+              <h4>{email}</h4>
+            </article>
+            <article className="user-data">
+              <h4 className="data-title">Phone :</h4>
+              <h4>{mobile}</h4>
             </article>
             <article className="user-data">
               <h4 className="data-title">Gender :</h4>
@@ -106,7 +259,8 @@ const ProfileDetails = () => {
   );
 };
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+  const { first_name, last_name, email } = props;
   return (
     <ProfileInfoStyle>
       <article className="user-details">
@@ -118,8 +272,8 @@ const ProfileInfo = () => {
           />
         </picture>
 
-        <h2 className="name">Jahangir Khan</h2>
-        <h3 className="email">jahangirjay5@gmail.com</h3>
+        <h2 className="name">{`${first_name} ${last_name}`}</h2>
+        <h3 className="email">{email}</h3>
         <article className="social-icons-wrapper">
           <a href="#" className="icon">
             <FacebookIcon />
@@ -154,6 +308,28 @@ const ProfileInfo = () => {
 };
 
 function Profile() {
+  const [user, setUser] = useState([]);
+  const url = "http://localhost:5000/api/users";
+
+  const id = getUserId();
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  console.log(user);
+
+  const getUserData = async () => {
+    await axios
+      .get(`${url}/${id}`)
+      .then((res) => {
+        setUser(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <ProfileStyle>
       <article className="section-header">
@@ -162,8 +338,8 @@ function Profile() {
       </article>
 
       <section className="profile-body">
-        <ProfileInfo />
-        <ProfileDetails />
+        <ProfileInfo {...user} />
+        <ProfileDetails {...user} />
       </section>
     </ProfileStyle>
   );

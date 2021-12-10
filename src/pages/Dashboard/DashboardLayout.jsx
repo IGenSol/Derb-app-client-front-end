@@ -21,7 +21,8 @@ import UpdateProducts from "./Subpages/Products/UpdateProducts/UpdateProducts";
 
 const Sidebar = (props) => {
   const [isBarActive, setBarActive] = useState(false);
-  const user = getUser();
+  const fname = sessionStorage.getItem("fname");
+  const lname = sessionStorage.getItem("lname");
   const { SubMenu } = Menu;
 
   const toggleActive = () => {
@@ -56,7 +57,7 @@ const Sidebar = (props) => {
         <span className="user-status">Live Now</span>
       </picture>
 
-      <h3 className="name">{user}</h3>
+      <h3 className="name">{`${JSON.parse(fname)} ${JSON.parse(lname)}`}</h3>
       <article className="dashboard-details">
         <p className="followers">
           <strong className="no">750</strong>
