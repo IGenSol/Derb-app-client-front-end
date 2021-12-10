@@ -20,7 +20,13 @@ const DeleteModal = (props) => {
         <button className="cancel-button" onClick={handleCancel}>
           Cancel
         </button>
-        <button className="delete-button" onClick={() => deleteProduct(id)}>
+        <button
+          className="delete-button"
+          onClick={() => {
+            deleteProduct(id);
+            handleCancel();
+          }}
+        >
           Delete
         </button>
       </article>
