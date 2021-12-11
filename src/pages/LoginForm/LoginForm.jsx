@@ -10,10 +10,41 @@ import {
   Inputusericon,
   Inputpassword,
   Emailicon,
+  PhoneIcon,
 } from "../../svgs/index";
 import { setUserSession } from "../../utils/Common";
 
 const Signup = () => {
+  const url = "http://localhost:5000/api/users";
+  const [signUp, setSignUp] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    mobile: "",
+    password: "",
+    role: "",
+  });
+
+  const onSubmitInput = (e) => {
+    setSignUp({
+      ...signUp,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  console.log(signUp);
+
+  const userSignUp = async (e) => {
+    await axios
+      .post(url, signUp)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Signupstyle>
       <article className="input-container">
@@ -23,8 +54,23 @@ const Signup = () => {
         <input
           type="text"
           className="custom-input"
-          name="name"
-          placeholder="Name"
+          name="first_name"
+          placeholder="First Name"
+          value={signUp.first_name}
+          onChange={(e) => onSubmitInput(e)}
+        />
+      </article>
+      <article className="input-container">
+        <span className="icon">
+          <Inputusericon />
+        </span>
+        <input
+          type="text"
+          className="custom-input"
+          name="last_name"
+          placeholder="Last Name"
+          value={signUp.last_name}
+          onChange={(e) => onSubmitInput(e)}
         />
       </article>
       <article className="input-container">
@@ -36,6 +82,21 @@ const Signup = () => {
           className="custom-input"
           name="email"
           placeholder="Enter your Email adress"
+          value={signUp.email}
+          onChange={(e) => onSubmitInput(e)}
+        />
+      </article>
+      <article className="input-container">
+        <span className="icon">
+          <PhoneIcon />
+        </span>
+        <input
+          type="number"
+          className="custom-input"
+          name="mobile"
+          placeholder="Mobile"
+          value={signUp.mobile}
+          onChange={(e) => onSubmitInput(e)}
         />
       </article>
       <article className="input-container">
@@ -47,21 +108,29 @@ const Signup = () => {
           className="custom-input"
           name="password"
           placeholder="Password"
+          value={signUp.password}
+          onChange={(e) => onSubmitInput(e)}
         />
       </article>
       <article className="input-container">
         <span className="icon">
-          <Inputpassword />
+          <Inputusericon />
         </span>
-        <input
-          type="password"
-          className="custom-input"
-          name="conforimpassword"
-          placeholder="Conforim Password"
-        />
+        <select
+          className="select-user-input"
+          name="role"
+          value={signUp.role}
+          onChange={(e) => onSubmitInput(e)}
+        >
+          <option>Select Account Type</option>
+          <option value="vendor">Vendor</option>
+          <option value="user">User</option>
+        </select>
       </article>
 
-      <button className="login-btn">Sign up</button>
+      <button className="login-btn" onClick={(e) => userSignUp(e)}>
+        Sign up
+      </button>
       <p className="continue-text">or continue with</p>
       <span className="social-icon">
         <FacebookIcon /> <GoogleIcon />
@@ -91,6 +160,7 @@ const Login = (props) => {
           setUserSession(
             res.data.token,
             res.data.data.first_name,
+            res.data.data.last_name,
             res.data.data.id
           );
           props.history.push("/dashboard");

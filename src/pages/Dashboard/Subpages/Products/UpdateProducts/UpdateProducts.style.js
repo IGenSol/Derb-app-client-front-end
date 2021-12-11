@@ -93,6 +93,7 @@ export const UpdateProductsStyle = styled.main`
         ${CommonGridStyle({
           columns: "18rem 1fr",
           columnGap: "1rem",
+          align: "flex-start",
         })};
       }
     }

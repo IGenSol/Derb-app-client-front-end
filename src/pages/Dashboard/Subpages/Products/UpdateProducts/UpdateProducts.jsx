@@ -20,9 +20,14 @@ function UpdateProducts(props) {
   }, []);
 
   const updateProductData = async () => {
-    const data = await axios.get(`${url}/${productSlug}`).then((res) => {
-      setProductData(res.data);
-    });
+    await axios
+      .get(`${url}/${productSlug}`)
+      .then((res) => {
+        setProductData(res.data);
+      })
+      .catch((err) => {
+        console.log(`error >> ${err}`);
+      });
   };
 
   console.log(productData);

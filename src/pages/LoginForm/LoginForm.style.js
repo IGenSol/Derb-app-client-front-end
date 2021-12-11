@@ -150,6 +150,21 @@ export const Signupstyle = styled.main`
       outline: none;
       border-radius: 0.5rem;
     }
+
+    .select-user-input {
+      background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
+
+      border: none;
+      width: 100%;
+      padding: 2rem 1rem;
+      outline: none;
+
+      cursor: pointer;
+
+      option {
+        padding: 1rem;
+      }
+    }
   }
 
   .login-btn {
