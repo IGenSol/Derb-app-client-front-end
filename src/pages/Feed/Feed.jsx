@@ -9,22 +9,27 @@ import { getUserId } from "../../utils/Common";
 import { FeedStyle } from "./Feed.style";
 
 function Feed() {
-  const [posts, setPosts] = useState("");
+  const [postText, setPostText] = useState("");
+  const [picture, setPicture] = useState("");
   const [postsData, setPostsData] = useState([]);
   const userId = getUserId();
   const url = "http://localhost:5000/api/posts";
 
-  console.log(`user id = ${userId}`);
-
   const feedPost = () => {
+    const formData = new FormData();
+
+    formData.append("post_description", postText);
+    formData.append("picture_url", picture);
+    formData.append("user_id", userId);
+
+    console.log(formData);
+
     axios
-      .post(url, {
-        post_description: posts,
-        user_id: userId,
-      })
+      .post(url, formData)
       .then((res) => {
         alert("Successfully Posted");
-        setPosts = "";
+        setPostText = "";
+        setPicture = "";
       })
       .catch((err) => {
         console.log(`error >> ${err}`);
@@ -32,8 +37,9 @@ function Feed() {
   };
 
   const getPost = async () => {
-    const data = await axios.get(url);
-    setPostsData(data.data);
+    await axios.get(url).then((res) => {
+      setPostsData(res.data);
+    });
   };
 
   useEffect(() => {
@@ -73,14 +79,18 @@ function Feed() {
               cols="30"
               rows="3"
               placeholder="Share Your thoughts.."
-              value={posts}
-              onChange={(e) => setPosts(e.target.value)}
+              value={postText}
+              onChange={(e) => setPostText(e.target.value)}
             ></textarea>
           </article>
 
           <article className="add-post-footer">
             <label htmlFor="upload-photo" className="add-post-btn">
-              <input type="file" id="upload-photo" />
+              <input
+                type="file"
+                onChange={(e) => setPicture(e.target.files[0])}
+                id="upload-photo"
+              />
               <span className="icon">
                 <CameraIcon />
               </span>
