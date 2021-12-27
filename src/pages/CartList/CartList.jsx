@@ -53,7 +53,7 @@ function CartList() {
             Total Price : <span className="total-price">$261</span>
           </p>
 
-          <Link to="#" className="checkout-page-link">
+          <Link to="/checkout" className="checkout-page-link">
             Checkout
           </Link>
         </article>
