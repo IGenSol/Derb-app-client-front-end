@@ -40,6 +40,10 @@ export const NavbarStyle = styled.nav`
       flex: 1;
       position: relative;
 
+      @media (max-width: ${({ theme }) => theme.breakPoints.smallDevices}) {
+        display: none;
+      }
+
       .site-searchbar {
         background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
         padding: 1.7rem;
