@@ -34,12 +34,18 @@ const Signup = () => {
 
   console.log(signUp);
 
-  const userSignUp = async (e) => {
+  const userSignUp = async () => {
     await axios
       .post(url, signUp)
       .then((res) => {
-        alert(res.data.message);
-        console.log(res);
+        setSignUp({
+          first_name: "",
+          last_name: "",
+          email: "",
+          mobile: "",
+          password: "",
+          role: "",
+        });
       })
       .catch((err) => {
         console.log(err);

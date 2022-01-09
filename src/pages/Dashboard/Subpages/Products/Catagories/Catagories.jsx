@@ -5,7 +5,30 @@ import { DeleteIcon, EditIcon } from "../../../../../svgs";
 import { AddCatagoryModalStyle, CatagoriesStyle } from "./Catagroies.style";
 
 const AddCatagoryModal = (props) => {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
   const { isModalVisible, handleOk, handleCancel } = props;
+  const url = "http://localhost:5000/api/categories";
+
+  const submitCatagory = async () => {
+    const catagoryData = new FormData();
+
+    catagoryData.append("category_name", name);
+    catagoryData.append("image", image);
+
+    await axios
+      .post(url, catagoryData)
+      .then(() => {
+        setName = "";
+        alert("Data Posted");
+        handleOk();
+      })
+      .catch((err) => {
+        console.log(`error >> ${err}`);
+      });
+
+    handleOk();
+  };
 
   return (
     <AddCatagoryModalStyle
@@ -17,11 +40,22 @@ const AddCatagoryModal = (props) => {
     >
       <article className="modal-body">
         <lable className="input-title">Category Name:</lable>
-        <input type="text" className="custom-input" />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="custom-input"
+        />
         <lable className="input-title">Category Image:</lable>
-        <input type="file" className="custom-input" />
+        <input
+          type="file"
+          onChange={(e) => setImage(e.target.files[0])}
+          className="custom-input"
+        />
 
-        <button className="add-button">Add Catagory</button>
+        <button className="add-button" onClick={submitCatagory}>
+          Add Catagory
+        </button>
       </article>
     </AddCatagoryModalStyle>
   );
@@ -39,8 +73,10 @@ function Catagories() {
   }, []);
 
   const getCatagories = async () => {
-    const data = await axios.get(url);
-    setCatagories(data.data.data);
+    await axios.get(url).then((res) => {
+      setCatagories(res.data.data);
+      console.log(res.data.data);
+    });
   };
 
   const deleteCatagory = async (id) => {
@@ -64,65 +100,60 @@ function Catagories() {
     <CatagoriesStyle>
       <section className="section-header">
         <h2 className="title">Catagories</h2>
-        <button className="add-catagories-link" onClick={showModal}>
+        {/* <button className="add-catagories-link" onClick={showModal}>
           Add catagories
         </button>
         <AddCatagoryModal
           isModalVisible={isModalVisible}
           handleOk={handleOk}
           handleCancel={handleCancel}
-        />
+        /> */}
       </section>
 
-      <table className="catagories-table" width="100%">
+      <table>
         <thead>
           <tr>
-            <td>No.</td>
-            <td>Image</td>
-            <td>Product Name</td>
-            <td>Price</td>
-            <td>Catagory</td>
-            <td>Status</td>
-            <td>Action</td>
+            <th scope="col">No</th>
+            <th scope="col">Image</th>
+            {/* <th scope="col">Product Name</th> */}
+            {/* <th scope="col">Price</th> */}
+            <th scope="col">Catagory</th>
+            <th scope="col">Status</th>
+            {/* <th scope="col">Action</th> */}
           </tr>
         </thead>
-
         <tbody>
           {catagories.map((catagory, index) => {
             return (
-              <tr>
-                <td>{index + 1}</td>
-                <td>ProductImage</td>
-                <td>{catagory.store_name}</td>
-                <td>$250</td>
-                <td>{catagory.category_name}</td>
-                <td>
-                  {isStatusActive ? (
-                    statusValue
-                  ) : (
-                    <select onChange={(e) => setStatusValue(e.target.value)}>
-                      <option value="Pending">Pending</option>
-                      <option value="Canceled">Canceled</option>
-                      <option value="Deliverd">Deliverd</option>
-                    </select>
-                  )}
+              <tr key={index}>
+                <td data-label="No">{index + 1}</td>
+                <td data-label="Image">
+                  <img
+                    src={catagory.image}
+                    alt={catagory.category_name}
+                    className="catagory-image"
+                  />
                 </td>
-                <td>
-                  <article className="button-wrapper">
+                {/* <td data-label="Product Name">{catagory.store_name}</td> */}
+                {/* <td data-label="Price">$250</td> */}
+                <td data-label="Catagory">{catagory.category_name}</td>
+                <td data-label="Status">
+                  <span className="pending">Pending</span>
+                </td>
+
+                {/* <td data-label="Action">
+                  <article className="action-buttons-wrapper">
+                    <button className="action-button">
+                      <EditIcon />
+                    </button>
                     <button
-                      className="delete-button"
+                      className="action-button"
                       onClick={() => deleteCatagory(catagory.category_id)}
                     >
                       <DeleteIcon />
                     </button>
-                    <button
-                      className="edit-button"
-                      onClick={() => setStatusActive(!isStatusActive)}
-                    >
-                      <EditIcon />
-                    </button>
                   </article>
-                </td>
+                </td> */}
               </tr>
             );
           })}

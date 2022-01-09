@@ -21,6 +21,7 @@ import PublicRoute from "./utils/PublicRoute";
 import { getToken, removeUserSession, setUserSession } from "./utils/Common";
 
 import { GlobalStyle } from "./style/globalStyle";
+import Checkout from "./pages/Checkout/Checkout";
 
 function App() {
   // const [authLoading, setAuthLoading] = useState(true);
@@ -58,8 +59,9 @@ function App() {
           <PrivateRoute path="/show-case" exact component={ShowCase} />
           <PublicRoute path="/login" component={LoginForm} />
           <PrivateRoute path="/dashboard" component={DashboardLayout} />
-          <Route path="/cart-list" exact component={CartList} />
-          <Route path="/user-profile" exact component={UserProfile} />
+          <PrivateRoute path="/cart-list" exact component={CartList} />
+          <PrivateRoute path="/user-profile" exact component={UserProfile} />
+          <PrivateRoute path="/checkout" exact component={Checkout} />
         </Switch>
       </ThemeProvider>
     </Router>
