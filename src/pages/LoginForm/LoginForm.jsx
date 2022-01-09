@@ -38,6 +38,7 @@ const Signup = () => {
     await axios
       .post(url, signUp)
       .then((res) => {
+        alert(res.data.message);
         console.log(res);
       })
       .catch((err) => {
