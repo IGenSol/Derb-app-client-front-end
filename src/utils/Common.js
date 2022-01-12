@@ -38,3 +38,24 @@ export const removeUserSession = () => {
   sessionStorage.removeItem("lname");
   sessionStorage.removeItem("userId");
 };
+
+export const getLat = () => {
+  const lat = sessionStorage.getItem("lat");
+
+  if (lat) {
+    return JSON.parse(lat);
+  } else return null;
+};
+
+export const getLng = () => {
+  const lng = sessionStorage.getItem("lng");
+
+  if (lng) {
+    return JSON.parse(lng);
+  } else return null;
+};
+
+export const setLatLong = (lat, lng) => {
+  sessionStorage.setItem("lat", lat);
+  sessionStorage.setItem("lng", lng);
+};

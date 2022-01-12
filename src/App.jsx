@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import axios from "axios";
@@ -22,46 +22,92 @@ import { getToken, removeUserSession, setUserSession } from "./utils/Common";
 
 import { GlobalStyle } from "./style/globalStyle";
 import Checkout from "./pages/Checkout/Checkout";
+import { trendingItems } from "./mockData/trendingItems";
+
+export const products = createContext();
+
+const getProducts = () => {
+  const products = JSON.parse(localStorage.getItem("products"));
+
+  if (products) {
+    return products;
+  } else {
+    return [];
+  }
+};
 
 function App() {
-  // const [authLoading, setAuthLoading] = useState(true);
+  const [cartItems, setCartItems] = useState(getProducts());
 
-  // useEffect(() => {
-  //   const token = getToken();
+  useEffect(() => {
+    localStorage.setItem("products", JSON.stringify(cartItems));
+  }, [cartItems]);
 
-  //   axios
-  //     .get(`http://localhost:5000/verifyToken?token=${token}`)
-  //     .then((res) => {
-  //       setUserSession(res.data.token, res.data.data.first_name);
-  //       setAuthLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Error >> `, err);
-  //       console.log(token);
-  //       setAuthLoading(false);
-  //     });
-  // }, []);
+  const addItem = (product) => {
+    const exist = cartItems.find((item) => item.url === product.url);
 
-  // if (authLoading && getToken()) {
-  //   return <div>Checking Authentication....</div>;
-  // }
+    if (exist) {
+      setCartItems(
+        cartItems.map((currentItem) =>
+          currentItem.url === product.url
+            ? { ...exist, qty: exist.qty + 1 }
+            : currentItem
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    }
+  };
 
+  const onRemove = (product) => {
+    const exist = cartItems.find((item) => item.url === product.url);
+
+    if (exist.qty === 1) {
+      setCartItems(
+        cartItems.filter((currentItem) => currentItem.url !== product.url)
+      );
+    } else {
+      setCartItems(
+        cartItems.map((currentItem) =>
+          currentItem.url === product.url
+            ? { ...exist, qty: exist.qty - 1 }
+            : currentItem
+        )
+      );
+    }
+  };
   return (
     <Router>
       <ThemeProvider theme={THEMES}>
         <GlobalStyle />
-        <Navbar />
+        <products.Provider value={cartItems.length}>
+          <Navbar />
+        </products.Provider>
         <Switch>
-          <PrivateRoute path="/" exact component={Discover} />
-          <PrivateRoute path="/feed" exact component={Feed} />
-          <PrivateRoute path="/store" exact component={Store} />
-          {/* <Route path="/discover" exact component={Discover} /> */}
-          <PrivateRoute path="/show-case" exact component={ShowCase} />
-          <PublicRoute path="/login" component={LoginForm} />
-          <PrivateRoute path="/dashboard" component={DashboardLayout} />
-          <PrivateRoute path="/cart-list" exact component={CartList} />
-          <PrivateRoute path="/user-profile" exact component={UserProfile} />
-          <PrivateRoute path="/checkout" exact component={Checkout} />
+          <products.Provider
+            value={{
+              onRemove: onRemove,
+              addItem: addItem,
+              cartItems: cartItems,
+            }}
+          >
+            <PrivateRoute path="/" exact component={Discover} />
+            <PrivateRoute path="/feed" exact component={Feed} />
+            <PrivateRoute path="/store" exact component={Store} />
+            {/* <Route path="/discover" exact component={Discover} /> */}
+
+            <Route path="/show-case/:productSlug" exact>
+              <ShowCase url={window.location.pathname} />
+            </Route>
+
+            <PublicRoute path="/login" component={LoginForm} />
+            <PrivateRoute path="/dashboard" component={DashboardLayout} />
+            <PrivateRoute path="/cart-list" exact>
+              <CartList cartItems={cartItems} />
+            </PrivateRoute>
+            <PrivateRoute path="/user-profile" exact component={UserProfile} />
+            <PrivateRoute path="/checkout" exact component={Checkout} />
+          </products.Provider>
         </Switch>
       </ThemeProvider>
     </Router>

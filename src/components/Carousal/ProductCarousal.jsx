@@ -2,8 +2,6 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import Card from "../Card/Card";
 
-import LiveCard from "../Card/LiveCard";
-
 import { ProductCarousalStyle } from "./Carousal";
 
 function ProductCarousal(props) {
@@ -38,7 +36,7 @@ function ProductCarousal(props) {
         <Carousel responsive={responsive}>
           {cardData.map((data, index) => {
             return (
-              <article key="index" className="card-wrapper">
+              <article key={index} className="card-wrapper">
                 <Card cardType="liveCard" {...data} />
               </article>
             );

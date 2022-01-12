@@ -3,6 +3,7 @@ import React from "react";
 import NavigationCarousal from "../../components/Carousal/NavigationCarousal";
 import ProductCarousal from "../../components/Carousal/ProductCarousal";
 import { trendingProductsData } from "../../mockData/homeData";
+import { trendingItems } from "../../mockData/trendingItems";
 
 import { StoreStyle, SiteBannerStyle } from "./Store.style";
 
@@ -25,8 +26,8 @@ function Store() {
     <StoreStyle>
       <NavigationCarousal />
       <SiteBanner />
-      <ProductCarousal heading="Trending" cardData={trendingProductsData} />
-      <ProductCarousal heading="HOT Products" cardData={trendingProductsData} />
+      <ProductCarousal heading="Trending" cardData={trendingItems} />
+      <ProductCarousal heading="HOT Products" cardData={trendingItems} />
     </StoreStyle>
   );
 }

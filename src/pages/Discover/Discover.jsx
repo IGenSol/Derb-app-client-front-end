@@ -9,6 +9,7 @@ import {
 } from "../../mockData/discoverData";
 
 import { DiscoverStyle, FollowingStyle } from "./Discover.style";
+import { trendingItems } from "../../mockData/trendingItems";
 
 const Following = () => {
   return (
@@ -23,13 +24,11 @@ const Following = () => {
         </article>
       </aside>
 
-      {/* GGd */}
-
       <article className="user-profiles-wrapper">
-        {profiles.map((profile, index) => {
+        {trendingItems.map((profile, index) => {
           return (
             <article key={index} className="user-profile">
-              <Card cardType="verticalCard" {...profile} />
+              {/* <Card cardType="verticalCard" {...profile} /> */}
               <Card cardType="liveCard" {...profile} />
             </article>
           );
@@ -52,7 +51,7 @@ function Discover() {
       >
         <TabPane tab="Discover" key="descover">
           <article className="discover-prducts-wrapper">
-            {discoverItems.map((discoverItem, index) => {
+            {trendingItems.map((discoverItem, index) => {
               return <Card key={index} cardType="liveCard" {...discoverItem} />;
             })}
           </article>

@@ -11,9 +11,12 @@
     "axios": "^0.24.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-maps": "^9.4.5",
     "react-multi-carousel": "^2.6.5",
+    "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
+    "react-stripe-checkout": "^2.6.3",
     "styled-components": "^5.3.1",
     "web-vitals": "^1.1.2"
   },
@@ -40,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-places-autocomplete": "^7.2.9"
   }
 }
