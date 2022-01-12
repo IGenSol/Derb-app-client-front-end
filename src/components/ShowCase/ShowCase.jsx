@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import Card from "../../components/Card/Card";
 import Carousal from "../../components/Carousal/Carousal.jsx";
-import { liveChannels } from "../../mockData/showcaseData";
+
 import {
   EyeIcon,
   FacebookIcon,
@@ -12,6 +11,7 @@ import {
   TwitterIcon,
 } from "../../svgs";
 import QuantityCounter from "../QuantityCounter/QuantityCounter";
+import { products } from "../../App";
 
 import {
   LiveChannelsStyle,
@@ -21,6 +21,8 @@ import {
   ShowCaseStyle,
 } from "./ShowCase.style";
 
+import { trendingItems } from "../../mockData/trendingItems";
+
 const LiveChannels = () => {
   return (
     <LiveChannelsStyle>
@@ -28,21 +30,18 @@ const LiveChannels = () => {
         className="live-channels-wrapper"
         carousalType="productCarousal"
         heading="LiveProducts"
-        cardData={liveChannels}
+        cardData={trendingItems}
       />
     </LiveChannelsStyle>
   );
 };
 
-const ProductSideBar = () => {
+const ProductSideBar = (props) => {
+  const { profilePic, profileAlt } = props;
   return (
     <ProductSideBarStyle>
       <a href="#" className="profile-image-wrapper">
-        <img
-          src="./images/users/user-four.jpg"
-          alt="User Profile Image"
-          className="profile-picutre"
-        />
+        <img src={profilePic} alt={profileAlt} className="profile-picutre" />
       </a>
 
       <article className="counter">
@@ -62,7 +61,8 @@ const ProductSideBar = () => {
   );
 };
 
-const ProductFooter = () => {
+const ProductFooter = (props) => {
+  const { addItem } = useContext(products);
   return (
     <ProductFooterStyle>
       <article className="product-properties">
@@ -75,10 +75,10 @@ const ProductFooter = () => {
           </ul>
         </article>
 
-        <article className="quantity">
+        {/* <article className="quantity">
           <h4 className="heading">Quantitiy</h4>
-          <QuantityCounter />
-        </article>
+          <QuantityCounter {...props} />
+        </article> */}
 
         <article className="share-link">
           <h4 className="heading">Share it </h4>
@@ -96,22 +96,26 @@ const ProductFooter = () => {
         </article>
       </article>
       <article className="buttons-wrapper">
-        <Link to="/cart-list" className="action-btn">
+        <button className="action-btn" onClick={() => addItem(props)}>
           Add to cart
+        </button>
+        <Link to="/cart-list" className="action-btn">
+          Buy Now
         </Link>
-        <button className="action-btn">Buy Now</button>
       </article>
     </ProductFooterStyle>
   );
 };
 
-const ProductDetial = () => {
+const ProductDetial = (props) => {
+  const { productName, productPrice } = props;
+
   return (
     <ProductDetailStyle>
       <article className="details-wrapper">
         <article className="header">
-          <h3 className="heading">GRATIATE</h3>
-          <h3 className="price">$128.0</h3>
+          <h3 className="heading">{productName}</h3>
+          <h3 className="price">${productPrice}</h3>
         </article>
         <p className="description">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore non
@@ -120,26 +124,29 @@ const ProductDetial = () => {
           adipisicing elit. Inventore non voluptatibus praesentium ratione
           eveniet consectetur, quasi corporis accusantium fuga reprehenderit.
         </p>
-        <ProductFooter />
+        <ProductFooter {...props} />
       </article>
-      <ProductSideBar />
+      <ProductSideBar {...props} />
     </ProductDetailStyle>
   );
 };
 
-function ShowCase() {
+function ShowCase(props) {
+  const { url } = props;
+
+  const product = trendingItems.find((currentItem) => currentItem.url === url);
+
   return (
     <ShowCaseStyle>
       <section className="product-container">
-        <Card
-          cardType="liveCard"
-          productImage="./images/products-images/camera-image.jpg"
-          imageAlt="Camera Image"
-          profilePic="./images/users/user-four.jpg"
-          profileAlt="User Image"
-          idUrl="#"
-        />
-        <ProductDetial />
+        <picture className="product-placeholder">
+          <img
+            src={product.productImage}
+            alt={product.imageAlt}
+            className="product-image"
+          />
+        </picture>
+        <ProductDetial {...props} {...product} />
       </section>
 
       <LiveChannels />

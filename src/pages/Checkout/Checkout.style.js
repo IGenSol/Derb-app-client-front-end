@@ -107,6 +107,7 @@ export const DeliveryDetailsStyle = styled.article`
     .map-container {
       border-radius: 1rem;
       overflow: hidden;
+      height: 40rem;
     }
 
     .address-info-wrapper {
@@ -132,6 +133,8 @@ export const DeliveryDetailsStyle = styled.article`
             background: none;
             border: none;
             color: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+
+            cursor: pointer;
           }
         }
       }

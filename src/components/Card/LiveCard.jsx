@@ -66,12 +66,12 @@ const CardDetails = (props) => {
 };
 
 function LiveCard(props) {
-  const { productImage, imageAlt } = props;
+  const { productImage, imageAlt, url } = props;
   return (
     <LiveCardStyle>
-      <Link to="./show-case" className="buynow-btn">
+      <a href={url} className="buynow-btn">
         buy Now
-      </Link>
+      </a>
       {productImage && (
         <picture className="image-thumbnail">
           <img src={productImage} alt={imageAlt} className="thumbnail" />

@@ -1,21 +1,74 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { products } from "../../App";
 
 import { menubarItems } from "../../mockData/navbarData";
-import { DownArrow, SearchIcon } from "../../svgs";
+import {
+  CartIcon,
+  DownArrow,
+  LogoutIcon,
+  SearchIcon,
+  UserIcon,
+} from "../../svgs";
 
 import { NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
 
 const UserProfile = () => {
+  const [dropdown, setDropDown] = useState(false);
+  const itemCount = useContext(products);
+
+  const isDropDownActive = () => {
+    setDropDown(!dropdown);
+  };
+
   return (
-    <UserProfileStyle>
-      <Link to="/dashboard" className="user-profile-placeholder-wrapper">
-        <img
-          src="/images/icons/user-icon.png"
-          alt="Profile Placeholder"
-          className="user-profile-placeholder"
-        />
-      </Link>
+    <UserProfileStyle dropdownActive={dropdown}>
+      <article className="user-profile-placeholder-wrapper">
+        <picture className="user-placeholder" onClick={isDropDownActive}>
+          <img
+            src="/images/icons/user-icon.png"
+            alt="Profile Placeholder"
+            className="user-profile-placeholder"
+          />
+          <div className="cart-item">{itemCount}</div>
+        </picture>
+
+        <ul className="dropdown-menu-wrapper">
+          <li className="dropdown-menu">
+            <Link
+              to="/dashboard"
+              className="dropdown-menu-link"
+              onClick={isDropDownActive}
+            >
+              <span className="icon">
+                <UserIcon />
+              </span>
+              <p className="link-text">Profile</p>
+            </Link>
+          </li>
+          <li className="dropdown-menu">
+            <Link
+              to="/cart-list"
+              className="dropdown-menu-link"
+              onClick={isDropDownActive}
+            >
+              <span className="icon">
+                <CartIcon />
+              </span>
+              <p className="link-text">Cart</p>
+              <p className="cart-items">{itemCount}</p>
+            </Link>
+          </li>
+          <li className="dropdown-menu">
+            <a href="#" className="dropdown-menu-link">
+              <span className="icon">
+                <LogoutIcon />
+              </span>
+              <p className="link-text">Logout</p>
+            </a>
+          </li>
+        </ul>
+      </article>
       <span className="down-arrow-icon">
         <DownArrow />
       </span>

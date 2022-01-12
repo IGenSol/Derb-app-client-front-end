@@ -39,7 +39,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/camera",
     comments: [
       {
         name: "Jahangir Khan",
@@ -84,7 +84,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/cream",
     comments: [
       {
         name: "Jahangir Khan",
@@ -129,7 +129,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/speaker",
     comments: [
       {
         name: "Jahangir Khan",
@@ -174,7 +174,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/watch",
     comments: [
       {
         name: "Jahangir Khan",
@@ -219,7 +219,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/camera",
     comments: [
       {
         name: "Jahangir Khan",
@@ -264,7 +264,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/cream",
     comments: [
       {
         name: "Jahangir Khan",
@@ -309,7 +309,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/speaker",
     comments: [
       {
         name: "Jahangir Khan",
@@ -354,7 +354,7 @@ export const trendingProductsData = [
     imageAlt: "Camera Image",
     profilePic: "./images/users/user-four.jpg",
     profileAlt: "User Image",
-    idUrl: "#",
+    url: "/show-case/watch",
     comments: [
       {
         name: "Jahangir Khan",

@@ -20,6 +20,15 @@ export const ShowCaseStyle = styled.main`
     @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
       flex-direction: column;
     }
+
+    .product-placeholder {
+      display: block;
+      width: 60rem;
+
+      .product-image {
+        max-width: 100%;
+      }
+    }
   }
 `;
 
@@ -39,6 +48,7 @@ export const ProductDetailStyle = styled.article`
 
       .heading {
         font-weight: ${(p) => p.theme.fontWeights.bold};
+        text-transform: uppercase;
       }
 
       .price {
@@ -53,7 +63,7 @@ export const ProductFooterStyle = styled.article`
   margin-top: 8rem;
 
   .product-properties {
-    ${CommonGridStyle({ align: "flex-start", columnGap: "10.4rem" })};
+    ${FlexboxStyle};
 
     .heading {
       font-weight: ${(p) => p.theme.fontWeights.bold};

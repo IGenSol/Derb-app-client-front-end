@@ -1,6 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Collapse, Switch } from "antd";
 import axios from "axios";
+import {
+  GoogleMap,
+  withGoogleMap,
+  withScriptjs,
+  Marker,
+} from "react-google-maps";
+
+import MapModel from "../../components/MapModel/MapModel";
+import { getLat, getLng, setLatLong } from "../../utils/Common";
+import { products } from "../../App";
 
 import {
   CheckoutStyle,
@@ -11,8 +21,17 @@ import {
   PersonalDetailsStyle,
 } from "./Checkout.style";
 
-const ItemList = () => {
-  const cartItems = JSON.parse(localStorage.getItem("products"));
+const ItemList = (props) => {
+  const { cartItems } = props;
+  const itemsPrice = cartItems.reduce(
+    (accumaltor, currentItem) =>
+      accumaltor + currentItem.productPrice * currentItem.qty,
+    0
+  );
+
+  const taxPrice = itemsPrice * 0.14;
+  const shippingPrice = itemsPrice > 2000 ? 0 : 50;
+  const totalPrice = itemsPrice + taxPrice + shippingPrice;
 
   return (
     <ItemListStyle>
@@ -20,17 +39,17 @@ const ItemList = () => {
 
       <article className="order-wrapper">
         {cartItems &&
-          Object.values(cartItems).map((items, index) => {
+          cartItems.map((items, index) => {
             return (
               <article className="order">
                 <h3 className="quantity">
-                  <b>3</b> X
+                  <b>{items.qty}</b> X
                 </h3>
                 <article className="order-details">
-                  <h3 className="order-name">{items.heading}</h3>
+                  <h3 className="order-name">{items.productName}</h3>
                   <p className="description">{items.description}</p>
                 </article>
-                <h3 className="price">$ {items.price}</h3>
+                <h3 className="price">$ {items.productPrice}</h3>
               </article>
             );
           })}
@@ -42,21 +61,21 @@ const ItemList = () => {
         <article className="deals-details">
           <article className="deals-charges">
             <h3>Subtotal</h3>
-            <h3>$125</h3>
+            <h3>${itemsPrice}</h3>
           </article>
           <article className="deals-charges">
             <h3>Delivery Fee</h3>
-            <h3>$5,00</h3>
+            <h3>${shippingPrice}</h3>
           </article>
           <article className="deals-charges">
             <h3>GST</h3>
-            <h3>$10</h3>
+            <h3>${taxPrice.toFixed(2)}</h3>
           </article>
         </article>
 
         <article className="grand-total">
           <h3>Total (incl.GST)</h3>
-          <h3>$1234</h3>
+          <h3>${totalPrice}</h3>
         </article>
       </article>
     </ItemListStyle>
@@ -77,11 +96,12 @@ const PaymentPopup = (props) => {
   );
 };
 
-const PaymentDetails = () => {
+const PaymentDetails = (props) => {
+  const { cartItems, totalPrice } = props;
   const { Panel } = Collapse;
   const [product, setProduct] = useState({
-    name: "Pasta",
-    price: 50,
+    name: cartItems,
+    price: totalPrice,
     productby: "Jahangir",
   });
 
@@ -210,8 +230,22 @@ const PersonalDetails = () => {
   );
 };
 
+const Map = (props) => {
+  const latData = getLat();
+  const lngData = getLng();
+
+  return (
+    <GoogleMap defaultZoom={10} defaultCenter={{ lat: latData, lng: lngData }}>
+      <Marker position={{ lat: latData, lng: lngData }} />
+    </GoogleMap>
+  );
+};
+
+const WrappedMap = withScriptjs(withGoogleMap(Map));
+
 const DeliveryDetails = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const getAddress = JSON.parse(sessionStorage.getItem("address"));
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -257,30 +291,32 @@ const DeliveryDetails = () => {
         <label className="heading">Deliver address</label>
 
         <article className="map-container">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3322.919416989022!2d73.06177221544917!3d33.607395248487904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df94962c0f02f5%3A0x854ef5e28ff4857c!2sRoyalton%20Hotel%20-%20Rawalpindi!5e0!3m2!1sen!2s!4v1640176619191!5m2!1sen!2s"
-            width="100%"
-            height="300"
-            loading="lazy"
-          ></iframe>
+          <WrappedMap
+            googleMapURL={
+              "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDy-XbDbZylrWFPmTl4JnEpOTKgXvbPZXY"
+            }
+            loadingElement={<div style={{ height: "100%" }} />}
+            containerElement={<div style={{ height: "100%" }} />}
+            mapElement={<div style={{ height: "100%" }} />}
+          />
         </article>
 
         <article className="address-info-wrapper">
           <article className="address-container">
             <article className="address-details">
               <h3 className="zip-code">2206</h3>
-              <h3 className="place-name">Rawalpindi</h3>
+              <h3 className="place-name">{getAddress}</h3>
             </article>
 
             <article className="map-modal">
               <button className="edit-modal" onClick={showModal}>
                 Edit
               </button>
-              {/* <MapModal
+              <MapModel
                 isModalVisible={isModalVisible}
                 handleOk={handleOk}
                 handleCancel={handleCancel}
-              /> */}
+              />
             </article>
           </article>
 
@@ -320,6 +356,17 @@ const DeliveryDetails = () => {
 
 function Checkout() {
   const { Panel } = Collapse;
+  const product = useContext(products);
+  const { cartItems } = product;
+  const itemsPrice = cartItems.reduce(
+    (accumaltor, currentItem) =>
+      accumaltor + currentItem.productPrice * currentItem.qty,
+    0
+  );
+
+  const taxPrice = itemsPrice * 0.14;
+  const shippingPrice = itemsPrice > 2000 ? 0 : 50;
+  const totalPrice = itemsPrice + taxPrice + shippingPrice;
   return (
     <CheckoutStyle>
       <Collapse defaultActiveKey={["1"]} className="details-wrapper">
@@ -356,10 +403,10 @@ function Checkout() {
           }
           key="3"
         >
-          <PaymentDetails />
+          <PaymentDetails {...product} totalPrice={totalPrice} />
         </Panel>
       </Collapse>
-      <ItemList />
+      <ItemList {...product} />
     </CheckoutStyle>
   );
 }
