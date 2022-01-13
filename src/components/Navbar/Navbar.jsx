@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { products } from "../../App";
 
 import { menubarItems } from "../../mockData/navbarData";
@@ -10,15 +11,23 @@ import {
   SearchIcon,
   UserIcon,
 } from "../../svgs";
+import { removeUserSession } from "../../utils/Common";
 
 import { NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
   const [dropdown, setDropDown] = useState(false);
   const itemCount = useContext(products);
 
   const isDropDownActive = () => {
     setDropDown(!dropdown);
+  };
+
+  const handleLogout = () => {
+    isDropDownActive();
+    window.location.reload();
+    removeUserSession();
+    props.history.push("/login");
   };
 
   return (
@@ -60,12 +69,12 @@ const UserProfile = () => {
             </Link>
           </li>
           <li className="dropdown-menu">
-            <a href="#" className="dropdown-menu-link">
+            <button onClick={handleLogout} className="dropdown-menu-link">
               <span className="icon">
                 <LogoutIcon />
               </span>
               <p className="link-text">Logout</p>
-            </a>
+            </button>
           </li>
         </ul>
       </article>
@@ -95,7 +104,7 @@ const SiteMenu = () => {
   );
 };
 
-function Navbar() {
+function Navbar(props) {
   return (
     <NavbarStyle>
       <section className="navbar-container">
@@ -121,10 +130,10 @@ function Navbar() {
         </article>
 
         <SiteMenu />
-        <UserProfile />
+        <UserProfile {...props} />
       </section>
     </NavbarStyle>
   );
 }
 
-export default Navbar;
+export default withRouter(Navbar);

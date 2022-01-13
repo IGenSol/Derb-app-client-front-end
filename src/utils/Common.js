@@ -21,13 +21,15 @@ export const getToken = () => {
   return sessionStorage.getItem("token") || null;
 };
 
-export const setUserSession = (token, fname, lname, userId) => {
+export const setUserSession = (token, fname, lname, userId, email, mobile) => {
   //set user infromation in session storage
 
   sessionStorage.setItem("token", token);
   sessionStorage.setItem("fname", JSON.stringify(fname));
   sessionStorage.setItem("lname", JSON.stringify(lname));
   sessionStorage.setItem("userId", userId);
+  sessionStorage.setItem("email", email);
+  sessionStorage.setItem("mobile", mobile);
 };
 
 export const removeUserSession = () => {

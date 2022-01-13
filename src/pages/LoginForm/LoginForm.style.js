@@ -13,7 +13,8 @@ export const LoginFormstyle = styled.main`
   ${CommonSpacing};
   ${CommonGridStyle({ columns: "1fr 1fr", align: "flex-start" })};
 
-  margin-top: 3rem;
+  height: 100vh;
+  place-items: center;
 
   .account-logo {
     width: 35rem;

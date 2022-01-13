@@ -44,7 +44,6 @@ function MapModel(props) {
 
   const onAddresSubmit = () => {
     sessionStorage.setItem("address", JSON.stringify(address));
-
     window.location.reload();
   };
 

@@ -25,6 +25,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import { trendingItems } from "./mockData/trendingItems";
 
 export const products = createContext();
+const user = getToken();
 
 const getProducts = () => {
   const products = JSON.parse(localStorage.getItem("products"));
@@ -81,7 +82,7 @@ function App() {
       <ThemeProvider theme={THEMES}>
         <GlobalStyle />
         <products.Provider value={cartItems.length}>
-          <Navbar />
+          {user && <Navbar />}
         </products.Provider>
         <Switch>
           <products.Provider

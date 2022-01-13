@@ -54,6 +54,48 @@ export const DeliveryDetailsStyle = styled.article`
     }
   }
 
+  .search-location {
+    ${FlexboxStyle};
+
+    position: relative;
+    margin-top: 1rem;
+
+    .custom-container {
+      width: 100%;
+      padding: 1.4rem;
+      border-radius: 0.5rem 0 0 0.5rem;
+      border: 0.1rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
+
+      outline: none;
+    }
+
+    .search-button {
+      background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+      color: ${({ theme }) => theme.colors.WHITE_COLOR};
+
+      padding: 1.5rem;
+      border: none;
+
+      cursor: pointer;
+    }
+
+    .dropdown-list {
+      position: absolute;
+      top: 6rem;
+      left: 1rem;
+
+      width: 100%;
+
+      background: ${({ theme }) => theme.colors.WHITE_COLOR};
+      z-index: 2;
+      cursor: pointer;
+
+      .place-suggestion {
+        padding: 1rem;
+      }
+    }
+  }
+
   .label-wrapper {
     ${FlexboxStyle};
 

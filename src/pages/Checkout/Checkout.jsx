@@ -1,4 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import PlacesAutocomplete from "react-places-autocomplete/dist/PlacesAutocomplete";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { Collapse, Switch } from "antd";
 import axios from "axios";
 import {
@@ -8,7 +10,6 @@ import {
   Marker,
 } from "react-google-maps";
 
-import MapModel from "../../components/MapModel/MapModel";
 import { getLat, getLng, setLatLong } from "../../utils/Common";
 import { products } from "../../App";
 
@@ -83,14 +84,9 @@ const ItemList = (props) => {
 };
 
 const PaymentPopup = (props) => {
-  const { stripeKey, token, amount, shippingAddress } = props;
+  const { stripeKey, token, amount } = props;
   return (
-    <PaymentPopupStyle
-      stripeKey={stripeKey}
-      token={token}
-      amount={amount}
-      shippingAddress
-    >
+    <PaymentPopupStyle stripeKey={stripeKey} token={token} amount={amount}>
       <button className="place-order-button">Place Order</button>
     </PaymentPopupStyle>
   );
@@ -98,6 +94,10 @@ const PaymentPopup = (props) => {
 
 const PaymentDetails = (props) => {
   const { cartItems, totalPrice } = props;
+  const address = JSON.parse(sessionStorage.getItem("address"));
+  const user = JSON.parse(sessionStorage.getItem("fname"));
+  const email = sessionStorage.getItem("email");
+  const mobile = sessionStorage.getItem("mobile");
   const { Panel } = Collapse;
   const [product, setProduct] = useState({
     name: cartItems,
@@ -111,6 +111,10 @@ const PaymentDetails = (props) => {
     const body = {
       token,
       product,
+      address,
+      user,
+      email,
+      mobile,
     };
     const headers = {
       "Content-Type": "application/json",
@@ -126,6 +130,8 @@ const PaymentDetails = (props) => {
       })
       .catch((err) => console.log(err));
   };
+
+  const stripKey = "pk_test_TYooMQauvdEDq54NiTphI7jx";
 
   return (
     <PaymentDetailsStyle>
@@ -144,10 +150,9 @@ const PaymentDetails = (props) => {
         </p>
 
         <PaymentPopup
-          stripeKey={process.env.REACT_APP_KEY}
+          stripeKey={stripKey}
           token={makePayments}
           amount={product.price * 100}
-          shippingAddress
         />
 
         <p className="description">
@@ -164,20 +169,24 @@ const PaymentDetails = (props) => {
 const PersonalDetails = () => {
   const [editInput, setEditInput] = useState(false);
 
+  const user = JSON.parse(sessionStorage.getItem("fname"));
+  const email = sessionStorage.getItem("email");
+  const mobile = sessionStorage.getItem("mobile");
+
   return (
     <PersonalDetailsStyle>
       <section className="section-header">
         <h2 className="section-title">Personal details</h2>
-        <button
+        {/* <button
           className="edit-button"
           onClick={() => setEditInput(!editInput)}
         >
           {editInput ? "Cancel" : "Edit"}
-        </button>
+        </button> */}
       </section>
 
       <article className="form-details">
-        {editInput ? (
+        {/* {editInput ? (
           <form className="form-container">
             <article className="input-container">
               <label className="heading">Email</label>
@@ -224,18 +233,30 @@ const PersonalDetails = () => {
             <h3 className="email">jahangirjay5@gmail.com</h3>
             <h3 className="number">+92 311 5506699</h3>
           </article>
-        )}
+        )} */}
+
+        <article className="customer-details">
+          <h3 className="name">{user}</h3>
+          <h3 className="email">{email}</h3>
+          <h3 className="number">{mobile}</h3>
+        </article>
       </article>
     </PersonalDetailsStyle>
   );
 };
 
-const Map = (props) => {
+const Map = () => {
   const latData = getLat();
   const lngData = getLng();
 
   return (
-    <GoogleMap defaultZoom={10} defaultCenter={{ lat: latData, lng: lngData }}>
+    <GoogleMap
+      defaultZoom={10}
+      defaultCenter={{
+        lat: latData,
+        lng: lngData,
+      }}
+    >
       <Marker position={{ lat: latData, lng: lngData }} />
     </GoogleMap>
   );
@@ -246,6 +267,23 @@ const WrappedMap = withScriptjs(withGoogleMap(Map));
 const DeliveryDetails = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const getAddress = JSON.parse(sessionStorage.getItem("address"));
+  const [address, setAddress] = useState("");
+
+  const handleSelect = async (value) => {
+    const result = await geocodeByAddress(value);
+    const latLang = await getLatLng(result[0]);
+
+    setLatLong(latLang.lat, latLang.lng);
+  };
+
+  useEffect(() => {
+    setAddress(getAddress);
+  }, []);
+
+  const onLoad = () => {
+    sessionStorage.setItem("address", JSON.stringify(address));
+    window.location.reload();
+  };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -265,7 +303,49 @@ const DeliveryDetails = () => {
         <h2 className="section-title">Dilvery details</h2>
       </article>
 
-      <article className="label-wrapper">
+      <PlacesAutocomplete
+        // apiKey="AIzaSyDy-XbDbZylrWFPmTl4JnEpOTKgXvbPZXY"
+        value={address}
+        onChange={setAddress}
+        onSelect={handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <article className="search-location">
+            <input
+              {...getInputProps({ placeholder: "Enter your address" })}
+              type="text"
+              className="custom-container"
+              name="search"
+            />
+
+            <button className="search-button" onClick={onLoad}>
+              Search
+            </button>
+
+            <article className="dropdown-list">
+              {loading ? <div>...Loading</div> : null}
+
+              {suggestions &&
+                suggestions.map((suggestion) => {
+                  const style = {
+                    backgroundColor: suggestion.active ? "#ffb602" : "#fff",
+                  };
+
+                  return (
+                    <article
+                      className="place-suggestion"
+                      {...getSuggestionItemProps(suggestion, { style })}
+                    >
+                      {suggestion.description}
+                    </article>
+                  );
+                })}
+            </article>
+          </article>
+        )}
+      </PlacesAutocomplete>
+
+      {/* <article className="label-wrapper">
         <article className="label-details">
           <h3 className="heading">Contactless delivery</h3>
           <h4 className="description">Contactless delivery</h4>
@@ -285,23 +365,25 @@ const DeliveryDetails = () => {
             <option value="">ASAP</option>
           </select>
         </article>
-      </article>
+      </article> */}
 
       <article className="delivery-address-wrapper">
-        <label className="heading">Deliver address</label>
+        {getAddress && <label className="heading">Deliver address</label>}
 
-        <article className="map-container">
-          <WrappedMap
-            googleMapURL={
-              "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDy-XbDbZylrWFPmTl4JnEpOTKgXvbPZXY"
-            }
-            loadingElement={<div style={{ height: "100%" }} />}
-            containerElement={<div style={{ height: "100%" }} />}
-            mapElement={<div style={{ height: "100%" }} />}
-          />
-        </article>
+        {getAddress && (
+          <article className="map-container">
+            <WrappedMap
+              googleMapURL={
+                "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDy-XbDbZylrWFPmTl4JnEpOTKgXvbPZXY"
+              }
+              loadingElement={<div style={{ height: "100%" }} />}
+              containerElement={<div style={{ height: "100%" }} />}
+              mapElement={<div style={{ height: "100%" }} />}
+            />
+          </article>
+        )}
 
-        <article className="address-info-wrapper">
+        {/* <article className="address-info-wrapper">
           <article className="address-container">
             <article className="address-details">
               <h3 className="zip-code">2206</h3>
@@ -318,9 +400,9 @@ const DeliveryDetails = () => {
                 handleCancel={handleCancel}
               />
             </article>
-          </article>
+          </article> */}
 
-          <article className="missing-street-wrapper">
+        {/* <article className="missing-street-wrapper">
             <label className="heading">We're missing your street</label>
             <input
               type="text"
@@ -345,11 +427,11 @@ const DeliveryDetails = () => {
             cols="30"
             className="custom-input"
             rows="5"
-          ></textarea>
-        </article>
+          ></textarea> */}
+        {/* </article> */}
       </article>
 
-      <button className="submit-button">Submit</button>
+      {/* <button className="submit-button">Submit</button> */}
     </DeliveryDetailsStyle>
   );
 };

@@ -163,14 +163,19 @@ const Login = (props) => {
       })
       .then((res) => {
         setLoading(false);
+        console.log(res);
         if (res.data.message == "Login successfully") {
           setUserSession(
             res.data.token,
             res.data.data.first_name,
             res.data.data.last_name,
-            res.data.data.id
+            res.data.data.id,
+            res.data.data.email,
+            res.data.data.mobile
           );
           props.history.push("/dashboard");
+
+          window.location.reload();
         } else {
           setError(res.data.message);
         }

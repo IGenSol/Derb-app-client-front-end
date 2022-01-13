@@ -171,6 +171,11 @@ export const UserProfileStyle = styled.article`
           ${FlexboxStyle({ justify: "flex-start" })};
 
           padding: 0.5rem;
+          background: none;
+          border: none;
+
+          cursor: pointer;
+          width: 100%;
           transition: ${({ theme }) => theme.transitions.customTransition};
 
           &:hover {
