@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import { products } from "../../App";
+import {
+  CartIcon,
+  DownArrow,
+  LogoutIcon,
+  SearchIcon,
+  UserIcon,
+} from "../../svgs";
+import { removeUserSession } from "../../utils/Common";
 
 
 import { menubarItems } from "../../mockData/navbarData";
-import { DownArrow, SearchIcon, UploadImageIcon } from "../../svgs";
+// import { SearchIcon, UploadImageIcon } from "../../svgs";
 
 import { Imagestyle, Modelstyle, NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
 
@@ -53,6 +62,7 @@ const AddPost = (props) => {
             </label>
           </Imagestyle>
 
+
         </article>
         <article>
           <button className="add-post-btn">Add Post</button>
@@ -66,29 +76,69 @@ const AddPost = (props) => {
   );
 }
 
-const UserProfile = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+const UserProfile = (props) => {
+  const [dropdown, setDropDown] = useState(false);
+  const itemCount = useContext(products);
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const isDropDownActive = () => {
+    setDropDown(!dropdown);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
+  const handleLogout = () => {
+    isDropDownActive();
+    window.location.reload();
+    removeUserSession();
+    props.history.push("/login");
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
   return (
-    <UserProfileStyle>
-      <Link to="/dashboard" className="user-profile-placeholder-wrapper">
-        <img
-          src="/images/icons/user-icon.png"
-          alt="Profile Placeholder"
-          className="user-profile-placeholder"
-        />
-      </Link>
+    <UserProfileStyle dropdownActive={dropdown}>
+      <article className="user-profile-placeholder-wrapper">
+        <picture className="user-placeholder" onClick={isDropDownActive}>
+          <img
+            src="/images/icons/user-icon.png"
+            alt="Profile Placeholder"
+            className="user-profile-placeholder"
+          />
+          <div className="cart-item">{itemCount}</div>
+        </picture>
+
+        <ul className="dropdown-menu-wrapper">
+          <li className="dropdown-menu">
+            <Link
+              to="/dashboard"
+              className="dropdown-menu-link"
+              onClick={isDropDownActive}
+            >
+              <span className="icon">
+                <UserIcon />
+              </span>
+              <p className="link-text">Profile</p>
+            </Link>
+          </li>
+          <li className="dropdown-menu">
+            <Link
+              to="/cart-list"
+              className="dropdown-menu-link"
+              onClick={isDropDownActive}
+            >
+              <span className="icon">
+                <CartIcon />
+              </span>
+              <p className="link-text">Cart</p>
+              <p className="cart-items">{itemCount}</p>
+            </Link>
+          </li>
+          <li className="dropdown-menu">
+            <button onClick={handleLogout} className="dropdown-menu-link">
+              <span className="icon">
+                <LogoutIcon />
+              </span>
+              <p className="link-text">Logout</p>
+            </button>
+          </li>
+        </ul>
+      </article>
       <span className="down-arrow-icon">
         <DownArrow />
       </span>
@@ -118,7 +168,7 @@ const SiteMenu = () => {
   );
 };
 
-function Navbar() {
+function Navbar(props) {
   return (
     <NavbarStyle>
       <section className="navbar-container">
@@ -144,10 +194,10 @@ function Navbar() {
         </article>
 
         <SiteMenu />
-        <UserProfile />
+        <UserProfile {...props} />
       </section>
     </NavbarStyle>
   );
 }
 
-export default Navbar;
+export default withRouter(Navbar);

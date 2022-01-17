@@ -6,6 +6,7 @@ import {
   CustomContainer,
   FlexboxStyle,
 } from "../../style/commomStyle";
+import { Modal } from "antd";
 
 export const UserProfileStyle = styled.main`
   ${CommonSpacing};
@@ -144,6 +145,87 @@ export const ProfileTabsStyle = styled.section`
         ${CommonGridStyle};
 
         padding: 3rem 1rem;
+      }
+    }
+  }
+`;
+
+export const ProfileModalStyle = styled(Modal)`
+  .profile-form {
+    ${CommonGridStyle({ columns: "1fr 2fr", columnGap: "10rem" })}
+
+    @media (max-width: ${({ theme }) => theme.breakPoints.largeDevices}) {
+      grid-template-columns: 1fr;
+    }
+
+    .profile-detail-wrapper {
+      text-align: center;
+
+      #upload-image {
+        display: none;
+      }
+
+      .image-placeholder {
+        width: 30rem;
+        height: 30rem;
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        @media (max-width: ${({ theme }) => theme.breakPoints.largeDevices}) {
+          width: 20rem;
+          height: 20rem;
+        }
+      }
+    }
+
+    .profile-form-data {
+      .form-title {
+        font-weight: 700;
+      }
+
+      .form-details {
+        ${CommonGridStyle({ columns: "1fr 1fr", columnGap: "1rem" })};
+
+        margin: 1rem 0;
+
+        .form-content {
+          label {
+            display: block;
+            margin-bottom: 1rem;
+          }
+
+          .custom-input {
+            width: 100%;
+            padding: 1rem;
+            border: 0.1rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
+            border-radius: 0.5rem;
+            outline: none;
+          }
+
+          &:last-child {
+            grid-column: 1/-1;
+          }
+        }
+      }
+
+      .form-footer {
+        ${FlexboxStyle({ justify: "flex-end" })};
+
+        button {
+          width: 11rem;
+          padding: 1rem 1.5rem;
+          margin-left: 1rem;
+          border: none;
+          border-radius: 0.3rem;
+
+          cursor: pointer;
+
+          &.update-button {
+            background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+            color: ${({ theme }) => theme.colors.WHITE_COLOR};
+          }
+        }
       }
     }
   }

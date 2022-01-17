@@ -1,8 +1,9 @@
 export const getUser = () => {
   //to return User Informtation
 
-  const userStr = sessionStorage.getItem("user");
-  if (userStr) return JSON.parse(userStr);
+  const fname = sessionStorage.getItem("fname");
+  const lname = sessionStorage.getItem("lname");
+  if (fname && lname) return JSON.parse(lname, fname);
   else return null;
 };
 
@@ -20,18 +21,43 @@ export const getToken = () => {
   return sessionStorage.getItem("token") || null;
 };
 
-export const setUserSession = (token, user, userId) => {
+export const setUserSession = (token, fname, lname, userId, email, mobile) => {
   //set user infromation in session storage
 
   sessionStorage.setItem("token", token);
-  sessionStorage.setItem("user", JSON.stringify(user));
+  sessionStorage.setItem("fname", JSON.stringify(fname));
+  sessionStorage.setItem("lname", JSON.stringify(lname));
   sessionStorage.setItem("userId", userId);
+  sessionStorage.setItem("email", email);
+  sessionStorage.setItem("mobile", mobile);
 };
 
 export const removeUserSession = () => {
   //To remoove the user from session storage.
 
   sessionStorage.removeItem("token");
-  sessionStorage.removeItem("user");
+  sessionStorage.removeItem("fname");
+  sessionStorage.removeItem("lname");
   sessionStorage.removeItem("userId");
+};
+
+export const getLat = () => {
+  const lat = sessionStorage.getItem("lat");
+
+  if (lat) {
+    return JSON.parse(lat);
+  } else return null;
+};
+
+export const getLng = () => {
+  const lng = sessionStorage.getItem("lng");
+
+  if (lng) {
+    return JSON.parse(lng);
+  } else return null;
+};
+
+export const setLatLong = (lat, lng) => {
+  sessionStorage.setItem("lat", lat);
+  sessionStorage.setItem("lng", lng);
 };

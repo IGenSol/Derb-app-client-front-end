@@ -1,11 +1,12 @@
-import styled from 'styled-components';
+import Modal from "antd/lib/modal/Modal";
+import styled from "styled-components";
 
 import {
   CommonButton,
   CommonGridStyle,
   CommonSpacing,
   FlexboxStyle,
-} from '../../../../style/commomStyle';
+} from "../../../../style/commomStyle";
 
 export const ProfileStyle = styled.main`
   ${CommonSpacing};
@@ -149,6 +150,26 @@ export const ProfileDetailsStyle = styled.section`
     }
   }
 
+  .profile-header {
+    ${FlexboxStyle};
+
+    .heading {
+      margin: 0;
+    }
+
+    .more-option-button {
+      background: none;
+      border: none;
+
+      cursor: pointer;
+
+      > svg {
+        width: 2rem;
+        fill: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+      }
+    }
+  }
+
   .heading {
     font-size: 1.8rem;
     font-weight: 600;
@@ -190,5 +211,34 @@ export const ProfileDetailsStyle = styled.section`
     ${CommonButton({ padding: "1rem" })};
 
     margin-top: 1rem;
+  }
+`;
+
+export const UpdateProfileModalStyle = styled(Modal)`
+  .custom-input {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    background: ${({ theme }) => theme.colors.FADE_COLOR};
+  }
+
+  .modal-footer {
+    margin-bottom: 1rem;
+
+    button {
+      padding: 1rem;
+      width: 100%;
+      border-radius: 0.4rem;
+      border: none;
+      margin-top: 1rem;
+
+      cursor: pointer;
+
+      &.update-button {
+        background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+        color: ${({ theme }) => theme.colors.WHITE_COLOR};
+      }
+    }
   }
 `;

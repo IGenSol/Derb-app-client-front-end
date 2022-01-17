@@ -41,6 +41,10 @@ export const NavbarStyle = styled.nav`
       flex: 1;
       position: relative;
 
+      @media (max-width: ${({ theme }) => theme.breakPoints.smallDevices}) {
+        display: none;
+      }
+
       .site-searchbar {
         background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
         padding: 1.7rem;
@@ -118,10 +122,100 @@ export const UserProfileStyle = styled.article`
   ${FlexboxStyle};
 
   .user-profile-placeholder-wrapper {
+    position: relative;
     display: block;
 
-    .user-profile-placeholder {
-      width: 4rem;
+    .user-placeholder {
+      position: relative;
+
+      cursor: pointer;
+
+      .user-profile-placeholder {
+        width: 4rem;
+      }
+
+      .cart-item {
+        ${FlexboxStyle({ justify: "center" })};
+
+        position: absolute;
+        top: 1rem;
+        right: -1rem;
+
+        background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+
+        width: 2rem;
+        height: 2rem;
+
+        border-radius: 50%;
+      }
+    }
+
+    .dropdown-menu-wrapper {
+      position: absolute;
+      top: 5rem;
+      left: 0;
+
+      background: ${({ theme }) => theme.colors.WHITE_COLOR};
+      box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+      list-style: none;
+      border-radius: 1rem;
+
+      padding: 1rem;
+      width: 15rem;
+
+      display: ${(props) => (props.dropdownActive ? "block" : "none")};
+
+      .dropdown-menu {
+        margin-bottom: 1.5rem;
+
+        .dropdown-menu-link {
+          ${FlexboxStyle({ justify: "flex-start" })};
+
+          padding: 0.5rem;
+          background: none;
+          border: none;
+
+          cursor: pointer;
+          width: 100%;
+          transition: ${({ theme }) => theme.transitions.customTransition};
+
+          &:hover {
+            background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+
+            .icon {
+              > svg {
+                fill: ${({ theme }) => theme.colors.DARK_COLOR};
+              }
+            }
+          }
+
+          .icon {
+            transition: ${({ theme }) => theme.transitions.customTransition};
+
+            > svg {
+              fill: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+              width: 1.5rem;
+              margin-right: 1rem;
+            }
+          }
+
+          .link-text {
+            color: ${({ theme }) => theme.colors.DARK_COLOR};
+          }
+
+          .cart-items {
+            ${FlexboxStyle({ justify: "center" })};
+
+            background: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+            color: ${({ theme }) => theme.colors.WHITE_COLOR};
+
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.5rem;
+            margin-left: 1rem;
+          }
+        }
+      }
     }
   }
 

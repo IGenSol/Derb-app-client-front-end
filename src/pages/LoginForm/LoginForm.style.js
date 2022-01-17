@@ -13,7 +13,8 @@ export const LoginFormstyle = styled.main`
   ${CommonSpacing};
   ${CommonGridStyle({ columns: "1fr 1fr", align: "flex-start" })};
 
-  margin-top: 3rem;
+  height: 100vh;
+  place-items: center;
 
   .account-logo {
     width: 35rem;
@@ -149,6 +150,21 @@ export const Signupstyle = styled.main`
       border: none;
       outline: none;
       border-radius: 0.5rem;
+    }
+
+    .select-user-input {
+      background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
+
+      border: none;
+      width: 100%;
+      padding: 2rem 1rem;
+      outline: none;
+
+      cursor: pointer;
+
+      option {
+        padding: 1rem;
+      }
     }
   }
 

@@ -72,7 +72,6 @@ function Order() {
           })}
         </tbody>
       </table>
-
     </OrderStyle>
   );
 }
