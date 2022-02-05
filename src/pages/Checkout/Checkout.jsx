@@ -105,7 +105,7 @@ const PaymentDetails = (props) => {
     productby: "Jahangir",
   });
 
-  const url = "";
+  const url = "/api/stripe";
 
   const makePayments = async (token) => {
     const body = {
@@ -303,7 +303,7 @@ const DeliveryDetails = () => {
         <h2 className="section-title">Dilvery details</h2>
       </article>
 
-      <PlacesAutocomplete
+      {/* <PlacesAutocomplete
         // apiKey="AIzaSyDy-XbDbZylrWFPmTl4JnEpOTKgXvbPZXY"
         value={address}
         onChange={setAddress}
@@ -343,7 +343,7 @@ const DeliveryDetails = () => {
             </article>
           </article>
         )}
-      </PlacesAutocomplete>
+      </PlacesAutocomplete> */}
 
       {/* <article className="label-wrapper">
         <article className="label-details">

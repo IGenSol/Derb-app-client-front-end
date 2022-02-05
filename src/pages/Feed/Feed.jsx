@@ -19,7 +19,7 @@ function Feed() {
     const formData = new FormData();
 
     formData.append("post_description", postText);
-    formData.append("picture_url", picture);
+    formData.append("post_image", picture);
     formData.append("user_id", userId);
 
     console.log(formData);
