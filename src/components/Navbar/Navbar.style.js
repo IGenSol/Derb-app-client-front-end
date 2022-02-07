@@ -152,7 +152,7 @@ export const UserProfileStyle = styled.article`
     .dropdown-menu-wrapper {
       position: absolute;
       top: 5rem;
-      left: 0;
+      left: -9rem;
 
       background: ${({ theme }) => theme.colors.WHITE_COLOR};
       box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
@@ -169,12 +169,11 @@ export const UserProfileStyle = styled.article`
 
         .dropdown-menu-link {
           ${FlexboxStyle({ justify: "flex-start" })};
-
+          cursor: pointer;
           padding: 0.5rem;
           background: none;
           border: none;
 
-          cursor: pointer;
           width: 100%;
           transition: ${({ theme }) => theme.transitions.customTransition};
 
@@ -220,6 +219,7 @@ export const UserProfileStyle = styled.article`
 
   .down-arrow-icon {
     margin-left: 1rem;
+    cursor: pointer;
 
     > svg {
       fill: ${(p) => p.theme.colors.SILVER_SAND_COlOR};

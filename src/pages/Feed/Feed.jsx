@@ -3,48 +3,164 @@ import axios from "axios";
 
 import Card from "../../components/Card/Card";
 import { followingProfiles, profiles } from "../../mockData/discoverData";
-import { CameraIcon, FileIcon, VideoIcon } from "../../svgs";
+import { CameraIcon, CrossIcon, FileIcon, VideoIcon } from "../../svgs";
 import { getUserId } from "../../utils/Common";
 
-import { FeedStyle } from "./Feed.style";
+import { FeedStyle, Modelstyle } from "./Feed.style";
 
-function Feed() {
-  const [postText, setPostText] = useState("");
-  const [picture, setPicture] = useState("");
-  const [postsData, setPostsData] = useState([]);
-  const userId = getUserId();
-  const url = "http://localhost:5000/api/posts";
+
+
+const Modal = ({ handleClose }) => {
+  const [description, setdescription] = useState("")
+  const [image, setImage] = useState([]);
+  const [postimage, setpostimage] = useState([]);
+
+  const userId = sessionStorage.getItem("userId")
+
+  const filehandler = (e) => {
+    setImage(e.target.files[0]);
+
+    if (e.target.files.length !== 0) {
+      setpostimage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const url = `${process.env.REACT_APP_BASE_URL}/posts`
+
+  const [videoSrc, seVideoSrc] = useState("");
+
+  const handleChange = (e) => {
+    var reader = new FileReader();
+    // var url = URL.createObjectURL(e.originFileObj);
+    // seVideoSrc(url);
+  };
+
+  const formData = new FormData();
+  formData.append("post_description", description);
+  formData.append("post_image", image);
+  formData.append("user_id", userId);
+
+  for (var value of formData.values()) {
+    console.log(value);
+  }
+
 
   const feedPost = () => {
-    const formData = new FormData();
-
-    formData.append("post_description", postText);
-    formData.append("post_image", picture);
-    formData.append("user_id", userId);
-
-    console.log(formData);
-
-    axios
-      .post(url, formData)
+    axios.post(url, formData)
       .then((res) => {
-        alert("Successfully Posted");
-        setPostText = "";
-        setPicture = "";
+        alert("Successfully Posted")
       })
       .catch((err) => {
-        console.log(`error >> ${err}`);
+        alert(`error >> ${err}`)
       });
   };
 
+
+  return (
+    <Modelstyle>
+      <div className="modal display-block">
+        <section className="modal-main">
+
+          <div className="container">
+            <p className="heading">Create Post</p>
+            <article className="cancel" onClick={handleClose}><CrossIcon /></article>
+          </div>
+          <hr className="mb-3"></hr>
+          <article className="textbox">
+            <textarea
+              name="Post"
+              rows="3"
+              placeholder="Share Your thoughts.."
+              // value={postText}
+              onChange={(e) => setdescription(e.target.value)}
+            ></textarea>
+
+          </article>
+
+          <div className="imagecontainer">
+            {image &&
+              <img className="preview-image" src={postimage}></img>
+            }
+            {/* <Player
+              playsInline
+              src={videoSrc}
+              fluid={false}
+              width={480}
+              height={272}
+            /> */}
+          </div>
+          <article className="add-post-footer my-3">
+            <label htmlFor="upload-photo" className="add-post-btn">
+              <input
+                type="file"
+                onChange={filehandler}
+
+                id="upload-photo"
+
+              />
+              <span className="icon" >
+                <CameraIcon />
+              </span>
+              Photo
+            </label>
+
+            <label htmlFor="upload-video" className="add-post-btn">
+              <input
+                type="file"
+                onChange={(e) => { handleChange(e) }}
+                id="upload-photo"
+
+              />
+              <span className="icon">
+                <VideoIcon />
+              </span>
+              Videos
+            </label>
+            <button className="add-post-btn" onClick={(e) => { feedPost(e) }}>
+              Post
+            </button>
+          </article>
+
+
+
+        </section>
+      </div>
+    </Modelstyle >
+  );
+};
+
+
+function Feed() {
+
+  const [postsData, setPostsData] = useState([]);
+  const userId = getUserId();
+
+  const [show, setShow] = useState(false);
+  const hanldeClick = (e) => {
+    setShow(true);
+  };
+
+  const hideModal = () => {
+    setShow(false);
+  };
+
+
+  const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/1`;
+  const followerurl = `${process.env.REACT_APP_BASE_URL}/follower`;
+
+
   const getPost = async () => {
     await axios.get(url).then((res) => {
-      setPostsData(res.data);
+      setPostsData(res.data.data);
     });
   };
 
   useEffect(() => {
     getPost();
   }, []);
+
+  console.log(postsData)
+
 
   return (
     <FeedStyle>
@@ -79,31 +195,25 @@ function Feed() {
               cols="30"
               rows="3"
               placeholder="Share Your thoughts.."
-              value={postText}
-              onChange={(e) => setPostText(e.target.value)}
             ></textarea>
           </article>
 
           <article className="add-post-footer">
-            <label htmlFor="upload-photo" className="add-post-btn">
-              <input
-                type="file"
-                onChange={(e) => setPicture(e.target.files[0])}
-                id="upload-photo"
-              />
-              <span className="icon">
+            <label htmlFor="upload-photo" className="add-post-btn" onClick={() => hanldeClick()}>
+              <span className="icon" >
                 <CameraIcon />
               </span>
               Photo
             </label>
+
             <label htmlFor="upload-video" className="add-post-btn">
-              <input type="file" id="upload-video" />
+
               <span className="icon">
                 <VideoIcon />
               </span>
               Videos
             </label>
-            <button className="add-post-btn" onClick={feedPost}>
+            <button className="add-post-btn" >
               Post
             </button>
           </article>
@@ -142,7 +252,9 @@ function Feed() {
             </article>
           </article>
         </section>
+        {show && <Modal handleClose={hideModal} />}
       </aside>
+
     </FeedStyle>
   );
 }

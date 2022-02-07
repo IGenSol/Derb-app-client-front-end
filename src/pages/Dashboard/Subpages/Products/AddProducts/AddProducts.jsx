@@ -15,7 +15,7 @@ function AddProducts(props) {
   const [productColor, setProductColor] = useState("");
   const [productDescription, setProductDescription] = useState("");
 
-  const url = "http://localhost:5000/api/products";
+  const url = `${process.env.REACT_APP_BASE_URL}/products`;
 
   const postProductData = (e) => {
     e.preventDefault();

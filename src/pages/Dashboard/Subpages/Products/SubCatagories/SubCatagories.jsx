@@ -14,7 +14,7 @@ const AddSubCatagoryModal = (props) => {
   const [catagory, setCatagory] = useState("");
   const [image, setImage] = useState("");
 
-  const url = "http://localhost:5000/api/subcategories";
+  const url = `${process.env.REACT_APP_BASE_URL}/subcategories`;
 
   const submitSubCatagory = async () => {
     const subCatagoriesData = new FormData();
@@ -84,7 +84,7 @@ const AddSubCatagoryModal = (props) => {
 function SubCatagories() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [subCatagories, setSubCatagories] = useState([]);
-  const url = "http://localhost:5000/api/subcategories";
+  const url = `${process.env.REACT_APP_BASE_URL}/subcategories`;
 
   useEffect(() => {
     getSubCatagories();

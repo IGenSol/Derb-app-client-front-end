@@ -8,7 +8,7 @@ import UpdateProducts from "../UpdateProducts/UpdateProducts";
 
 function ProductList(props) {
   const [products, setProducts] = useState([]);
-  const url = "http://localhost:5000/api/products";
+  const url = `${process.env.REACT_APP_BASE_URL}/products`;
 
   useEffect(() => {
     getProducts();

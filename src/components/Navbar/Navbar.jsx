@@ -78,7 +78,7 @@ const UserProfile = (props) => {
           </li>
         </ul>
       </article>
-      <span className="down-arrow-icon">
+      <span className="down-arrow-icon" onClick={isDropDownActive}>
         <DownArrow />
       </span>
     </UserProfileStyle>

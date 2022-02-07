@@ -10,7 +10,8 @@ import {
 
 import { CardBodyStyle, PostFooterStyle, PostCardStyle } from "./Card.style";
 
-const PostFooter = () => {
+const PostFooter = (props) => {
+  const { likes, rate, comment } = props
   return (
     <PostFooterStyle>
       <article className="post-buttons-wrapper">
@@ -18,13 +19,13 @@ const PostFooter = () => {
           <span className="icon">
             <LikeIcon />
           </span>
-          12
+          {likes}
         </button>
         <button className="post-button">
           <span className="icon">
             <CommentIcon />
           </span>
-          12
+          {comment}
         </button>
         <button className="post-button">
           <span className="icon">
@@ -48,13 +49,13 @@ const PostFooter = () => {
 };
 
 const CardBody = (props) => {
-  const { post_description, picture_url, Video_url } = props;
+  const { post_description, post_image, Video_url } = props;
   return (
     <CardBodyStyle>
       {post_description && <h3 className="post-text">{post_description}</h3>}
-      {picture_url && (
+      {post_image && (
         <picture className="image-wrapper">
-          <img src={picture_url} alt="Post Image" className="post-image" />
+          <img src={post_image} alt="Post Image" className="post-image" />
         </picture>
       )}
     </CardBodyStyle>
@@ -62,19 +63,19 @@ const CardBody = (props) => {
 };
 
 function PostCard(props) {
-  const { userName, createdAt, userImage } = props;
+  const { userName, created_date, post_image, first_name, last_name } = props;
   return (
     <PostCardStyle>
       <article className="card-header">
         <article className="user-details">
           <img
-            src="./images/users/user-four.jpg"
+            src={post_image}
             alt="User Image"
             className="user-img"
           />
           <article className="user-info">
-            <h2 className="user-name">Jahangir Khan</h2>
-            <h4 className="post-date">04 Dec at 5:34 PM</h4>
+            <h2 className="user-name">{first_name}{last_name}</h2>
+            <h4 className="post-date">{created_date}</h4>
           </article>
         </article>
         <article className="more-options">
@@ -84,7 +85,7 @@ function PostCard(props) {
         </article>
       </article>
       <CardBody {...props} />
-      <PostFooter />
+      <PostFooter {...props} />
     </PostCardStyle>
   );
 }
