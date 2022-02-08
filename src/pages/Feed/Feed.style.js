@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import {
+  CommonButton,
   CommonGridStyle,
   CommonSpacing,
   CustomContainer,
@@ -42,7 +43,7 @@ export const FeedStyle = styled.main`
     padding: 3rem;
     background: ${(p) => p.theme.colors.WHITE_COLOR};
 
-    z-index: 3;
+    /* z-index: 3; */
 
     @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
       display: none;
@@ -218,6 +219,134 @@ export const FeedStyle = styled.main`
               color: ${(p) => p.theme.colors.PRIMARY_COLOR};
             }
           }
+        }
+      }
+    }
+  }
+`;
+
+export const Modelstyle = styled.main`
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .modal-main {
+    position: fixed;
+    background: white;
+    width: 40%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1rem;
+  }
+
+  .display-block {
+    display: block !important;
+  }
+
+  .display-none {
+    display: none;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .textbox {
+    max-height: 30rem;
+    margin: auto;
+    width: 80%;
+  }
+  .cancel {
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    > svg {
+      width: 2rem;
+    }
+  }
+
+  .heading {
+    font-size: 3rem;
+    font-weight: 500;
+    padding: 1rem;
+    text-align: center;
+  }
+  textarea {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+  .review_count {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .imagecontainer {
+    height: 20rem;
+    width: 80%;
+    margin: auto;
+    overflow: auto;
+    border: 0.1rem solid rgb(133, 133, 133);
+    border-radius: 0.3rem;
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+
+  .add-post-footer {
+    ${CommonGridStyle({ columns: "repeat(3, 1fr)", columnGap: "0" })};
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .add-post-btn {
+      ${FlexboxStyle({ justify: "center" })};
+
+      padding: 1rem 3rem;
+      width: 100%;
+      background: none;
+      border: 0.1rem solid ${(p) => p.theme.colors.CULTURED_GRAY_COLOR};
+      text-align: center;
+      cursor: pointer;
+
+      &:last-child {
+        background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+        color: ${(p) => p.theme.colors.WHITE_COLOR};
+      }
+
+      .icon {
+        width: 2rem;
+        margin-right: 1rem;
+
+        > svg {
+          width: 1.2rem;
+          fill: ${(p) => p.theme.colors.PRIMARY_COLOR};
         }
       }
     }

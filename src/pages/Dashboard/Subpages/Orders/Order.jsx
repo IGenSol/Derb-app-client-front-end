@@ -7,7 +7,7 @@ import axios from "axios";
 
 function Order() {
   const [orders, setOrders] = useState([]);
-  const ordersUrl = "http://localhost:5000/api/orders";
+  const ordersUrl = `${process.env.REACT_APP_BASE_URL}/orders`;
 
   useEffect(() => {
     getOrders();
@@ -42,34 +42,35 @@ function Order() {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, index) => {
-            return (
-              <tr key={index}>
-                <td data-label="Order ID">{order.product_id}</td>
-                <td data-label="Name">{order.first_name}</td>
-                <td data-label="Product">{order.product_name}</td>
-                <td data-label="Amount">${order.product_price}</td>
-                <td data-label="Date">03/01/2016 </td>
-                <td data-label="Status">
-                  <span className="pending">{order.status}</span>
-                </td>
+          {orders &&
+            orders.map((orders, index) => {
+              return (
+                <tr key={index}>
+                  <td data-label="Order ID">{orders.product_id}</td>
+                  <td data-label="Name">{orders.first_name}</td>
+                  <td data-label="Product">{orders.product_name}</td>
+                  <td data-label="Amount">${orders.product_price}</td>
+                  <td data-label="Date">03/01/2016 </td>
+                  <td data-label="Status">
+                    <span className="pending">{orders.status}</span>
+                  </td>
 
-                <td data-label="Action">
-                  <article className="action-buttons-wrapper">
-                    <button className="action-button">
-                      <EditIcon />
-                    </button>
-                    <button
-                      className="action-button"
-                      onClick={() => deleteOrders(order.id)}
-                    >
-                      <DeleteIcon />
-                    </button>
-                  </article>
-                </td>
-              </tr>
-            );
-          })}
+                  <td data-label="Action">
+                    <article className="action-buttons-wrapper">
+                      <button className="action-button">
+                        <EditIcon />
+                      </button>
+                      <button
+                        className="action-button"
+                        onClick={() => deleteOrders(orders.id)}
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </article>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </OrderStyle>

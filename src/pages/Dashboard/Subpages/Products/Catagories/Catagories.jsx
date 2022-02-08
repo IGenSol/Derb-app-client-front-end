@@ -8,7 +8,7 @@ const AddCatagoryModal = (props) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const { isModalVisible, handleOk, handleCancel } = props;
-  const url = "http://localhost:5000/api/categories";
+  const url = `${process.env.REACT_APP_BASE_URL}/categories`;
 
   const submitCatagory = async () => {
     const catagoryData = new FormData();
@@ -66,7 +66,7 @@ function Catagories() {
   const [catagories, setCatagories] = useState([]);
   const [isStatusActive, setStatusActive] = useState(true);
   const [statusValue, setStatusValue] = useState("pending");
-  const url = "http://localhost:5000/api/categories";
+  const url = `${process.env.REACT_APP_BASE_URL}/categories`;
 
   useEffect(() => {
     getCatagories();

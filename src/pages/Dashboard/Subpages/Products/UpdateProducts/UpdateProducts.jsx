@@ -13,7 +13,7 @@ function UpdateProducts(props) {
     product_price: "",
   });
 
-  const url = "http://localhost:5000/api/products";
+  const url = `${process.env.REACT_APP_BASE_URL}/products`;
 
   useEffect(() => {
     updateProductData();

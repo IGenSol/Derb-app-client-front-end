@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Tabs } from "antd";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { LoginFormstyle, LoginStyle, Signupstyle } from "./LoginForm.style";
 
@@ -15,7 +17,7 @@ import {
 import { setUserSession } from "../../utils/Common";
 
 const Signup = () => {
-  const url = "http://localhost:5000/api/users";
+  const url = `${process.env.REACT_APP_BASE_URL}/users`;
   const [signUp, setSignUp] = useState({
     first_name: "",
     last_name: "",
@@ -157,7 +159,7 @@ const Login = (props) => {
     setLoading(true);
 
     axios
-      .post("http://localhost:3000/api/users/login", {
+      .post(`${process.env.REACT_APP_BASE_URL}/users/login`, {
         email: email,
         password: password,
       })
@@ -178,6 +180,9 @@ const Login = (props) => {
           window.location.reload();
         } else {
           setError(res.data.message);
+          toast.error("Invalid credentials", {
+            theme: 'dark'
+          });
         }
         console.log(`response >> `, res);
       })
@@ -190,6 +195,8 @@ const Login = (props) => {
 
   return (
     <LoginStyle>
+      <ToastContainer
+      />
       {error && <p className="error">{error}</p>}
       <article className="input-container">
         <span className="icon">
