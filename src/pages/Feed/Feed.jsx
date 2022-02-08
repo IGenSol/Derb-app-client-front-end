@@ -7,6 +7,7 @@ import { CameraIcon, CrossIcon, FileIcon, VideoIcon } from "../../svgs";
 import { getUserId } from "../../utils/Common";
 
 import { FeedStyle, Modelstyle } from "./Feed.style";
+import { VerticalCardStyle } from "../../components/Card/Card.style";
 
 
 
@@ -133,6 +134,8 @@ const Modal = ({ handleClose }) => {
 function Feed() {
 
   const [postsData, setPostsData] = useState([]);
+  const [followerCount, setFollowerCount] = useState([]);
+  const [follower, setFollower] = useState([]);
   const userId = getUserId();
 
   const [show, setShow] = useState(false);
@@ -146,20 +149,33 @@ function Feed() {
 
 
   const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/1`;
-  const followerurl = `${process.env.REACT_APP_BASE_URL}/follower`;
+  const followerurl = `${process.env.REACT_APP_BASE_URL}/follower/1`;
+  const followerCounturl = `${process.env.REACT_APP_BASE_URL}/follower/AllFollowerCount/1`;
 
+
+  useEffect(() => {
+    getPost();
+    getfollowerCount();
+    getFollower();
+  }, []);
 
   const getPost = async () => {
     await axios.get(url).then((res) => {
       setPostsData(res.data.data);
     });
   };
+  const getFollower = async () => {
+    await axios.get(followerurl).then((res) => {
+      setFollower(res.data.data);
+    });
+  };
+  const getfollowerCount = async () => {
+    await axios.get(followerCounturl).then((res) => {
+      setFollowerCount(res.data.data[0]);
+    });
+  };
 
-  useEffect(() => {
-    getPost();
-  }, []);
 
-  console.log(postsData)
 
 
   return (
@@ -168,14 +184,28 @@ function Feed() {
         <h4 className="title">Friends</h4>
 
         <article className="friends-list">
-          {followingProfiles.map((profile, index) => {
+          {follower.map((follower, index) => {
             return (
-              <Card
-                key={index}
-                className="friend-card"
-                cardType="verticalCard"
-                {...profile}
-              />
+              // <Card
+              //   key={index}
+              //   className="friend-card"
+              //   cardType="verticalCard"
+              //   {...follower}
+              // />
+              <VerticalCardStyle to="/user-profile" className="friend-card">
+
+                <picture className="thumbnail-wrapper">
+                  <img src={follower?.user_image} alt="image" className="user-image" />
+                </picture>
+
+                {/* <span className="card-icon">{icon}</span> */}
+
+
+                <figcaption className="user-details">
+                  <h1 className="heading">{follower?.first_name}{follower?.last_name}</h1>
+                </figcaption>
+
+              </VerticalCardStyle>
             );
           })}
         </article>
@@ -243,12 +273,12 @@ function Feed() {
           <article className="profile-details">
             <article className="details">
               <h3 className="title">Followers</h3>
-              <h3 className="no">43</h3>
+              <h3 className="no">{followerCount?.total_followers}</h3>
             </article>
 
             <article className="details">
               <h3 className="title">Posts</h3>
-              <h3 className="no">53</h3>
+              <h3 className="no">{followerCount?.total_post}</h3>
             </article>
           </article>
         </section>
