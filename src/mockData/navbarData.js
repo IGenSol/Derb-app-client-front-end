@@ -38,12 +38,6 @@ export const menubarItems = [
   },
 
   {
-    url: "/",
-    linkText: "Feed",
-    icon: <FeedIcon />,
-  },
-
-  {
     url: "/store",
     linkText: "Store",
     icon: <CartIcon />,

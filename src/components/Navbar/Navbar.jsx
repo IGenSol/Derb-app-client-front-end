@@ -58,7 +58,7 @@ const AddPost = (props) => {
           <Imagestyle>
             <label class="custom-file-upload" >
               <input type="file" onChange={handleChange} />
-              <span className="icon"><UploadImageIcon /></span>
+              {/* <span className="icon"><UploadImageIcon /></span> */}
             </label>
           </Imagestyle>
 
