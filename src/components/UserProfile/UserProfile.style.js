@@ -143,9 +143,22 @@ export const ProfileTabsStyle = styled.section`
     .ant-tabs-content-holder {
       .posts-wrapper {
         ${CommonGridStyle};
-
         padding: 3rem 1rem;
       }
+    }
+  }
+`;
+
+export const LivePost = styled.figure`
+  .image-thumbnail {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-height: 30rem;
+
+    .thumbnail {
+      width: 100%;
+      height: 30rem;
     }
   }
 `;

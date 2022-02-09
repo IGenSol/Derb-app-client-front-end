@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import Card from "../../components/Card/Card";
-import { followingProfiles, profiles } from "../../mockData/discoverData";
 import { CameraIcon, CrossIcon, FileIcon, VideoIcon } from "../../svgs";
 import { getUserId } from "../../utils/Common";
 
@@ -181,10 +179,11 @@ function Feed() {
   return (
     <FeedStyle>
       <aside className="friends-wrapper">
-        <h4 className="title">Friends</h4>
+        <h4 className="title">Following</h4>
 
         <article className="friends-list">
           {follower.map((follower, index) => {
+            const id = follower.id
             return (
               // <Card
               //   key={index}
@@ -192,7 +191,12 @@ function Feed() {
               //   cardType="verticalCard"
               //   {...follower}
               // />
-              <VerticalCardStyle to="/user-profile" className="friend-card">
+              <VerticalCardStyle to={
+                {
+                  pathname: "/user-profile",
+                  state: id
+                }
+              } className="friend-card" key={index}>
 
                 <picture className="thumbnail-wrapper">
                   <img src={follower?.user_image} alt="image" className="user-image" />

@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { products } from "../../App";
+
+import { menubarItems } from "../../mockData/navbarData";
 import {
   CartIcon,
   DownArrow,
@@ -11,70 +13,7 @@ import {
 } from "../../svgs";
 import { removeUserSession } from "../../utils/Common";
 
-
-import { menubarItems } from "../../mockData/navbarData";
-// import { SearchIcon, UploadImageIcon } from "../../svgs";
-
-import { Imagestyle, Modelstyle, NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
-
-
-const AddPost = (props) => {
-
-  const [file, setFile] = useState("")
-
-  const handleChange = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]))
-  }
-
-  const { okbtn, cancelbtn, visible } = props;
-  return (
-    <Modelstyle
-      title="Add Post"
-      visible={visible}
-      onOk={okbtn}
-      onCancel={cancelbtn}
-      footer={null}
-      wrapClassName="add-post-popup"
-    >
-      <article>
-        <img src="./images/icons/user-icon.png" className="profileimg" alt="UserIcon" />
-        <input
-          type="text"
-          name="Addpost"
-          placeholder="Add Post..."
-          className="add-post"
-        />
-      </article>
-
-      <article >
-        {
-          file &&
-          <img src={file} className="postimg" />
-        }
-
-      </article>
-      <article className="footer">
-        <article>
-          <Imagestyle>
-            <label class="custom-file-upload" >
-              <input type="file" onChange={handleChange} />
-              {/* <span className="icon"><UploadImageIcon /></span> */}
-            </label>
-          </Imagestyle>
-
-
-        </article>
-        <article>
-          <button className="add-post-btn">Add Post</button>
-        </article>
-      </article>
-
-
-    </Modelstyle >
-
-
-  );
-}
+import { NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
 
 const UserProfile = (props) => {
   const [dropdown, setDropDown] = useState(false);
@@ -142,9 +81,6 @@ const UserProfile = (props) => {
       <span className="down-arrow-icon">
         <DownArrow />
       </span>
-      {/* <button className="add-post-btn" onClick={showModal}>Add Post</button>
-      <AddPost visible={isModalVisible} okbtn={handleOk} cancelbtn={handleCancel} /> */}
-
     </UserProfileStyle>
   );
 };

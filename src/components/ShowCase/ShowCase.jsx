@@ -1,4 +1,6 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+
 import { Link } from "react-router-dom";
 
 import Carousal from "../../components/Carousal/Carousal.jsx";
@@ -22,6 +24,7 @@ import {
 } from "./ShowCase.style";
 
 import { trendingItems } from "../../mockData/trendingItems";
+import { useLocation } from "react-router-dom";
 
 const LiveChannels = () => {
   return (
@@ -132,21 +135,38 @@ const ProductDetial = (props) => {
 };
 
 function ShowCase(props) {
-  const { url } = props;
 
-  const product = trendingItems.find((currentItem) => currentItem.url === url);
+  const location = useLocation();
+  const [product, setproduct] = useState([]);
+
+  console.log(location.descover)
+
+  const url = `${process.env.REACT_APP_BASE_URL}/posts/discovery/data/5`
+
+  useEffect(() => {
+    getProduct()
+  }, [])
+
+  const getProduct = async () => {
+    await axios.get(url).then((res) => {
+      setproduct(res.data)
+    }).catch((err) => {
+      alert(err)
+    })
+  }
+
 
   return (
     <ShowCaseStyle>
       <section className="product-container">
         <picture className="product-placeholder">
           <img
-            src={product.productImage}
-            alt={product.imageAlt}
+            src=""
+            alt="image"
             className="product-image"
           />
         </picture>
-        <ProductDetial {...props} {...product} />
+        {/* <ProductDetial {...props} {...product} /> */}
       </section>
 
       <LiveChannels />

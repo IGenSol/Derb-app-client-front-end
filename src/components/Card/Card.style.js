@@ -66,7 +66,8 @@ export const LiveCardStyle = styled.figure`
     }
 
     .thumbnail {
-      max-width: 100%;
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -408,8 +409,8 @@ export const CardBodyStyle = styled.figcaption`
 `;
 
 export const PostFooterStyle = styled.article`
-  border-top: 0.1rem solid ${({ theme }) => theme.colors.DIM_GRAY_COLOR};
-
+  /* border-top: 0.1rem solid ${({ theme }) => theme.colors.DIM_GRAY_COLOR}; */
+  margin-top: 3rem;
   .post-buttons-wrapper {
     ${CommonGridStyle({ columns: "1fr 1fr 1fr" })};
 

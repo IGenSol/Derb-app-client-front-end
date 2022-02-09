@@ -41,12 +41,13 @@ const PostFooter = (props) => {
           placeholder="Write your comment..."
         />
         <button className="send-button">
-          <SendButtonIcon />
+          <SendButtonIcon  />
         </button>
       </article>
     </PostFooterStyle>
   );
 };
+
 
 const CardBody = (props) => {
   const { post_description, post_image, Video_url } = props;

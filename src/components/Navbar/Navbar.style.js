@@ -5,7 +5,6 @@ import {
   CustomContainer,
   FlexboxStyle,
 } from "../../style/commomStyle";
-import { Modal } from 'antd';
 
 export const NavbarStyle = styled.nav`
   background: ${(p) => p.theme.colors.WHITE_COLOR};
@@ -228,62 +227,3 @@ export const UserProfileStyle = styled.article`
     }
   }
 `;
-
-export const Modelstyle = styled(Modal)`
-${FlexboxStyle({
-  justify: "start",
-  direction: "column"
-})};
-
-
-.profileimg{
-    width: 5rem;
-  }
-input{
-  margin-left: 3rem;
-}
-.footer{
-  ${FlexboxStyle};
-  width:80%;
-  margin-left: 8rem;
-   
-}
-.add-post {
-  background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
-  padding: 1.7rem;
-  padding-right: 21rem;
-  border: none;
-  outline: none;
-  border-radius: 0.5rem;
-  flex: 1;
-}
-.add-post-btn {
-  ${CommonButton({ padding: "1rem" })}; 
-}
-
-.postimg{
-  margin-top: 3rem;
-  width:20rem;
-  height:20rem
-  }
-
-
-`
-
-export const Imagestyle = styled.div`
-
-margin-top: 2rem;
-
-input[type="file"] {
-  display: none;
-}
-
-.icon{
-  >svg{
-    width:3rem;
-    height:3rem;
-  }
-}
-
-`
-

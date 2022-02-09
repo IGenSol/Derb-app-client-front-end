@@ -98,7 +98,7 @@ function App() {
             {/* <Route path="/discover" exact component={Discover} /> */}
 
             <Route path="/show-case/:productSlug" exact>
-              <ShowCase url={window.location.pathname} />
+              <ShowCase />
             </Route>
 
             <PublicRoute path="/login" component={LoginForm} />
