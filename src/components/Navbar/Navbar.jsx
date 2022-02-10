@@ -113,6 +113,19 @@ const UserProfile = (props) => {
               <p className="link-text">Profile</p>
             </Link>
           </li>
+          <li className="drop">
+            <Link
+              to="/cart-list"
+              className="dropdown-menu-link"
+
+            >
+              <span className="icon">
+                <CartIcon />
+              </span>
+              <p className="link-text">Cart</p>
+              <p className="cart-items">{itemCount}</p>
+            </Link>
+          </li>
 
           <li className="drop">
             <button onClick={handleLogout} className="dropdown-menu-link">
