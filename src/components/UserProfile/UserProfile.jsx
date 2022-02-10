@@ -17,17 +17,16 @@ import { CommentIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
 const PorfileModal = (props) => {
   const { isModalVisible, handleCancel, handleOk, user } = props;
   const [image, setImage] = useState([]);
-  const [postimage, setpostimage] = useState([]);
+  const [postimage, setpostimage] = useState();
   const [userData, setUserData] = useState({
     first_name: "",
     last_name: "",
-    email: "",
     mobile: "",
     password: "",
     status: "",
   });
 
-  const { first_name, last_name, email, mobile, password, status, picture, id } =
+  const { first_name, last_name, mobile, password, status, picture, id } =
     user;
 
   const url = `${process.env.REACT_APP_BASE_URL}/users/${id}`;
@@ -42,7 +41,6 @@ const PorfileModal = (props) => {
   const formData = new FormData();
   formData.append("first_name", userData.first_name);
   formData.append("last_name", userData.last_name);
-  formData.append("email", userData.email);
   formData.append("mobile", userData.mobile);
   formData.append("password", userData.password);
   formData.append("status", userData.status);
@@ -78,11 +76,11 @@ const PorfileModal = (props) => {
       <form className="profile-form">
         <article className="profile-detail-wrapper">
           <label htmlFor="upload-image" className="user-profile-image-wrapper">
-            {image ? (
-              image && (
+            {postimage ? (
+              (
                 <img
                   src={postimage}
-                  alt="User Proifle"
+                  alt="Select Image"
                   className="image-placeholder"
                 />
               )
@@ -124,16 +122,6 @@ const PorfileModal = (props) => {
               />
             </article>
             <article className="form-content">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => onInputSubmit(e)}
-                className="custom-input"
-              />
-            </article>
-            <article className="form-content">
               <label>Mobile</label>
               <input
                 type="number"
@@ -169,7 +157,7 @@ const PorfileModal = (props) => {
                 value={status}
                 onChange={(e) => onInputSubmit(e)}
                 cols="30"
-                rows="10"
+                rows="5"
               ></textarea>
             </article>
           </article>

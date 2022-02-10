@@ -23,6 +23,7 @@ import { getToken, removeUserSession, setUserSession } from "./utils/Common";
 import { GlobalStyle } from "./style/globalStyle";
 import Checkout from "./pages/Checkout/Checkout";
 import { trendingItems } from "./mockData/trendingItems";
+import AllProduct from "./pages/AllProduct/AllProduct";
 
 export const products = createContext();
 const user = getToken();
@@ -100,6 +101,9 @@ function App() {
             <Route path="/show-case/:productSlug" exact>
               <ShowCase />
             </Route>
+            <Route path="/all-product" exact component={AllProduct} />
+
+
 
             <PublicRoute path="/login" component={LoginForm} />
             <PrivateRoute path="/dashboard" component={DashboardLayout} />

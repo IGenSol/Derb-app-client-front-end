@@ -24,7 +24,8 @@ const Modal = ({ handleClose }) => {
     }
   };
 
-  const url = `${process.env.REACT_APP_BASE_URL}/posts`
+  let Id = sessionStorage.getItem("userId")
+  const url = `${process.env.REACT_APP_BASE_URL}/posts/${Id}`;
 
   const [videoSrc, seVideoSrc] = useState("");
 
@@ -38,10 +39,6 @@ const Modal = ({ handleClose }) => {
   formData.append("post_description", description);
   formData.append("post_image", image);
   formData.append("user_id", userId);
-
-  for (var value of formData.values()) {
-    console.log(value);
-  }
 
 
   const feedPost = () => {
@@ -134,7 +131,6 @@ function Feed() {
   const [postsData, setPostsData] = useState([]);
   const [followerCount, setFollowerCount] = useState([]);
   const [follower, setFollower] = useState([]);
-  const userId = getUserId();
 
   const [show, setShow] = useState(false);
   const hanldeClick = (e) => {
@@ -146,9 +142,12 @@ function Feed() {
   };
 
 
-  const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/1`;
-  const followerurl = `${process.env.REACT_APP_BASE_URL}/follower/1`;
-  const followerCounturl = `${process.env.REACT_APP_BASE_URL}/follower/AllFollowerCount/1`;
+  const userId = sessionStorage.getItem("userId")
+
+
+  const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/${userId}`;
+  const followerurl = `${process.env.REACT_APP_BASE_URL}/follower/${userId}`;
+  const followerCounturl = `${process.env.REACT_APP_BASE_URL}/follower/AllFollowerCount/${userId}`;
 
 
   useEffect(() => {

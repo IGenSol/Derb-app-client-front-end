@@ -5,6 +5,7 @@ import {
   CustomContainer,
   FlexboxStyle,
 } from "../../style/commomStyle";
+import { Modal } from "antd";
 
 export const NavbarStyle = styled.nav`
   background: ${(p) => p.theme.colors.WHITE_COLOR};
@@ -152,7 +153,7 @@ export const UserProfileStyle = styled.article`
     .dropdown-menu-wrapper {
       position: absolute;
       top: 5rem;
-      left: 0;
+      left: -9rem;
 
       background: ${({ theme }) => theme.colors.WHITE_COLOR};
       box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
@@ -164,7 +165,7 @@ export const UserProfileStyle = styled.article`
 
       display: ${(props) => (props.dropdownActive ? "block" : "none")};
 
-      .dropdown-menu {
+      .drop {
         margin-bottom: 1.5rem;
 
         .dropdown-menu-link {
@@ -220,10 +221,63 @@ export const UserProfileStyle = styled.article`
 
   .down-arrow-icon {
     margin-left: 1rem;
+    cursor: pointer;
 
     > svg {
       fill: ${(p) => p.theme.colors.SILVER_SAND_COlOR};
       width: 1rem;
+    }
+  }
+`;
+
+export const Modelstyle = styled(Modal)`
+  ${FlexboxStyle({
+    justify: "start",
+    direction: "column",
+  })};
+
+  .profileimg {
+    width: 5rem;
+  }
+  input {
+    margin-left: 3rem;
+  }
+  .footer {
+    ${FlexboxStyle};
+    width: 80%;
+    margin-left: 8rem;
+  }
+  .add-post {
+    background: ${(p) => p.theme.colors.DULL_GRAY_COLOR};
+    padding: 1.7rem;
+    padding-right: 21rem;
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    flex: 1;
+  }
+  .add-post-btn {
+    ${CommonButton({ padding: "1rem" })};
+  }
+
+  .postimg {
+    margin-top: 3rem;
+    width: 20rem;
+    height: 20rem;
+  }
+`;
+
+export const Imagestyle = styled.div`
+  margin-top: 2rem;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .icon {
+    > svg {
+      width: 3rem;
+      height: 3rem;
     }
   }
 `;

@@ -44,7 +44,7 @@ const ProductSideBar = (props) => {
   return (
     <ProductSideBarStyle>
       <a href="#" className="profile-image-wrapper">
-        <img src={profilePic} alt={profileAlt} className="profile-picutre" />
+        {/* <img src={profilePic} alt={profileAlt} className="profile-picutre" /> */}
       </a>
 
       <article className="counter">
@@ -66,6 +66,8 @@ const ProductSideBar = (props) => {
 
 const ProductFooter = (props) => {
   const { addItem } = useContext(products);
+  const { product } = props
+
   return (
     <ProductFooterStyle>
       <article className="product-properties">
@@ -99,7 +101,7 @@ const ProductFooter = (props) => {
         </article>
       </article>
       <article className="buttons-wrapper">
-        <button className="action-btn" onClick={() => addItem(props)}>
+        <button className="action-btn" onClick={() => addItem(product)}>
           Add to cart
         </button>
         <Link to="/cart-list" className="action-btn">
@@ -111,21 +113,17 @@ const ProductFooter = (props) => {
 };
 
 const ProductDetial = (props) => {
-  const { productName, productPrice } = props;
+  const { product } = props;
 
   return (
     <ProductDetailStyle>
       <article className="details-wrapper">
         <article className="header">
-          <h3 className="heading">{productName}</h3>
-          <h3 className="price">${productPrice}</h3>
+          <h3 className="heading">{product?.product_name}</h3>
+          <h3 className="price">${product?.product_price}</h3>
         </article>
         <p className="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore non
-          voluptatibus praesentium ratione eveniet consectetur, quasi corporis
-          accusantium fuga reprehenderit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Inventore non voluptatibus praesentium ratione
-          eveniet consectetur, quasi corporis accusantium fuga reprehenderit.
+          {product?.description}
         </p>
         <ProductFooter {...props} />
       </article>
@@ -139,9 +137,12 @@ function ShowCase(props) {
   const location = useLocation();
   const [product, setproduct] = useState([]);
 
-  console.log(location.descover)
+  if (location.state !== undefined) {
+    var productid = location.state;
+  }
 
-  const url = `${process.env.REACT_APP_BASE_URL}/posts/discovery/data/5`
+
+  const url = `${process.env.REACT_APP_BASE_URL}/products/${productid}`
 
   useEffect(() => {
     getProduct()
@@ -161,15 +162,15 @@ function ShowCase(props) {
       <section className="product-container">
         <picture className="product-placeholder">
           <img
-            src=""
+            src={product?.product_images}
             alt="image"
             className="product-image"
           />
         </picture>
-        {/* <ProductDetial {...props} {...product} /> */}
+        <ProductDetial product={product} />
       </section>
 
-      <LiveChannels />
+      {/* <LiveChannels /> */}
     </ShowCaseStyle>
   );
 }

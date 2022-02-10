@@ -15,12 +15,15 @@ export const NavgationCarousalStyle = styled.section`
     text-decoration: none;
     color: ${(p) => p.theme.colors.DARK_COLOR};
 
-    .tab-icon {
+    .tab-image {
       margin-right: 1rem;
-
-      > svg {
-        width: 3rem;
-      }
+      width: 5rem;
+      height: 5rem;
+      display: block;
+    }
+    .image {
+      width: 100%;
+      border-radius: 50%;
     }
   }
 
