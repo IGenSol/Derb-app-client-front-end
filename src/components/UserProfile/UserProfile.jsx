@@ -338,7 +338,7 @@ function UserProfile() {
             <button className="profile-button" onClick={showModal}>
               Edit Profile
             </button>
-            <button className="profile-button" onClick={onclickactive}>Visit Store</button>
+            <button className="profile-button" >Visit Store</button>
             <PorfileModal
               handleOk={handleOk}
               handleCancel={handleCancel}
