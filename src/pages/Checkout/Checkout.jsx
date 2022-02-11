@@ -104,10 +104,10 @@ const PaymentDetails = (props) => {
     name: cartItems,
     price: totalPrice,
     productby: "Jahangir",
-    user_id:user_id
+    user_id: user_id
   });
 
-  const url = "/api/stripe";
+  const url = `${process.env.REACT_APP_BASE_URL}/payment/stripe`;
 
   const makePayments = async (token) => {
     const body = {
@@ -118,6 +118,7 @@ const PaymentDetails = (props) => {
       email,
       mobile,
     };
+    console.log(body)
     const headers = {
       "Content-Type": "application/json",
     };
@@ -444,13 +445,16 @@ function Checkout() {
   const { cartItems } = product;
   const itemsPrice = cartItems.reduce(
     (accumaltor, currentItem) =>
-      accumaltor + currentItem.productPrice * currentItem.qty,
+      accumaltor + currentItem.product_price * currentItem.qty,
     0
   );
+
+
 
   const taxPrice = itemsPrice * 0.14;
   const shippingPrice = itemsPrice > 2000 ? 0 : 50;
   const totalPrice = itemsPrice + taxPrice + shippingPrice;
+
   return (
     <CheckoutStyle>
       <Collapse defaultActiveKey={["1"]} className="details-wrapper">

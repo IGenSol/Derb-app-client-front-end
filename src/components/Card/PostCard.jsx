@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   CommentIcon,
   HeartIcon,
@@ -41,7 +42,7 @@ const PostFooter = (props) => {
           placeholder="Write your comment..."
         />
         <button className="send-button">
-          <SendButtonIcon  />
+          <SendButtonIcon />
         </button>
       </article>
     </PostFooterStyle>
@@ -64,11 +65,23 @@ const CardBody = (props) => {
 };
 
 function PostCard(props) {
-  const { userName, created_date, post_image, first_name, last_name } = props;
+  const { userName, user_id, created_date, post_image, first_name, last_name } = props;
+
+  console.log(props)
+
+  const id = user_id;
   return (
-    <PostCardStyle>
-      <article className="card-header">
-        <article className="user-details">
+    <PostCardStyle
+    >
+      <article className="card-header"
+      >
+        <Link className="user-details"
+          to={
+            {
+              pathname: "/user-profile",
+              state: id
+            }
+          } >
           <img
             src={post_image}
             alt="User Image"
@@ -78,7 +91,7 @@ function PostCard(props) {
             <h2 className="user-name">{first_name}{last_name}</h2>
             <h4 className="post-date">{created_date}</h4>
           </article>
-        </article>
+        </Link>
         <article className="more-options">
           <button className="more-option-button">
             <MoreButtonIcon />

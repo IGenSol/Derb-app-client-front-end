@@ -14,7 +14,131 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { PostFooterStyle } from "../Card/Card.style";
 import { CommentIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
 
+function UserProfile() {
+  const location = useLocation();
+
+  if (location.state !== undefined) {
+    var userid = location.state;
+  }
+
+  console.log(userid)
+
+
+
+  const url = `${process.env.REACT_APP_BASE_URL}/users/${userid}`;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [user, setUser] = useState([]);
+  const [Like, setLike] = useState(false)
+
+  const onclickactive = () => {
+    setLike(!Like)
+  }
+
+  if (Like) {
+    // console.log(1)
+  }
+  else {
+    // console.log(0)
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const getUserData = async () => {
+    await axios
+      .get(url)
+      .then((res) => {
+        setUser(res.data.data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  return (
+    <UserProfileStyle>
+      <section className="user-details">
+        <article className="user-profile">
+          <figure className="user-info">
+            <picture className="user-thumbnail">
+              <img
+                src={user?.picture}
+                alt="User Profile"
+                className="user-image"
+              />
+            </picture>
+            <figcaption className="user-profile-details">
+              <h2 className="name">{`${user?.first_name} ${user?.last_name}`}</h2>
+              <p className="description">
+                {user?.status}
+              </p>
+            </figcaption>
+          </figure>
+
+          <article className="buttons-wrapper">
+            <button className="profile-button" onClick={showModal}>
+              Edit Profile
+            </button>
+            <button className="profile-button" onClick={onclickactive}>Visit Store</button>
+            <PorfileModal
+              handleOk={handleOk}
+              handleCancel={handleCancel}
+              isModalVisible={isModalVisible}
+              user={user}
+            />
+          </article>
+        </article>
+
+        <article className="user-connections">
+          <article className="counter">
+            <h2 className="counter-no">23</h2>
+            <p className="counter-text">Post</p>
+          </article>
+          <article className="counter">
+            <h2 className="counter-no">80</h2>
+            <p className="counter-text">Following</p>
+          </article>
+          <article className="counter">
+            <h2 className="counter-no">100</h2>
+            <p className="counter-text">Followers</p>
+          </article>
+        </article>
+
+        <article className="about-user">
+          <h3 className="heading">Interest :</h3>
+          <article className="tags-wrapper">
+            <span className="tags">Photography</span>
+            <span className="tags">Design</span>
+            <span className="tags">UI/UX</span>
+            <span className="tags">Football</span>
+          </article>
+        </article>
+      </section>
+
+      <ProfileTabs user={user} />
+    </UserProfileStyle>
+  );
+}
+
+export default UserProfile;
+
+
 const PorfileModal = (props) => {
+
+
   const { isModalVisible, handleCancel, handleOk, user } = props;
   const [image, setImage] = useState([]);
   const [postimage, setpostimage] = useState();
@@ -26,8 +150,7 @@ const PorfileModal = (props) => {
     status: "",
   });
 
-  const { first_name, last_name, mobile, password, status, picture, id } =
-    user;
+  const { first_name, last_name, mobile, password, status, picture, id } = user;
 
   const url = `${process.env.REACT_APP_BASE_URL}/users/${id}`;
 
@@ -37,6 +160,7 @@ const PorfileModal = (props) => {
       [e.target.name]: e.target.value,
     });
   };
+
 
   const formData = new FormData();
   formData.append("first_name", userData.first_name);
@@ -183,10 +307,15 @@ const PorfileModal = (props) => {
 };
 
 const ProfileTabs = (props) => {
+  const location = useLocation();
+
+  if (location.state !== undefined) {
+    var userid = location.state;
+  }
   const { TabPane } = Tabs;
   const [postsData, setPostsData] = useState([]);
   const { user } = props
-  const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/${user.id}`
+  const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/${userid}`
 
 
 
@@ -273,110 +402,3 @@ const ProfileTabs = (props) => {
     </ProfileTabsStyle>
   );
 };
-
-function UserProfile() {
-
-  const location = useLocation();
-
-  if (location.state !== undefined) {
-    var userid = location.state;
-  }
-  // const id = getUserId();
-
-  const url = `${process.env.REACT_APP_BASE_URL}/users/${userid}`;
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    getUserData();
-  }, []);
-
-  const getUserData = async () => {
-    await axios
-      .get(url)
-      .then((res) => {
-        setUser(res.data.data);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  return (
-    <UserProfileStyle>
-      <section className="user-details">
-        <article className="user-profile">
-          <figure className="user-info">
-            <picture className="user-thumbnail">
-              <img
-                src={user?.picture}
-                alt="User Profile"
-                className="user-image"
-              />
-            </picture>
-            <figcaption className="user-profile-details">
-              <h2 className="name">{`${user?.first_name} ${user?.last_name}`}</h2>
-              <p className="description">
-                {user?.status}
-              </p>
-            </figcaption>
-          </figure>
-
-          <article className="buttons-wrapper">
-            <button className="profile-button" onClick={showModal}>
-              Edit Profile
-            </button>
-            <button className="profile-button" >Visit Store</button>
-            <PorfileModal
-              handleOk={handleOk}
-              handleCancel={handleCancel}
-              isModalVisible={isModalVisible}
-              user={user}
-            />
-          </article>
-        </article>
-
-        <article className="user-connections">
-          <article className="counter">
-            <h2 className="counter-no">23</h2>
-            <p className="counter-text">Post</p>
-          </article>
-          <article className="counter">
-            <h2 className="counter-no">80</h2>
-            <p className="counter-text">Following</p>
-          </article>
-          <article className="counter">
-            <h2 className="counter-no">100</h2>
-            <p className="counter-text">Followers</p>
-          </article>
-        </article>
-
-        <article className="about-user">
-          <h3 className="heading">Interest :</h3>
-          <article className="tags-wrapper">
-            <span className="tags">Photography</span>
-            <span className="tags">Design</span>
-            <span className="tags">UI/UX</span>
-            <span className="tags">Football</span>
-          </article>
-        </article>
-      </section>
-
-      <ProfileTabs user={user} />
-    </UserProfileStyle>
-  );
-}
-
-export default UserProfile;

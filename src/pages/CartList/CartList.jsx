@@ -10,7 +10,7 @@ function CartList(props) {
 
   const itemsPrice = cartItems.reduce(
     (accumaltor, currentItem) =>
-      accumaltor + currentItem.productPrice * currentItem.qty,
+      accumaltor + currentItem.product_price * currentItem.qty,
     0
   );
 

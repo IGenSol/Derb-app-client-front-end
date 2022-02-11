@@ -18,10 +18,12 @@ import { Link } from "react-router-dom";
 
 const Following = () => {
 
+  const id = sessionStorage.getItem("userId")
+
   const [following, setfollowing] = useState([])
   const [follower, setFollower] = useState([]);
-  const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/1`
-  const followerurl = `${process.env.REACT_APP_BASE_URL}/follower/1`;
+  const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/${id}`
+  const followerurl = `${process.env.REACT_APP_BASE_URL}/follower/${id}`;
 
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const Following = () => {
 
         <article className="following-suggestion-profie">
           {follower.map((follower, index) => {
-            const id = follower.id
+            const id = follower.follower_id
             return (
               // <Card
               //   key={index}
@@ -62,7 +64,7 @@ const Following = () => {
               //   cardType="verticalCard"
               //   {...follower}
               // />
-              <article key={index}>
+              <Link key={index}>
                 <VerticalCardStyle to={
                   {
                     pathname: "/user-profile",
@@ -82,7 +84,7 @@ const Following = () => {
                   </figcaption>
 
                 </VerticalCardStyle>
-              </article>
+              </Link>
             );
           })}
         </article>

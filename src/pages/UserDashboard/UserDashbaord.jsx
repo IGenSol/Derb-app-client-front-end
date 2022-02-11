@@ -12,7 +12,7 @@ const Modal = ({ handleClose, details }) => {
 
     const url = `${process.env.REACT_APP_BASE_URL}/reviews`;
 
-    const { user_id, product_id, restaurant_id } = details;
+    const { user_id, product_id, store_id } = details;
     const [rate, setrate] = useState()
     const [comment, setcommit] = useState()
 
@@ -20,7 +20,7 @@ const Modal = ({ handleClose, details }) => {
     const data = {
         user_id,
         product_id,
-        restaurant_id: 1,
+        store_id,
         rate,
         comment
     }
@@ -94,7 +94,7 @@ const RecentOrders = () => {
         setShow(false);
     };
 
-    const url = `${process.env.REACT_APP_BASE_URL}/orders`;
+    const url = `${process.env.REACT_APP_BASE_URL}/orders/${id}`;
 
     useEffect(() => {
         getOrder();

@@ -182,14 +182,8 @@ function Feed() {
 
         <article className="friends-list">
           {follower.map((follower, index) => {
-            const id = follower.id
+            const id = follower.follower_id
             return (
-              // <Card
-              //   key={index}
-              //   className="friend-card"
-              //   cardType="verticalCard"
-              //   {...follower}
-              // />
               <VerticalCardStyle to={
                 {
                   pathname: "/user-profile",
