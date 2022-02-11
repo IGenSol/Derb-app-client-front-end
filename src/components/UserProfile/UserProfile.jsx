@@ -188,6 +188,8 @@ const ProfileTabs = (props) => {
   const { user } = props
   const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/${user.id}`
 
+
+
   useEffect(() => {
     getPost();
 
@@ -212,10 +214,10 @@ const ProfileTabs = (props) => {
           <article className="posts-wrapper">
             {postsData.map((postsData, index) => {
               return (
-                <LivePost>
+                <LivePost key={index}>
 
 
-                  <picture className="image-thumbnail" key={index}>
+                  <picture className="image-thumbnail" >
                     <img src={postsData?.post_image} alt="image" className="thumbnail" />
                   </picture>
                   <PostFooterStyle>
@@ -336,7 +338,7 @@ function UserProfile() {
             <button className="profile-button" onClick={showModal}>
               Edit Profile
             </button>
-            <button className="profile-button">Visit Store</button>
+            <button className="profile-button" onClick={onclickactive}>Visit Store</button>
             <PorfileModal
               handleOk={handleOk}
               handleCancel={handleCancel}

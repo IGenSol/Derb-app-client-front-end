@@ -21,7 +21,7 @@ const CardSidebar = (props) => {
           </span>
           <span className="count">23k</span>
         </li>
-        <li className="icon-container">
+        {/* <li className="icon-container">
           <a href={idUrl} className="profile-link">
             <img
               src={profilePic}
@@ -29,7 +29,7 @@ const CardSidebar = (props) => {
               className="user-profile-image"
             />
           </a>
-        </li>
+        </li> */}
       </ul>
     </article>
   );
@@ -57,7 +57,7 @@ const CardDetails = (props) => {
               );
             })}
         </article>
-        <input type="text" className="comment-box" placeholder="Comment.." />
+        {/* <input type="text" className="comment-box" placeholder="Comment.." /> */}
       </article>
 
       <CardSidebar {...props} />
@@ -66,15 +66,21 @@ const CardDetails = (props) => {
 };
 
 function LiveCard(props) {
-  const { productImage, imageAlt, url } = props;
+  const { product_images, product_id, product_name } = props;
+  let id = product_id;
   return (
     <LiveCardStyle>
-      <a href={url} className="buynow-btn">
+      <Link to={
+        {
+          pathname: `/show-case/${product_name}`,
+          state: id
+        }}
+        className="buynow-btn">
         buy Now
-      </a>
-      {productImage && (
+      </Link>
+      {product_images && (
         <picture className="image-thumbnail">
-          <img src={productImage} alt={imageAlt} className="thumbnail" />
+          <img src={product_images} alt="Product_Image" className="thumbnail" />
         </picture>
       )}
 

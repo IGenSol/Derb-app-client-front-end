@@ -24,6 +24,7 @@ import { GlobalStyle } from "./style/globalStyle";
 import Checkout from "./pages/Checkout/Checkout";
 import { trendingItems } from "./mockData/trendingItems";
 import AllProduct from "./pages/AllProduct/AllProduct";
+import UserDashbaord from "./pages/UserDashboard/UserDashbaord";
 
 export const products = createContext();
 const user = getToken();
@@ -107,6 +108,7 @@ function App() {
 
             <PublicRoute path="/login" component={LoginForm} />
             <PrivateRoute path="/dashboard" component={DashboardLayout} />
+            <PrivateRoute path="/user-dashboard" component={UserDashbaord} />
             <PrivateRoute path="/cart-list" exact>
               <CartList cartItems={cartItems} />
             </PrivateRoute>

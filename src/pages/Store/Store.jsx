@@ -1,5 +1,5 @@
 import React from "react";
-import { NavgationCarousalStyle } from "../../components/Carousal/Carousal";
+import { NavgationCarousalStyle, ProductCarousalStyle } from "../../components/Carousal/Carousal";
 import Carousel from "react-multi-carousel";
 import ProductCarousal from "../../components/Carousal/ProductCarousal";
 import { trendingItems } from "../../mockData/trendingItems";
@@ -7,6 +7,7 @@ import { StoreStyle, SiteBannerStyle } from "./Store.style";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
+import Card from "../../components/Card/Card";
 
 const SiteBanner = () => {
   return (
@@ -25,11 +26,15 @@ const SiteBanner = () => {
 function Store() {
 
   const [categorydata, setcategorydata] = useState([])
+  const [trandingdata, settarndingdata] = useState([])
 
   const categoryurl = `${process.env.REACT_APP_BASE_URL}/categories`
 
+  const trandingurl = `${process.env.REACT_APP_BASE_URL}/products/trending/product`
+
   useEffect(() => {
     getcategory();
+    trandingproduct();
   }, [])
 
   const getcategory = async () => {
@@ -39,6 +44,15 @@ function Store() {
       alert(err)
     })
   }
+  const trandingproduct = async () => {
+    await axios.get(trandingurl).then((res) => {
+      settarndingdata(res.data)
+    }).catch((err) => {
+      alert(err)
+    })
+  }
+
+
 
 
 
@@ -88,7 +102,25 @@ function Store() {
         </Carousel>
       </NavgationCarousalStyle>
       <SiteBanner />
-      <ProductCarousal heading="Trending" cardData={trendingItems} />
+      <ProductCarousalStyle>
+        <article className="carousal-header">
+          <h3 className="carousal-title">Tranding Product</h3>
+          <div className="line"></div>
+        </article>
+
+        <article className="carousal-wrapper">
+          <Carousel responsive={responsive}>
+            {trandingdata.map((data, index) => {
+              return (
+                <article key={index} className="card-wrapper">
+                  <Card cardType="liveCard" {...data} />
+                </article>
+              );
+            })}
+          </Carousel>
+        </article>
+      </ProductCarousalStyle>
+      {/* <ProductCarousal heading="Trending" cardData={trandingdata} /> */}
       <ProductCarousal heading="HOT Products" cardData={trendingItems} />
     </StoreStyle>
   );

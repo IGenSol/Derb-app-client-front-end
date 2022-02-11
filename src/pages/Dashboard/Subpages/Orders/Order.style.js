@@ -72,7 +72,7 @@ export const OrderStyle = styled.main`
           top: 50%;
           transform: translateY(-50%);
 
-          width: 8rem;
+          width: 12rem;
           height: 100%;
           background: ${(p) => p.theme.colors.PRIMARY_COLOR};
 
@@ -119,7 +119,6 @@ export const OrderStyle = styled.main`
     th,
     td {
       padding: 0.625em;
-      text-align: center;
     }
 
     th {

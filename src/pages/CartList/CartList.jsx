@@ -6,6 +6,8 @@ import { CartListStyle } from "./CartList.style";
 function CartList(props) {
   const { cartItems } = props;
 
+
+
   const itemsPrice = cartItems.reduce(
     (accumaltor, currentItem) =>
       accumaltor + currentItem.productPrice * currentItem.qty,
@@ -30,25 +32,25 @@ function CartList(props) {
 
         <tbody>
           {cartItems.map((cartItem, index) => {
-            const { productImage, productName, productPrice } = cartItem;
+            const { product_images, product_name, product_price } = cartItem;
             return (
               <tr key={index}>
                 <td>
                   <img
-                    src={productImage}
-                    alt={productName}
+                    src={product_images}
+                    alt="image"
                     className="product-image"
                   />
                 </td>
-                <td>{productName}</td>
-                <td>${productPrice}</td>
+                <td>{product_name}</td>
+                <td>${product_price}</td>
                 <td>
                   <QuantityCounter items={cartItem} itemCount={cartItem.qty} />
                 </td>
                 <td>
                   <button className="cross-btn">x</button>
                 </td>
-                <td className="total-amount">${productPrice}</td>
+                <td className="total-amount">${product_price}</td>
               </tr>
             );
           })}
