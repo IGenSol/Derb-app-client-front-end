@@ -98,11 +98,13 @@ const PaymentDetails = (props) => {
   const user = JSON.parse(sessionStorage.getItem("fname"));
   const email = sessionStorage.getItem("email");
   const mobile = sessionStorage.getItem("mobile");
+  const user_id = sessionStorage.getItem("userId");
   const { Panel } = Collapse;
   const [product, setProduct] = useState({
     name: cartItems,
     price: totalPrice,
     productby: "Jahangir",
+    user_id:user_id
   });
 
   const url = "/api/stripe";
