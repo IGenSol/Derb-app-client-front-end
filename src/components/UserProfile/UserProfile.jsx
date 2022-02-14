@@ -21,7 +21,7 @@ function UserProfile() {
     var userid = location.state;
   }
 
-  console.log(userid)
+
 
 
 
@@ -29,6 +29,8 @@ function UserProfile() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [user, setUser] = useState([]);
   const [Like, setLike] = useState(false)
+
+  const loginuserid = sessionStorage.getItem("userId")
 
   const onclickactive = () => {
     setLike(!Like)
@@ -89,9 +91,12 @@ function UserProfile() {
           </figure>
 
           <article className="buttons-wrapper">
-            <button className="profile-button" onClick={showModal}>
-              Edit Profile
-            </button>
+            {userid == loginuserid &&
+
+              <button className="profile-button" onClick={showModal}>
+                Edit Profile
+              </button>
+            }
             <button className="profile-button" onClick={onclickactive}>Visit Store</button>
             <PorfileModal
               handleOk={handleOk}

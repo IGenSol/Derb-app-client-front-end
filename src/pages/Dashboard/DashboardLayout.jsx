@@ -18,6 +18,7 @@ import SubCatagories from "./Subpages/Products/SubCatagories/SubCatagories";
 
 import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
 import UpdateProducts from "./Subpages/Products/UpdateProducts/UpdateProducts";
+import { useEffect } from "react";
 
 const Sidebar = (props) => {
   const [isBarActive, setBarActive] = useState(false);
@@ -112,6 +113,23 @@ const Sidebar = (props) => {
 };
 
 function DashboardLayout(props) {
+
+  useEffect(() => {
+    const path = JSON.parse(sessionStorage.getItem('userrole'));
+
+    switch (path) {
+      case "VENDOR":
+        return props.history.push("/dashboard");
+
+      case "USER":
+        return props.history.push("/user-dashboard");
+
+      default:
+        props.history.push("/");
+        return;
+    }
+  }, [])
+
   return (
     <DashboardLayoutStyle>
       <Router>

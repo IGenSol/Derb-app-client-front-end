@@ -24,8 +24,8 @@ const Modal = ({ handleClose }) => {
     }
   };
 
-  let Id = sessionStorage.getItem("userId")
-  const url = `${process.env.REACT_APP_BASE_URL}/posts/${Id}`;
+
+  const url = `${process.env.REACT_APP_BASE_URL}/posts/${userId}`;
 
   const [videoSrc, seVideoSrc] = useState("");
 

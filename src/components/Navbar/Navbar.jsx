@@ -91,6 +91,24 @@ const UserProfile = (props) => {
     props.history.push("/login");
   };
 
+  const handlepush = () => {
+
+    const path = JSON.parse(sessionStorage.getItem('userrole'));
+
+    switch (path) {
+      case "VENDOR":
+        return props.history.push("/dashboard");
+
+      case "USER":
+        return props.history.push("/user-dashboard");
+
+      default:
+        props.history.push("/");
+        return;
+    }
+
+  }
+
   return (
     <UserProfileStyle dropdownActive={dropdown}>
       <article className="user-profile-placeholder-wrapper" onClick={isDropDownActive}>
@@ -106,12 +124,12 @@ const UserProfile = (props) => {
         <ul className="dropdown-menu-wrapper">
 
           <li className="drop">
-            <Link to="/dashboard" className="dropdown-menu-link">
+            <a onClick={handlepush} className="dropdown-menu-link">
               <span className="icon">
                 <UserIcon />
               </span>
               <p className="link-text">Profile</p>
-            </Link>
+            </a>
           </li>
           <li className="drop">
             <Link

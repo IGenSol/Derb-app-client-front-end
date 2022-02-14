@@ -185,7 +185,24 @@ const RecentOrders = () => {
     );
 };
 
-function UserDashbaord() {
+function UserDashbaord(props) {
+
+    useEffect(() => {
+        const path = JSON.parse(sessionStorage.getItem('userrole'));
+
+        switch (path) {
+            case "VENDOR":
+                return props.history.push("/dashboard");
+
+            case "USER":
+                return props.history.push("/user-dashboard");
+
+            default:
+                props.history.push("/");
+                return;
+        }
+    }, [])
+
     return (
         <DashboardStyle>
             <h2 className="title">Dashboard</h2>

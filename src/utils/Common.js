@@ -18,11 +18,20 @@ export const getUserId = () => {
 export const getToken = () => {
   //to return Token
 
-  return sessionStorage.getItem("token") || null;
+  return sessionStorage.getItem("token");
 };
 
-export const setUserSession = (token, fname, lname, userId, email, mobile) => {
+export const setUserSession = (
+  token,
+  fname,
+  lname,
+  userId,
+  email,
+  mobile,
+  role
+) => {
   //set user infromation in session storage
+  console.log(role);
 
   sessionStorage.setItem("token", token);
   sessionStorage.setItem("fname", JSON.stringify(fname));
@@ -30,6 +39,7 @@ export const setUserSession = (token, fname, lname, userId, email, mobile) => {
   sessionStorage.setItem("userId", userId);
   sessionStorage.setItem("email", email);
   sessionStorage.setItem("mobile", mobile);
+  sessionStorage.setItem("userrole", JSON.stringify(role));
 };
 
 export const removeUserSession = () => {

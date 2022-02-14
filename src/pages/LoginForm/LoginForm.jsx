@@ -34,7 +34,6 @@ const Signup = () => {
     });
   };
 
-  console.log(signUp);
 
   const userSignUp = async () => {
     await axios
@@ -153,6 +152,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
+  const [Role, setRole] = useState("")
 
   const handleLogin = () => {
     setError(null);
@@ -165,7 +165,7 @@ const Login = (props) => {
       })
       .then((res) => {
         setLoading(false);
-        console.log(res);
+        console.log(res)
         if (res.data.message == "Login successfully") {
           setUserSession(
             res.data.token,
@@ -173,11 +173,31 @@ const Login = (props) => {
             res.data.data.last_name,
             res.data.data.id,
             res.data.data.email,
-            res.data.data.mobile
+            res.data.data.mobile,
+            res.data.data.role
           );
-          props.history.push("/dashboard");
 
-          window.location.reload();
+          setRole(res.data.data.role);
+
+          let path = res.data.data.role;
+
+          switch (path) {
+            case "VENDOR":
+              return props.history.push("/dashboard");
+
+            case "USER":
+              return props.history.push("/");
+
+            default:
+              props.history.push("/");
+              return;
+          }
+
+          // props.history.push("/dashboard");
+
+
+
+          // window.location.reload();
         } else {
           setError(res.data.message);
           toast.error("Invalid credentials", {
