@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../../components/Card/Card";
 import { CameraIcon, CrossIcon, FileIcon, VideoIcon } from "../../svgs";
-import { getUserId } from "../../utils/Common";
-
 import { FeedStyle, Modelstyle } from "./Feed.style";
 import { VerticalCardStyle } from "../../components/Card/Card.style";
 
@@ -13,16 +11,41 @@ const Modal = ({ handleClose }) => {
   const [description, setdescription] = useState("")
   const [image, setImage] = useState([]);
   const [postimage, setpostimage] = useState([]);
-
   const userId = sessionStorage.getItem("userId")
 
-  const filehandler = (e) => {
-    setImage(e.target.files[0]);
 
-    if (e.target.files.length !== 0) {
-      setpostimage(URL.createObjectURL(e.target.files[0]));
-    }
-  };
+  const [file, setFile] = useState([]);
+
+  function uploadSingleFile(e) {
+    let ImagesArray = Object.entries(e.target.files).map((e) =>
+      URL.createObjectURL(e[1])
+    );
+    // console.log(ImagesArray);
+    setFile([...file, ...ImagesArray]);
+    setImage([...image, e.target.files[0]]);
+    // console.log("file", file);
+  }
+
+  console.log(image)
+
+  function upload(e) {
+    e.preventDefault();
+    console.log(file);
+  }
+
+
+
+
+
+
+
+  // const filehandler = (e) => {
+  //   setImage(e.target.files[0]);
+
+  //   if (e.target.files.length !== 0) {
+  //     setpostimage(URL.createObjectURL(e.target.files[0]));
+  //   }
+  // };
 
 
   const url = `${process.env.REACT_APP_BASE_URL}/posts/${userId}`;
@@ -72,24 +95,43 @@ const Modal = ({ handleClose }) => {
             ></textarea>
 
           </article>
+          <article className="multi_image_container">
+            {file.length > 0 &&
+              file.map((item, index) => {
+                return (
+                  <div key={item}>
+                    <img src={item} className="multi_image" alt="Post_Image" />
+                    {/* <button type="button" onClick={() => deleteFile(index)}>
+                    delete
+                  </button> */}
+                  </div>
+                );
+              })}
 
-          <div className="imagecontainer">
+          </article>
+
+          {/* <div className="imagecontainer">
             {image &&
               <img className="preview-image" src={postimage}></img>
             }
-            {/* <Player
+            <Player
               playsInline
               src={videoSrc}
               fluid={false}
               width={480}
               height={272}
-            /> */}
-          </div>
+            />
+          </div> */}
           <article className="add-post-footer my-3">
             <label htmlFor="upload-photo" className="add-post-btn">
               <input
+                // type="file"
+                // onChange={filehandler}
                 type="file"
-                onChange={filehandler}
+                disabled={file.length === 5}
+                className="form-control"
+                onChange={uploadSingleFile}
+                multiple
 
                 id="upload-photo"
 
@@ -172,9 +214,6 @@ function Feed() {
     });
   };
 
-
-
-
   return (
     <FeedStyle>
       <aside className="friends-wrapper">
@@ -226,14 +265,14 @@ function Feed() {
           </article>
 
           <article className="add-post-footer">
-            <label htmlFor="upload-photo" className="add-post-btn" onClick={() => hanldeClick()}>
+            <label className="add-post-btn" onClick={() => hanldeClick()}>
               <span className="icon" >
                 <CameraIcon />
               </span>
               Photo
             </label>
 
-            <label htmlFor="upload-video" className="add-post-btn">
+            <label className="add-post-btn">
 
               <span className="icon">
                 <VideoIcon />

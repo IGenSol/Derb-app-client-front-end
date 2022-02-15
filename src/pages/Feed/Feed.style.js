@@ -273,6 +273,18 @@ export const Modelstyle = styled.main`
     }
   }
 
+  .multi_image_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 80%;
+    margin: auto;
+  }
+
+  .multi_image {
+    width: 10rem;
+    height: 10rem;
+  }
+
   .heading {
     font-size: 3rem;
     font-weight: 500;
