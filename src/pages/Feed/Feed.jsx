@@ -10,7 +10,7 @@ import { VerticalCardStyle } from "../../components/Card/Card.style";
 const Modal = ({ handleClose }) => {
   const [description, setdescription] = useState("")
   const [image, setImage] = useState([]);
-  const [postimage, setpostimage] = useState([]);
+  const [vedio, setVedio] = useState([]);
   const userId = sessionStorage.getItem("userId")
 
 
@@ -20,47 +20,36 @@ const Modal = ({ handleClose }) => {
     let ImagesArray = Object.entries(e.target.files).map((e) =>
       URL.createObjectURL(e[1])
     );
-    // console.log(ImagesArray);
     setFile([...file, ...ImagesArray]);
     setImage([...image, e.target.files[0]]);
-    // console.log("file", file);
   }
 
-  console.log(image)
+  //  ####For Vedio Upload
+  const inputRef = React.useRef();
 
-  function upload(e) {
-    e.preventDefault();
-    console.log(file);
-  }
+  const [source, setSource] = React.useState();
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setVedio(file)
+    const url = URL.createObjectURL(file);
+    setSource(url);
+  };
 
 
-
-
-
-
-
-  // const filehandler = (e) => {
-  //   setImage(e.target.files[0]);
-
-  //   if (e.target.files.length !== 0) {
-  //     setpostimage(URL.createObjectURL(e.target.files[0]));
-  //   }
-  // };
+  const handleChoose = (event) => {
+    inputRef.current.click();
+  };
 
 
   const url = `${process.env.REACT_APP_BASE_URL}/posts/${userId}`;
 
-  const [videoSrc, seVideoSrc] = useState("");
 
-  const handleChange = (e) => {
-    var reader = new FileReader();
-    // var url = URL.createObjectURL(e.originFileObj);
-    // seVideoSrc(url);
-  };
 
   const formData = new FormData();
   formData.append("post_description", description);
   formData.append("post_image", image);
+  formData.append("vedio", vedio);
   formData.append("user_id", userId);
 
 
@@ -108,6 +97,16 @@ const Modal = ({ handleClose }) => {
                 );
               })}
 
+            {source && (
+              <video
+                className="VideoInput_video"
+                width="100%"
+                height="200"
+                controls
+                src={source}
+              />)
+            }
+
           </article>
 
           {/* <div className="imagecontainer">
@@ -125,14 +124,11 @@ const Modal = ({ handleClose }) => {
           <article className="add-post-footer my-3">
             <label htmlFor="upload-photo" className="add-post-btn">
               <input
-                // type="file"
-                // onChange={filehandler}
                 type="file"
                 disabled={file.length === 5}
                 className="form-control"
                 onChange={uploadSingleFile}
                 multiple
-
                 id="upload-photo"
 
               />
@@ -142,14 +138,16 @@ const Modal = ({ handleClose }) => {
               Photo
             </label>
 
-            <label htmlFor="upload-video" className="add-post-btn">
+            <label htmlFor="upload-video" className="add-post-btn" onClick={handleChoose}>
               <input
+                ref={inputRef}
+                className="VideoInput_input"
                 type="file"
-                onChange={(e) => { handleChange(e) }}
-                id="upload-photo"
+                onChange={handleFileChange}
+                accept=".mov,.mp4"
 
               />
-              <span className="icon">
+              <span className="icon" >
                 <VideoIcon />
               </span>
               Videos
@@ -272,7 +270,7 @@ function Feed() {
               Photo
             </label>
 
-            <label className="add-post-btn">
+            <label className="add-post-btn" onClick={() => hanldeClick()}>
 
               <span className="icon">
                 <VideoIcon />
