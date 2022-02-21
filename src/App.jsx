@@ -47,6 +47,7 @@ function App() {
   }, [cartItems]);
 
   const addItem = (product) => {
+
     const exist = cartItems.find((item) => item.url === product.url);
 
     if (exist) {

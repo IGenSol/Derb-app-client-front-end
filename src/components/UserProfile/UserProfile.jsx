@@ -21,7 +21,7 @@ function UserProfile() {
     var userid = location.state;
   }
 
-
+  console.log(userid)
 
 
 
@@ -31,17 +31,6 @@ function UserProfile() {
   const [Like, setLike] = useState(false)
 
   const loginuserid = sessionStorage.getItem("userId")
-
-  const onclickactive = () => {
-    setLike(!Like)
-  }
-
-  if (Like) {
-    // console.log(1)
-  }
-  else {
-    // console.log(0)
-  }
 
   useEffect(() => {
     getUserData();
@@ -70,6 +59,21 @@ function UserProfile() {
     setIsModalVisible(false);
   };
 
+
+  // #### Follow Unfollow Code####
+  const onclickactive = () => {
+    setLike(!Like)
+  }
+
+  let text = ""
+
+  if (Like) {
+    text = "Follow"
+  }
+  else {
+    text = "Unfollow"
+  }
+
   return (
     <UserProfileStyle>
       <section className="user-details">
@@ -97,7 +101,7 @@ function UserProfile() {
                 Edit Profile
               </button>
             }
-            <button className="profile-button" onClick={onclickactive}>Visit Store</button>
+            <button className="profile-button" onClick={onclickactive}>{text}</button>
             <PorfileModal
               handleOk={handleOk}
               handleCancel={handleCancel}

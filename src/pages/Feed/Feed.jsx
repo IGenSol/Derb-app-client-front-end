@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Card from "../../components/Card/Card";
 import { CameraIcon, CrossIcon, FileIcon, VideoIcon } from "../../svgs";
@@ -212,6 +213,8 @@ function Feed() {
     });
   };
 
+  const id = followerCount?.user_id || "";
+
   return (
     <FeedStyle>
       <aside className="friends-wrapper">
@@ -248,11 +251,19 @@ function Feed() {
       <article className="user-profiles-wrapper">
         <article className="add-post-section">
           <article className="post-input">
-            <img
-              src="./images/users/user-four.jpg"
-              alt="User Profile Image"
-              className="profile-image"
-            />
+
+            <Link to={
+              {
+                pathname: "/user-profile",
+                state: id
+              }
+            }>
+              <img
+                src={followerCount?.picture}
+                alt="User Profile Image"
+                className="profile-image"
+              />
+            </Link>
 
             <textarea
               name="Post"
@@ -295,13 +306,20 @@ function Feed() {
       <aside className="profile-detail">
         <section className="user-profile">
           <article className="profile-header">
-            <img
-              src="./images/users/user-four.jpg"
-              alt="User Profile Image"
-              className="profile-image"
-            />
+            <Link to={
+              {
+                pathname: "/user-profile",
+                state: id
+              }
+            }>
+              <img
+                src={followerCount?.picture}
+                alt="User Profile Image"
+                className="profile-image"
+              />
+            </Link>
           </article>
-          <h3 className="name">Jahangir Khan</h3>
+          <h3 className="name">{followerCount?.first_name}</h3>
           <h4 className="username">@jahangirkhan</h4>
 
           <article className="profile-details">

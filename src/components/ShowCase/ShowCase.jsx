@@ -68,6 +68,7 @@ const ProductFooter = (props) => {
   const { addItem } = useContext(products);
   const { product } = props
 
+
   return (
     <ProductFooterStyle>
       <article className="product-properties">
