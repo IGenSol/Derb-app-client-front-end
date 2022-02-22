@@ -28,7 +28,7 @@ function UserProfile() {
   const url = `${process.env.REACT_APP_BASE_URL}/users/${userid}`;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [user, setUser] = useState([]);
-  const [Like, setLike] = useState(false)
+  const [follow, setfollow] = useState(false)
 
   const loginuserid = sessionStorage.getItem("userId")
 
@@ -61,17 +61,33 @@ function UserProfile() {
 
 
   // #### Follow Unfollow Code####
+
+  const [follower, setfollowerd] = useState({
+    follower_id: loginuserid,
+    following_id: userid
+  })
   const onclickactive = () => {
-    setLike(!Like)
+    setfollow(!follow)
   }
 
   let text = ""
 
-  if (Like) {
+  if (follow) {
     text = "Follow"
+    axios.put(`${process.env.REACT_APP_BASE_URL}/follower/${loginuserid}`, follower).then((res) => {
+      alert("Unfollow")
+    }).catch((err) => {
+      alert(err)
+    })
+
   }
   else {
     text = "Unfollow"
+    axios.post(`${process.env.REACT_APP_BASE_URL}/follower`, follower).then((res) => {
+      alert("Follow")
+    }).catch((err) => {
+      alert(err)
+    })
   }
 
   return (
