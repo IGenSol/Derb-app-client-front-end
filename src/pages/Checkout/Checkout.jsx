@@ -26,7 +26,7 @@ const ItemList = (props) => {
   const { cartItems } = props;
   const itemsPrice = cartItems.reduce(
     (accumaltor, currentItem) =>
-      accumaltor + currentItem.productPrice * currentItem.qty,
+      accumaltor + currentItem.product_price * currentItem.qty,
     0
   );
 
@@ -47,10 +47,9 @@ const ItemList = (props) => {
                   <b>{items.qty}</b> X
                 </h3>
                 <article className="order-details">
-                  <h3 className="order-name">{items.productName}</h3>
-                  <p className="description">{items.description}</p>
+                  <h3 className="order-name">{items.product_name}</h3>
                 </article>
-                <h3 className="price">$ {items.productPrice}</h3>
+                <h3 className="price">$ {items.product_price}</h3>
               </article>
             );
           })}
@@ -76,7 +75,7 @@ const ItemList = (props) => {
 
         <article className="grand-total">
           <h3>Total (incl.GST)</h3>
-          <h3>${totalPrice}</h3>
+          <h3>${totalPrice.toFixed(2)}</h3>
         </article>
       </article>
     </ItemListStyle>
@@ -118,7 +117,6 @@ const PaymentDetails = (props) => {
       email,
       mobile,
     };
-    console.log(body)
     const headers = {
       "Content-Type": "application/json",
     };
@@ -443,6 +441,7 @@ function Checkout() {
   const { Panel } = Collapse;
   const product = useContext(products);
   const { cartItems } = product;
+
   const itemsPrice = cartItems.reduce(
     (accumaltor, currentItem) =>
       accumaltor + currentItem.product_price * currentItem.qty,
@@ -451,9 +450,11 @@ function Checkout() {
 
 
 
+
   const taxPrice = itemsPrice * 0.14;
   const shippingPrice = itemsPrice > 2000 ? 0 : 50;
   const totalPrice = itemsPrice + taxPrice + shippingPrice;
+
 
   return (
     <CheckoutStyle>

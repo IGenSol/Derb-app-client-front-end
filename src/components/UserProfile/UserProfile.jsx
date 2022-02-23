@@ -21,19 +21,18 @@ function UserProfile() {
     var userid = location.state;
   }
 
-  console.log(userid)
-
-
-
   const url = `${process.env.REACT_APP_BASE_URL}/users/${userid}`;
+  const followerCounturl = `${process.env.REACT_APP_BASE_URL}/follower/AllFollowerCount/${userid}`;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [user, setUser] = useState([]);
   const [follow, setfollow] = useState(false)
+  const [followerCount, setFollowerCount] = useState([]);
 
   const loginuserid = sessionStorage.getItem("userId")
 
   useEffect(() => {
     getUserData();
+    getfollowerCount();
   }, []);
 
   const getUserData = async () => {
@@ -45,6 +44,12 @@ function UserProfile() {
       .catch((err) => {
         alert(err);
       });
+  };
+
+  const getfollowerCount = async () => {
+    await axios.get(followerCounturl).then((res) => {
+      setFollowerCount(res.data.data[0]);
+    });
   };
 
   const showModal = () => {
@@ -68,26 +73,30 @@ function UserProfile() {
   })
   const onclickactive = () => {
     setfollow(!follow)
+    if (follow) {
+      axios.put(`${process.env.REACT_APP_BASE_URL}/follower/${loginuserid}`, follower).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+
+    }
+    else {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/follower`, follower).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
   }
 
   let text = ""
 
   if (follow) {
     text = "Follow"
-    axios.put(`${process.env.REACT_APP_BASE_URL}/follower/${loginuserid}`, follower).then((res) => {
-      alert("Unfollow")
-    }).catch((err) => {
-      alert(err)
-    })
-
   }
   else {
     text = "Unfollow"
-    axios.post(`${process.env.REACT_APP_BASE_URL}/follower`, follower).then((res) => {
-      alert("Follow")
-    }).catch((err) => {
-      alert(err)
-    })
   }
 
   return (
@@ -129,7 +138,7 @@ function UserProfile() {
 
         <article className="user-connections">
           <article className="counter">
-            <h2 className="counter-no">23</h2>
+            <h2 className="counter-no">{followerCount?.total_post}</h2>
             <p className="counter-text">Post</p>
           </article>
           <article className="counter">
@@ -137,7 +146,7 @@ function UserProfile() {
             <p className="counter-text">Following</p>
           </article>
           <article className="counter">
-            <h2 className="counter-no">100</h2>
+            <h2 className="counter-no">{followerCount?.total_followers}</h2>
             <p className="counter-text">Followers</p>
           </article>
         </article>
