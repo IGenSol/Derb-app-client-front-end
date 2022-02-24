@@ -43,7 +43,7 @@ const Modal = ({ handleClose }) => {
   };
 
 
-  const url = `${process.env.REACT_APP_BASE_URL}/posts/${userId}`;
+  const url = `${process.env.REACT_APP_BASE_URL}/posts`;
 
 
 
