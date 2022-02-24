@@ -14,6 +14,9 @@ const Modal = ({ handleClose }) => {
   const [vedio, setVedio] = useState([]);
   const userId = sessionStorage.getItem("userId")
 
+  const img = [...image]
+  console.log(img)
+
 
   const [file, setFile] = useState([]);
 
@@ -49,9 +52,13 @@ const Modal = ({ handleClose }) => {
 
   const formData = new FormData();
   formData.append("post_description", description);
-  formData.append("post_image", image);
   formData.append("vedio", vedio);
   formData.append("user_id", userId);
+
+  image.forEach(file => {
+    formData.append("post_image", image);
+  });
+
 
 
   const feedPost = () => {

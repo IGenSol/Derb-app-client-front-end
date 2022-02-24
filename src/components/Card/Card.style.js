@@ -416,6 +416,10 @@ export const PostFooterStyle = styled.article`
 
     border-bottom: 0.1rem solid #f9f9fb;
 
+    .likecolor {
+      color: red;
+    }
+
     .post-button {
       ${FlexboxStyle({ justify: "flex-start" })};
 

@@ -8,8 +8,7 @@ function QuantityCounter(props) {
   const { addItem, onRemove } = useContext(products);
   const product = localStorage.getItem("products");
 
-  console.log(items);
-  console.log(itemCount);
+
 
   return (
     <QuantityCounterStyle>

@@ -48,12 +48,12 @@ function App() {
 
   const addItem = (product) => {
 
-    const exist = cartItems.find((item) => item.url === product.url);
+    const exist = cartItems.find((item) => item.id === product.id);
 
     if (exist) {
       setCartItems(
         cartItems.map((currentItem) =>
-          currentItem.url === product.url
+          currentItem.id === product.id
             ? { ...exist, qty: exist.qty + 1 }
             : currentItem
         )
@@ -84,9 +84,7 @@ function App() {
     <Router>
       <ThemeProvider theme={THEMES}>
         <GlobalStyle />
-        <products.Provider value={cartItems.length}>
-          {user && <Navbar />}
-        </products.Provider>
+
         <Switch>
           <products.Provider
             value={{
@@ -95,6 +93,10 @@ function App() {
               cartItems: cartItems,
             }}
           >
+            <PublicRoute path="/login" component={LoginForm} />
+            <products.Provider value={cartItems.length}>
+              <Navbar />
+            </products.Provider>
             <PrivateRoute path="/" exact component={Discover} />
             <PrivateRoute path="/feed" exact component={Feed} />
             <PrivateRoute path="/store" exact component={Store} />
@@ -107,7 +109,7 @@ function App() {
 
 
 
-            <PublicRoute path="/login" component={LoginForm} />
+
             <PrivateRoute path="/dashboard" component={DashboardLayout} />
             <PrivateRoute path="/user-dashboard" component={UserDashbaord} />
             <PrivateRoute path="/cart-list" exact>

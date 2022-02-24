@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Tabs } from "antd";
-
 import Card from "../../components/Card/Card";
-import {
-  discoverItems,
-  followingProfiles,
-  profiles,
-} from "../../mockData/discoverData";
-
 import { DiscoverStyle, FollowingStyle } from "./Discover.style";
 import { trendingItems } from "../../mockData/trendingItems";
 import { LiveCardStyle, PostFooterStyle, VerticalCardStyle } from "../../components/Card/Card.style";
@@ -167,7 +160,9 @@ const Following = () => {
 function Discover() {
   const { TabPane } = Tabs;
   const [descover, setdescover] = useState([])
+  const [Like, setLike] = useState(false)
   const url = `${process.env.REACT_APP_BASE_URL}/posts/discovery/data`
+  const loginuserid = sessionStorage.getItem("userId")
 
   useEffect(() => {
     getDescoverPost()
@@ -182,6 +177,50 @@ function Discover() {
   }
 
 
+
+  const [productid, setproductid] = useState()
+  const [postid, setpostid] = useState()
+  const [storeid, setstoreid] = useState()
+
+
+  const handleLike = (e) => {
+
+    setproductid(e.product_id)
+    setpostid(e.post_id)
+    setstoreid(e.store_id)
+
+    const data = {
+      user_id: loginuserid,
+      product_id: productid,
+      post_id: postid,
+      store_id: storeid
+
+    }
+    console.log(data)
+    setLike(!Like)
+
+    if (Like) {
+
+      axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+
+    }
+    else {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/reviews/likes`, data).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
+
+
+  }
+
+
   return (
     <DiscoverStyle>
       <Tabs
@@ -193,8 +232,10 @@ function Discover() {
         <TabPane tab="Discover" key="descover">
           <article className="discover-prducts-wrapper">
             {descover.map((descover, index) => {
-              const { post_image, store_id, product_name, product_id } = descover;
+              const { post_image, user_id, post_id, store_id, product_name, product_id } = descover;
               const id = product_id
+              const userid = user_id;
+
               return (
                 <article key={index}>
                   <LiveCardStyle>
@@ -209,17 +250,21 @@ function Discover() {
                       </Link>) : (" ")}
 
 
-                    <picture className="image-thumbnail" >
+                    <Link className="image-thumbnail" to={
+                      {
+                        pathname: "/user-profile",
+                        state: userid
+                      }
+                    } >
                       <img src={post_image} alt="image" className="thumbnail" />
-                    </picture>
+                    </Link>
                     <PostFooterStyle>
                       <article className="post-buttons-wrapper">
                         <button className="post-button">
-                          <span className="icon">
-                            <LikeIcon />
-                          </span>
+                          <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3 ${Like ? "likecolor" : ""}`} ></i>
                           5
                         </button>
+
                         <button className="post-button">
                           <span className="icon">
                             <CommentIcon />
