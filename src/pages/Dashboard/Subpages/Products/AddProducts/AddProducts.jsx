@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { CameraIcon, LeftArrowIcon } from "../../../../../svgs";
 import { AddProductsStyle } from "./AddProducts.style";
+import { imagecapture } from "caniuse-lite/data/features";
 
 function AddProducts(props) {
   const [productId, setProductId] = useState(0);
@@ -13,31 +14,62 @@ function AddProducts(props) {
   const [productCatagory, setProductCatagory] = useState("");
   const [productSize, setProductSize] = useState("");
   const [productColor, setProductColor] = useState("");
+  const [image, setImage] = useState([]);
+  const [productImage, setProductImage] = useState([]);
   const [productDescription, setProductDescription] = useState("");
 
   const url = `${process.env.REACT_APP_BASE_URL}/products`;
 
+
+  const [file, setFile] = useState([]);
+
+
+  function uploadMultipleimage(e) {
+    let ImagesArray = Object.entries(e.target.files).map((e) =>
+      URL.createObjectURL(e[1])
+    );
+    setFile([...file, ...ImagesArray]);
+    setImage([...image, e.target.files[0]]);
+
+
+  }
+
+
+
+  const formData = new FormData();
+  formData.append("product_id", productId);
+  formData.append("product_name", productName);
+  formData.append("product_price", productPrice);
+  formData.append("category_id", productCatagory);
+  formData.append("store_id", productSize);
+  formData.append("description", productDescription);
+  formData.append("product_color", productColor);
+  formData.append("product_image", image);
+
+
+
+
+
   const postProductData = (e) => {
     e.preventDefault();
     axios
-      .post(url, {
-        product_id: productId,
-        product_name: productName,
-        product_price: productPrice,
-        category_id: productCatagory,
-        store_id: productSize,
-        description: productDescription,
-        product_color: productColor,
-      })
+      .post(url, image)
       .then((res) => {
-        console.log(`response >> ${JSON.stringify(res)}`);
+
+        props.history.push("/dashboard/products-list");
       })
       .catch((err) => {
         console.log(`there is an error >> ${err}`);
       });
 
-    props.history.push("/dashboard/products-list");
   };
+
+
+
+
+
+
+
 
   return (
     <AddProductsStyle>
@@ -55,46 +87,64 @@ function AddProducts(props) {
             type="file"
             id="upload-product-photo"
             className="input-img-upload"
+            onChange={uploadMultipleimage}
           />
 
           <label htmlFor="upload-product-photo" className="upload-photo">
-            <span className="icon">
-              <CameraIcon />
-            </span>
-            <input type="file" id="upload-product-photo" />
+            {file[0] ? (
+              <img className="preview-image" src={file[0]}></img>
+            ) : (
+              <span className="icon">
+                <CameraIcon />
+              </span>
+            )}
+
           </label>
 
           <article className="product-images-list">
+
             <label htmlFor="upload-product-photo" className="upload-photo">
-              <span className="silde-icon">
-                <CameraIcon />
-              </span>
-              <input type="file" id="upload-product-photo" />
+              {file[1] ? (
+                <img className="preview-image" src={file[1]}></img>
+              ) : (
+                <span className="icon">
+                  <CameraIcon />
+                </span>
+              )}
+              <input type="file" id="upload-product-photo" onChange={uploadMultipleimage} />
             </label>
+
+
             <label htmlFor="upload-product-photo" className="upload-photo">
-              <span className="silde-icon">
-                <CameraIcon />
-              </span>
-              <input type="file" id="upload-product-photo" />
+              {file[2] ? (
+                <img className="preview-image" src={file[2]}></img>
+              ) : (
+                <span className="icon">
+                  <CameraIcon />
+                </span>
+              )}
+              <input type="file" id="upload-product-photo" onChange={uploadMultipleimage} />
             </label>
+
+
             <label htmlFor="upload-product-photo" className="upload-photo">
-              <span className="silde-icon">
-                <CameraIcon />
-              </span>
-              <input type="file" id="upload-product-photo" />
+              {file[3] ? (
+                <img className="preview-image" src={file[3]}></img>
+              ) : (
+                <span className="icon">
+                  <CameraIcon />
+                </span>
+              )}
+              <input type="file" id="upload-product-photo" onChange={uploadMultipleimage} />
             </label>
-            <label htmlFor="upload-product-photo" className="upload-photo">
-              <span className="silde-icon">
-                <CameraIcon />
-              </span>
-              <input type="file" id="upload-product-photo" />
-            </label>
-            <label htmlFor="upload-product-photo" className="upload-photo">
-              <span className="silde-icon">
-                <CameraIcon />
-              </span>
-              <input type="file" id="upload-product-photo" />
-            </label>
+
+
+
+
+
+
+
+
           </article>
 
           <section className="form-content">

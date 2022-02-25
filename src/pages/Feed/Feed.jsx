@@ -19,6 +19,7 @@ const Modal = ({ handleClose }) => {
 
 
   const [file, setFile] = useState([]);
+  console.log(file[1])
 
   function uploadSingleFile(e) {
     let ImagesArray = Object.entries(e.target.files).map((e) =>

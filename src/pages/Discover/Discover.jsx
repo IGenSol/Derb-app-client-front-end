@@ -160,7 +160,6 @@ const Following = () => {
 function Discover() {
   const { TabPane } = Tabs;
   const [descover, setdescover] = useState([])
-  const [Like, setLike] = useState(false)
   const url = `${process.env.REACT_APP_BASE_URL}/posts/discovery/data`
   const loginuserid = sessionStorage.getItem("userId")
 
@@ -175,13 +174,9 @@ function Discover() {
       alert(err)
     })
   }
-
-
-
   const [productid, setproductid] = useState()
   const [postid, setpostid] = useState()
   const [storeid, setstoreid] = useState()
-
 
   const handleLike = (e) => {
 
@@ -196,23 +191,29 @@ function Discover() {
       store_id: storeid
 
     }
-    console.log(data)
-    setLike(!Like)
 
-    if (Like) {
+
+    if (e.rating_user_id == loginuserid) {
+
 
       axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
         console.log(res)
+        alert(`disk ${e.post_id} ${e.product_id}`)
+        getDescoverPost();
       }).catch((err) => {
         console.log(err)
+        alert(`diskerr ${e.post_id} ${e.product_id}`)
       })
 
     }
     else {
       axios.post(`${process.env.REACT_APP_BASE_URL}/reviews/likes`, data).then((res) => {
         console.log(res)
+        alert(`like ${e.post_id} ${e.product_id}`)
+        getDescoverPost();
       }).catch((err) => {
         console.log(err)
+        alert(`likeer ${e.post_id} ${e.product_id}`)
       })
     }
 
@@ -232,7 +233,7 @@ function Discover() {
         <TabPane tab="Discover" key="descover">
           <article className="discover-prducts-wrapper">
             {descover.map((descover, index) => {
-              const { post_image, user_id, post_id, store_id, product_name, product_id } = descover;
+              const { post_image, user_id, post_id, store_id, product_name, product_id, rating_user_id } = descover;
               const id = product_id
               const userid = user_id;
 
@@ -261,8 +262,11 @@ function Discover() {
                     <PostFooterStyle>
                       <article className="post-buttons-wrapper">
                         <button className="post-button">
-                          <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3 ${Like ? "likecolor" : ""}`} ></i>
-                          5
+                          {rating_user_id == loginuserid ? (<i onClick={() => handleLike(descover)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
+                            <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3`} ></i>
+                          )}
+
+                          {product_id}{post_id}
                         </button>
 
                         <button className="post-button">
