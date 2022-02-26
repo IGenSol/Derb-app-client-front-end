@@ -25,7 +25,7 @@ const Modal = ({ handleClose, details }) => {
         comment
     }
 
-    console.log(data)
+
 
     const ratingChanged = (newRating) => {
         setrate(newRating)

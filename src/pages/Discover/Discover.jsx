@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Tabs } from "antd";
 import Card from "../../components/Card/Card";
-import { DiscoverStyle, FollowingStyle } from "./Discover.style";
+import { CommentStyle, DiscoverStyle, FollowingStyle } from "./Discover.style";
 import { trendingItems } from "../../mockData/trendingItems";
 import { LiveCardStyle, PostFooterStyle, VerticalCardStyle } from "../../components/Card/Card.style";
-import { CommentIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
+import { CommentIcon, CrossIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
 import { Link } from "react-router-dom";
+import { Modelstyle } from "../Feed/Feed.style";
 
 
 const Following = () => {
@@ -65,9 +66,9 @@ const Following = () => {
                   }
                 } className="friend-card" >
 
-                  <picture className="thumbnail-wrapper" >
+                  <article className="thumbnail-wrapper" >
                     <img src={follower?.user_image} alt="image" className="user-image" />
-                  </picture>
+                  </article>
 
                   {/* <span className="card-icon">{icon}</span> */}
 
@@ -157,9 +158,126 @@ const Following = () => {
   );
 };
 
+const Modal = ({ handleClose, data }) => {
+
+  const loginuserid = sessionStorage.getItem("userId")
+  const [comment, setcomment] = useState()
+  const [text, settext] = useState("")
+  const [productid, setproductid] = useState()
+  const [postid, setpostid] = useState()
+  const [storeid, setstoreid] = useState()
+  const url = `${process.env.REACT_APP_BASE_URL}/posts/comments/''/7`
+  const posturl = `${process.env.REACT_APP_BASE_URL}/posts/comments`
+
+  useEffect(() => {
+
+    getcomments()
+  }, [])
+
+
+
+
+  const getcomments = async () => {
+    await axios.get(url).then((res) => {
+      setcomment(res.data)
+    }).catch((err) => {
+      alert(err)
+    })
+  }
+
+
+
+  const postcomment = async () => {
+    setproductid(data.product_id)
+    setpostid(data.post_id)
+    setstoreid(data.store_id)
+
+
+    const postdata = {
+      user_id: loginuserid,
+      product_id: productid,
+      post_id: postid,
+
+    }
+
+    axios.post(posturl, postdata).then((res) => {
+      alert("add")
+    }).catch((err) => {
+      alert(err)
+    })
+  }
+
+
+
+  return (
+    <Modelstyle>
+      <div className="modal display-block">
+        <section className="modal-main">
+
+          <div className="container">
+            <p className="heading">Add Comment</p>
+            <article className="cancel" onClick={handleClose}><CrossIcon /></article>
+          </div>
+          <hr className="mb-3"></hr>
+          <CommentStyle>
+            <article className="comments">
+              {comment &&
+                comment.map((data, index) => {
+                  return (
+                    <article key={index}>
+                      <article className="profilewrapper">
+                        <picture className="img">
+                          <img src={data?.user_image} alt="img"></img>
+
+                        </picture>
+                        <h3>{data?.first_name} {data?.last_name}</h3>
+                      </article>
+                      <h4 className="text">{data.comment}</h4>
+                    </article>
+
+                  )
+                })
+              }
+
+            </article>
+
+            <hr className="mt-4"></hr>
+            <article className="comment-box-wrapper">
+              <input
+                type="text"
+                className="comment-input-box"
+                placeholder="Write your comment..."
+                onChange={(e) => settext(e.target.value)}
+              />
+              <button className="send-button" onClick={postcomment}>
+                <SendButtonIcon />
+              </button>
+            </article>
+
+          </CommentStyle>
+
+
+
+
+        </section>
+      </div>
+    </Modelstyle >
+  );
+};
+
 function Discover() {
   const { TabPane } = Tabs;
   const [descover, setdescover] = useState([])
+  const [show, setShow] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const hanldeClick = (data) => {
+    setSelectedData(data);
+    setShow(true);
+  };
+
+  const hideModal = () => {
+    setShow(false);
+  };
   const url = `${process.env.REACT_APP_BASE_URL}/posts/discovery/data`
   const loginuserid = sessionStorage.getItem("userId")
 
@@ -174,28 +292,16 @@ function Discover() {
       alert(err)
     })
   }
-  const [productid, setproductid] = useState()
-  const [postid, setpostid] = useState()
-  const [storeid, setstoreid] = useState()
-
   const handleLike = (e) => {
-
-    setproductid(e.product_id)
-    setpostid(e.post_id)
-    setstoreid(e.store_id)
-
+    const { product_id, post_id, store_id } = e
     const data = {
       user_id: loginuserid,
-      product_id: productid,
-      post_id: postid,
-      store_id: storeid
+      product_id: product_id,
+      post_id: post_id,
+      store_id: store_id
 
     }
-
-
-    if (e.rating_user_id == loginuserid) {
-
-
+    if (e.rating_user_id == loginuserid && e.LIKES == 1) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
         console.log(res)
         alert(`disk ${e.post_id} ${e.product_id}`)
@@ -233,13 +339,21 @@ function Discover() {
         <TabPane tab="Discover" key="descover">
           <article className="discover-prducts-wrapper">
             {descover.map((descover, index) => {
-              const { post_image, user_id, post_id, store_id, product_name, product_id, rating_user_id } = descover;
+              const { post_image, user_id, post_id, store_id, product_name, first_name, last_name, product_id, user_image, rating_user_id, LIKES } = descover;
               const id = product_id
               const userid = user_id;
 
               return (
                 <article key={index}>
+                  <article className="profilewrapper">
+                    <picture className="img">
+                      <img src={user_image} alt="img"></img>
+
+                    </picture>
+                    <h3>{first_name} {last_name} </h3>
+                  </article>
                   <LiveCardStyle>
+
                     {store_id >= 1 ? (
                       <Link to={
                         {
@@ -262,7 +376,7 @@ function Discover() {
                     <PostFooterStyle>
                       <article className="post-buttons-wrapper">
                         <button className="post-button">
-                          {rating_user_id == loginuserid ? (<i onClick={() => handleLike(descover)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
+                          {rating_user_id == loginuserid && LIKES == "1" ? (<i onClick={() => handleLike(descover)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
                             <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3`} ></i>
                           )}
 
@@ -270,7 +384,7 @@ function Discover() {
                         </button>
 
                         <button className="post-button">
-                          <span className="icon">
+                          <span className="icon" onClick={() => hanldeClick(descover)}>
                             <CommentIcon />
                           </span>
                           4
@@ -301,6 +415,7 @@ function Discover() {
               )
             })}
           </article>
+          {show && <Modal data={selectedData} handleClose={hideModal} />}
         </TabPane>
         <TabPane tab="Following" key="following">
           <Following />
