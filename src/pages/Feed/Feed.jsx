@@ -57,7 +57,7 @@ const Modal = ({ handleClose }) => {
     debugger
     const formData = new FormData();
     formData.append("post_description", description);
-    formData.append("vedio", vedio);
+    formData.append("post_video", vedio);
     formData.append("user_id", userId);
 
     image.forEach(_file => {
