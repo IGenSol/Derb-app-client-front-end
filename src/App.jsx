@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import axios from "axios";
-import "antd/dist/antd.css";
+import 'antd/dist/antd.min.css';
 import "react-multi-carousel/lib/styles.css";
 
 import THEMES from "./style/theme";
@@ -81,7 +81,7 @@ function App() {
     }
   };
   return (
-    <Router>
+    <Router basename="/">
       <ThemeProvider theme={THEMES}>
         <GlobalStyle />
 

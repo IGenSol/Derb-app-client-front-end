@@ -3,12 +3,12 @@ import PlacesAutocomplete from "react-places-autocomplete/dist/PlacesAutocomplet
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { Collapse, Switch } from "antd";
 import axios from "axios";
-import {
-  GoogleMap,
-  withGoogleMap,
-  withScriptjs,
-  Marker,
-} from "react-google-maps";
+// import {
+//   GoogleMap,
+//   withGoogleMap,
+//   withScriptjs,
+//   Marker,
+// } from "react-google-maps";
 
 import { getLat, getLng, setLatLong } from "../../utils/Common";
 import { products } from "../../App";
@@ -246,24 +246,24 @@ const PersonalDetails = () => {
   );
 };
 
-const Map = () => {
-  const latData = getLat();
-  const lngData = getLng();
+// const Map = () => {
+//   const latData = getLat();
+//   const lngData = getLng();
 
-  return (
-    <GoogleMap
-      defaultZoom={10}
-      defaultCenter={{
-        lat: latData,
-        lng: lngData,
-      }}
-    >
-      <Marker position={{ lat: latData, lng: lngData }} />
-    </GoogleMap>
-  );
-};
+//   return (
+//     <GoogleMap
+//       defaultZoom={10}
+//       defaultCenter={{
+//         lat: latData,
+//         lng: lngData,
+//       }}
+//     >
+//       <Marker position={{ lat: latData, lng: lngData }} />
+//     </GoogleMap>
+//   );
+// };
 
-const WrappedMap = withScriptjs(withGoogleMap(Map));
+//const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 const DeliveryDetails = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -371,7 +371,7 @@ const DeliveryDetails = () => {
       <article className="delivery-address-wrapper">
         {getAddress && <label className="heading">Deliver address</label>}
 
-        {getAddress && (
+        {/* {getAddress && (
           <article className="map-container">
             <WrappedMap
               googleMapURL={
@@ -382,7 +382,7 @@ const DeliveryDetails = () => {
               mapElement={<div style={{ height: "100%" }} />}
             />
           </article>
-        )}
+        )} */}
 
         {/* <article className="address-info-wrapper">
           <article className="address-container">
