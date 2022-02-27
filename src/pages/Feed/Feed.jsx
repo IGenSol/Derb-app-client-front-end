@@ -14,18 +14,17 @@ const Modal = ({ handleClose }) => {
   const [vedio, setVedio] = useState([]);
   const userId = sessionStorage.getItem("userId")
 
-  const img = [...image]
-  console.log(img)
-
-
   const [file, setFile] = useState([]);
 
+
   function uploadSingleFile(e) {
+
     let ImagesArray = Object.entries(e.target.files).map((e) =>
       URL.createObjectURL(e[1])
     );
     setFile([...file, ...ImagesArray]);
-    setImage([...image, e.target.files[0]]);
+    setImage([...image, e.target.files]);
+    // setImage([...image, e.target.files[0]]);
   }
 
   //  ####For Vedio Upload
@@ -50,18 +49,24 @@ const Modal = ({ handleClose }) => {
 
 
 
-  const formData = new FormData();
-  formData.append("post_description", description);
-  formData.append("vedio", vedio);
-  formData.append("user_id", userId);
 
-  image.forEach(file => {
-    formData.append("post_image", image);
-  });
 
 
 
   const feedPost = () => {
+    debugger
+    const formData = new FormData();
+    formData.append("post_description", description);
+    formData.append("vedio", vedio);
+    formData.append("user_id", userId);
+
+    image.forEach(_file => {
+      for (let i = 0; i < _file.length; i++) {
+        const element = _file[i];
+        // formData.append("post_image", _file[i], i + "");
+        formData.append("post_image", _file[i], i + "");
+      }
+    });
     axios.post(url, formData)
       .then((res) => {
         alert("Successfully Posted")

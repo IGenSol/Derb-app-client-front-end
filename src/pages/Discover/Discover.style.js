@@ -17,6 +17,20 @@ export const DiscoverStyle = styled.main`
 
     margin-bottom: 2rem;
   }
+  .profilewrapper {
+    display: flex;
+    .img {
+      width: 3rem;
+      height: 3rem;
+      border: 0.1rem solid ${(p) => p.theme.colors.PRIMARY_COLOR};
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
 `;
 
 export const FollowingStyle = styled.section`
@@ -50,5 +64,83 @@ export const FollowingStyle = styled.section`
       rowGap: "4.4rem",
       columnGap: "2.5rem",
     })};
+  }
+`;
+
+export const CommentStyle = styled.main`
+  .comments {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    width: 85%;
+    margin: auto;
+    height: 16rem;
+    overflow: auto;
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    .text {
+      margin: 1rem 0rem 1rem 4rem;
+    }
+  }
+
+  .profilewrapper {
+    display: flex;
+    .img {
+      width: 3rem;
+      height: 3rem;
+      border: 0.1rem solid ${(p) => p.theme.colors.PRIMARY_COLOR};
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .comment-box-wrapper {
+    ${FlexboxStyle};
+    width: 95%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 5rem;
+    background: ${({ theme }) => theme.colors.CULTURED_GRAY_COLOR};
+
+    .comment-input-box {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: none;
+    }
+
+    .send-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding-top: 0.5rem;
+
+      > svg {
+        width: 1.6rem;
+        fill: ${({ theme }) => theme.colors.DARK_SILVER_COLOR};
+      }
+    }
   }
 `;

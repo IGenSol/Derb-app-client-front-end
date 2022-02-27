@@ -1,5 +1,4 @@
 import React from "react";
-
 import { discoverItems } from "../../mockData/discoverData";
 import Card from "../../components/Card/Card";
 
