@@ -7,7 +7,8 @@ import { DashboardStyle, RecentOrderStyle } from "./Dashboard.style";
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState([]);
-  const url = "http://localhost:5000/api/orders";
+  const url =  `${process.env.REACT_APP_BASE_URL}/orders`;
+ 
 
   useEffect(() => {
     getOrders();

@@ -20,7 +20,7 @@ import { getUserId } from "../../../../utils/Common";
 import axios from "axios";
 
 const UpdateProfileModal = (props) => {
-  const url = "http://localhost:5000/api/users";
+  const url =  `${process.env.REACT_APP_BASE_URL}/users`;
   const id = getUserId();
   const { handleCancel, handleOk, isModalVisible } = props;
   const [userData, setUserData] = useState({
@@ -309,7 +309,7 @@ const ProfileInfo = (props) => {
 
 function Profile() {
   const [user, setUser] = useState([]);
-  const url = "http://localhost:5000/api/users";
+  const url =  `${process.env.REACT_APP_BASE_URL}/users`;
 
   const id = getUserId();
 
