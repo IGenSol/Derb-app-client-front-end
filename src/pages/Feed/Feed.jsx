@@ -45,7 +45,7 @@ const Modal = ({ handleClose }) => {
   };
 
 
-  const url = `${process.env.REACT_APP_BASE_URL}/posts/`;
+  const url = `${process.env.REACT_APP_BASE_URL}/posts`;
 
 
 
@@ -57,7 +57,7 @@ const Modal = ({ handleClose }) => {
     debugger
     const formData = new FormData();
     formData.append("post_description", description);
-    formData.append("vedio", vedio);
+    formData.append("post_video", vedio);
     formData.append("user_id", userId);
     image.forEach(_file => {
       for (let i = 0; i < _file.length; i++) {
