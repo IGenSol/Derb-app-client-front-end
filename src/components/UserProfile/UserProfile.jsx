@@ -45,10 +45,11 @@ function UserProfile() {
         alert(err);
       });
   };
-
+  let follows = "";
   const getfollowerCount = async () => {
     await axios.get(followerCounturl).then((res) => {
       setFollowerCount(res.data.data[0]);
+      follows = followerCount.find(({ user_id }) => user_id === loginuserid);
     });
   };
 
@@ -72,8 +73,9 @@ function UserProfile() {
     following_id: userid
   })
   const onclickactive = () => {
-    setfollow(!follow)
-    if (follow) {
+
+    // if (rating_user_id == loginuserid) {
+    if (follows) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/follower/${loginuserid}`, follower).then((res) => {
         console.log(res)
       }).catch((err) => {
@@ -90,14 +92,7 @@ function UserProfile() {
     }
   }
 
-  let text = ""
 
-  if (follow) {
-    text = "Follow"
-  }
-  else {
-    text = "Unfollow"
-  }
 
   return (
     <UserProfileStyle>
@@ -126,7 +121,13 @@ function UserProfile() {
                 Edit Profile
               </button>
             }
-            <button className="profile-button" onClick={onclickactive}>{text}</button>
+            {/* {rating_user_id == loginuserid ? */}
+            {follows ?
+              (<button className="profile-button" onClick={onclickactive}>Follow</button>) :
+              (
+                <button className="profile-button" onClick={onclickactive}>Unfollow</button>
+              )
+            }
             <PorfileModal
               handleOk={handleOk}
               handleCancel={handleCancel}
@@ -346,11 +347,12 @@ const ProfileTabs = (props) => {
   if (location.state !== undefined) {
     var userid = location.state;
   }
+  const userId = sessionStorage.getItem("userId")
   const { TabPane } = Tabs;
   const [postsData, setPostsData] = useState([]);
+  const [followerCount, setFollowerCount] = useState([]);
   const { user } = props
   const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/${userid}`
-
 
 
   useEffect(() => {
@@ -363,6 +365,8 @@ const ProfileTabs = (props) => {
       setPostsData(res.data.data);
     });
   };
+
+
 
   return (
     <ProfileTabsStyle>

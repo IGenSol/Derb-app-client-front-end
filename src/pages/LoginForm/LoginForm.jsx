@@ -36,21 +36,27 @@ const Signup = () => {
 
 
   const userSignUp = async () => {
-    await axios
-      .post(url, signUp)
-      .then((res) => {
-        setSignUp({
-          first_name: "",
-          last_name: "",
-          email: "",
-          mobile: "",
-          password: "",
-          role: "",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    let formIsValid = true;
+    if (signUp.first_name == "" || signUp.email == "" || signUp.password == "" || signUp.mobile == "") {
+      formIsValid = false
+      toast.error("Please Fill All field", {
+        theme: 'dark'
       });
+    }
+    if (formIsValid) {
+      await axios
+        .post(url, signUp)
+        .then((res) => {
+          toast.success("Signup Successfully", {
+            theme: 'dark'
+          });
+        })
+        .catch((err) => {
+          toast.error("Invalid credentials", {
+            theme: 'dark'
+          });
+        });
+    }
   };
 
   return (
@@ -63,6 +69,7 @@ const Signup = () => {
           type="text"
           className="custom-input"
           name="first_name"
+          required
           placeholder="First Name"
           value={signUp.first_name}
           onChange={(e) => onSubmitInput(e)}
@@ -99,7 +106,7 @@ const Signup = () => {
           <PhoneIcon />
         </span>
         <input
-          type="number"
+          type="tel"
           className="custom-input"
           name="mobile"
           placeholder="Mobile"
@@ -165,7 +172,6 @@ const Login = (props) => {
       })
       .then((res) => {
         setLoading(false);
-        console.log(res)
         if (res.data.message == "Login successfully") {
           setUserSession(
             res.data.token,
@@ -174,7 +180,8 @@ const Login = (props) => {
             res.data.data.id,
             res.data.data.email,
             res.data.data.mobile,
-            res.data.data.role
+            res.data.data.role,
+            res.data.data.picture
           );
 
           setRole(res.data.data.role);
@@ -215,8 +222,7 @@ const Login = (props) => {
 
   return (
     <LoginStyle>
-      <ToastContainer
-      />
+
       {error && <p className="error">{error}</p>}
       <article className="input-container">
         <span className="icon">
@@ -265,33 +271,38 @@ function LoginForm(props) {
   const { TabPane } = Tabs;
 
   return (
-    <LoginFormstyle>
-      <picture className="image-wrapper">
-        <img
-          src="./images/account-logo.png"
-          alt="Site Logo"
-          className="account-logo"
-        />
-      </picture>
+    <>
+      <ToastContainer
+      />
+      <LoginFormstyle>
 
-      <article className="form-wrapper">
-        <Tabs
-          tabBarGutter={100}
-          size="large"
-          centered="true"
-          defaultActiveKey="1"
-          tabBarGutter="0"
-        >
-          <TabPane tab="Login" key="Login">
-            <Login {...props} />
-          </TabPane>
+        <picture className="image-wrapper">
+          <img
+            src="./images/account-logo.png"
+            alt="Site Logo"
+            className="account-logo"
+          />
+        </picture>
 
-          <TabPane tab="Signup" key="Signup">
-            <Signup />
-          </TabPane>
-        </Tabs>
-      </article>
-    </LoginFormstyle>
+        <article className="form-wrapper">
+          <Tabs
+            tabBarGutter={100}
+            size="large"
+            centered="true"
+            defaultActiveKey="1"
+            tabBarGutter="0"
+          >
+            <TabPane tab="Login" key="Login">
+              <Login {...props} />
+            </TabPane>
+
+            <TabPane tab="Signup" key="Signup">
+              <Signup />
+            </TabPane>
+          </Tabs>
+        </article>
+      </LoginFormstyle>
+    </>
   );
 }
 

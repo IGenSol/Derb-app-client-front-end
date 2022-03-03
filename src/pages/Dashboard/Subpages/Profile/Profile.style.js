@@ -150,26 +150,6 @@ export const ProfileDetailsStyle = styled.section`
     }
   }
 
-  .profile-header {
-    ${FlexboxStyle};
-
-    .heading {
-      margin: 0;
-    }
-
-    .more-option-button {
-      background: none;
-      border: none;
-
-      cursor: pointer;
-
-      > svg {
-        width: 2rem;
-        fill: ${({ theme }) => theme.colors.SECONDARY_COLOR};
-      }
-    }
-  }
-
   .heading {
     font-size: 1.8rem;
     font-weight: 600;
@@ -196,9 +176,12 @@ export const ProfileDetailsStyle = styled.section`
 
   .option-wrapper {
     .setting {
-      ${FlexboxStyle({ justify: "flex-start" })};
+      display: grid;
+      grid-template-columns: auto 37rem;
+      column-gap: 1rem;
+      row-gap: 1rem;
 
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
 
       .text {
         margin-left: 1rem;
@@ -211,34 +194,9 @@ export const ProfileDetailsStyle = styled.section`
     ${CommonButton({ padding: "1rem" })};
 
     margin-top: 1rem;
+    float: right;
   }
-`;
-
-export const UpdateProfileModalStyle = styled(Modal)`
-  .custom-input {
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: none;
-    background: ${({ theme }) => theme.colors.FADE_COLOR};
-  }
-
-  .modal-footer {
-    margin-bottom: 1rem;
-
-    button {
-      padding: 1rem;
-      width: 100%;
-      border-radius: 0.4rem;
-      border: none;
-      margin-top: 1rem;
-
-      cursor: pointer;
-
-      &.update-button {
-        background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
-        color: ${({ theme }) => theme.colors.WHITE_COLOR};
-      }
-    }
+  input {
+    padding: 0.5rem;
   }
 `;

@@ -29,12 +29,8 @@ function AddProducts(props) {
       URL.createObjectURL(e[1])
     );
     setFile([...file, ...ImagesArray]);
-    setImage([...image, e.target.files[0]]);
-
-
+    setImage([...image, e.target.files]);
   }
-
-
 
   const formData = new FormData();
   formData.append("product_id", productId);
@@ -44,7 +40,13 @@ function AddProducts(props) {
   formData.append("store_id", productSize);
   formData.append("description", productDescription);
   formData.append("product_color", productColor);
-  formData.append("product_image", image);
+  image.forEach(_file => {
+    for (let i = 0; i < _file.length; i++) {
+      const element = _file[i];
+      // formData.append("post_image", _file[i], i + "");
+      formData.append("image", _file[i], i + "");
+    }
+  });
 
 
 
@@ -53,7 +55,7 @@ function AddProducts(props) {
   const postProductData = (e) => {
     e.preventDefault();
     axios
-      .post(url, image)
+      .post(url, formData)
       .then((res) => {
 
         props.history.push("/dashboard/products-list");

@@ -50,13 +50,10 @@ function ProductCard(props) {
   };
 
   const {
-    image,
-    imageAlt,
     product_name,
     product_price,
     product_old_price,
     deleteProduct,
-    updateProduct,
     id,
   } = props;
   return (

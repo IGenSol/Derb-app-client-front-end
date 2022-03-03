@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 import { DeleteIcon, EditIcon } from "../../../../../svgs";
-
 import {
   SubCatagoriesStyle,
   AddSubCatagoryModalStyle,
 } from "./SubCatagories.style";
 
+const userId = sessionStorage.getItem("userId")
+
+
 const AddSubCatagoryModal = (props) => {
   const { isModalVisible, handleOk, handleCancel } = props;
   const [primaryCatagory, setPrimaryCatagory] = useState("");
   const [catagory, setCatagory] = useState("");
-  const [image, setImage] = useState("");
-
   const url = `${process.env.REACT_APP_BASE_URL}/subcategories`;
+  const caturl = `${process.env.REACT_APP_BASE_URL}/categories`;
 
+  const [catagories, setCatagories] = useState([]);
+
+
+  useEffect(() => {
+    getCatagories();
+  }, []);
+
+  const getCatagories = async () => {
+    await axios.get(caturl).then((res) => {
+      setCatagories(res.data.data);
+    });
+  };
   const submitSubCatagory = async () => {
+
     const subCatagoriesData = new FormData();
 
     subCatagoriesData.append("primary_category_id", primaryCatagory);
     subCatagoriesData.append("sub_category_name", catagory);
-    subCatagoriesData.append("image", image);
+    subCatagoriesData.append("user_id", userId);
+
 
     await axios
       .post(url, subCatagoriesData)
       .then(() => {
         alert("SubCatagory Added");
-        primaryCatagory = "";
-        catagory = "";
-        image = "";
+
       })
       .catch((err) => {
         console.log(err);
@@ -52,10 +64,14 @@ const AddSubCatagoryModal = (props) => {
           className="catagory-list"
           onChange={(e) => setPrimaryCatagory(e.target.value)}
         >
-          <option value="1">Electronic</option>
-          <option value="2">Food</option>
-          <option value="3">Grocery</option>
-          <option value="4">Cosmetics</option>
+          {
+            catagories.map((catagory) => {
+              return (
+                <option key={catagory.category_id} value={catagory.category_id}>{catagory?.category_name}</option>
+              )
+            })
+          }
+
         </select>
 
         <lable className="input-title">SubCategory Name:</lable>
@@ -64,13 +80,6 @@ const AddSubCatagoryModal = (props) => {
           value={catagory}
           onChange={(e) => setCatagory(e.target.value)}
           className="custom-input"
-        />
-
-        <lable className="input-title">Category Image:</lable>
-        <input
-          type="file"
-          className="custom-input"
-          onChange={(e) => setImage(e.target.files[0])}
         />
 
         <button className="add-button" onClick={submitSubCatagory}>
@@ -84,7 +93,7 @@ const AddSubCatagoryModal = (props) => {
 function SubCatagories() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [subCatagories, setSubCatagories] = useState([]);
-  const url = `${process.env.REACT_APP_BASE_URL}/subcategories`;
+  const url = `${process.env.REACT_APP_BASE_URL}/subcategories/${userId}`;
 
   useEffect(() => {
     getSubCatagories();
@@ -93,7 +102,6 @@ function SubCatagories() {
   const getSubCatagories = async () => {
     await axios.get(url).then((res) => {
       setSubCatagories(res.data.data);
-      console.log(res.data.data);
     });
   };
 
@@ -138,11 +146,8 @@ function SubCatagories() {
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Image</th>
             <th scope="col">Catagory</th>
             <th scope="col">Subcatagory</th>
-
-            <th scope="col">Status</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -151,19 +156,8 @@ function SubCatagories() {
             return (
               <tr key={index}>
                 <td data-label="No">{index + 1}</td>
-                <td data-label="Image">
-                  <img
-                    src={catagory.image}
-                    alt={catagory.primary_category_name}
-                    className="subcatagory-name"
-                  />
-                </td>
                 <td data-label="Product Name">{catagory.sub_category_name}</td>
                 <td data-label="Price">{catagory.primary_category_name}</td>
-
-                <td data-label="Status">
-                  <span className="pending">Pending</span>
-                </td>
 
                 <td data-label="Action">
                   <article className="action-buttons-wrapper">

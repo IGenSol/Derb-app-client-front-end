@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { Menu } from "antd";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-
-import { getUser, removeUserSession } from "../../utils/Common";
-
+import { removeUserSession } from "../../utils/Common";
 import { sideMenus } from "../../mockData/dashboard";
 import { LogoutIcon } from "../../svgs";
-
 import Profile from "./Subpages/Profile/Profile";
 import Order from "./Subpages/Orders/Order";
 import Dashboard from "./Subpages/Dashboard/Dashboard";
@@ -15,10 +12,10 @@ import ProductList from "./Subpages/Products/PorductList/ProductList";
 import AddProducts from "./Subpages/Products/AddProducts/AddProducts";
 import Catagories from "./Subpages/Products/Catagories/Catagories";
 import SubCatagories from "./Subpages/Products/SubCatagories/SubCatagories";
-
 import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
 import UpdateProducts from "./Subpages/Products/UpdateProducts/UpdateProducts";
 import { useEffect } from "react";
+const image = sessionStorage.getItem("image")
 
 const Sidebar = (props) => {
   const [isBarActive, setBarActive] = useState(false);
@@ -50,7 +47,7 @@ const Sidebar = (props) => {
       </article>
       <picture className="profile-placeholder">
         <img
-          src="/images/users/user-four.jpg"
+          src={image}
           alt="User Image"
           className="profile-image"
         />
@@ -81,9 +78,9 @@ const Sidebar = (props) => {
                     const { icon, linkText, url } = submenu;
                     return (
                       <Menu.Item key={linkText}>
-                        <a key={index} className="nav-item-link" href={url}>
+                        <Link key={index} className="nav-item-link" to={url}>
                           {linkText}
-                        </a>
+                        </Link>
                       </Menu.Item>
                     );
                   })}

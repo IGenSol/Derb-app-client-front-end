@@ -304,11 +304,11 @@ function Discover() {
     if (e.rating_user_id == loginuserid && e.LIKES == 1) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
         console.log(res)
-        alert(`disk ${e.post_id} ${e.product_id}`)
+
         getDescoverPost();
       }).catch((err) => {
         console.log(err)
-        alert(`diskerr ${e.post_id} ${e.product_id}`)
+
       })
 
     }

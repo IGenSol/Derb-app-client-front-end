@@ -10,12 +10,10 @@ import {
   UserIcon,
 } from "../../svgs";
 import { removeUserSession } from "../../utils/Common";
-
-
 import { menubarItems } from "../../mockData/navbarData";
 // import { SearchIcon, UploadImageIcon } from "../../svgs";
-
 import { Imagestyle, Modelstyle, NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
+const image = sessionStorage.getItem("image")
 
 
 const AddPost = (props) => {
@@ -37,7 +35,7 @@ const AddPost = (props) => {
       wrapClassName="add-post-popup"
     >
       <article>
-        <img src="./images/icons/user-icon.png" className="profileimg" alt="UserIcon" />
+        <img src={image} className="profileimg" alt="UserIcon" />
         <input
           type="text"
           name="Addpost"
@@ -114,7 +112,7 @@ const UserProfile = (props) => {
       <article className="user-profile-placeholder-wrapper" onClick={isDropDownActive}>
         <picture className="user-placeholder">
           <img
-            src="/images/icons/user-icon.png"
+            src={image}
             alt="Profile Placeholder"
             className="user-profile-placeholder"
           />

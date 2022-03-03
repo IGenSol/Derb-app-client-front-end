@@ -59,7 +59,6 @@ const Modal = ({ handleClose }) => {
     formData.append("post_description", description);
     formData.append("vedio", vedio);
     formData.append("user_id", userId);
-
     image.forEach(_file => {
       for (let i = 0; i < _file.length; i++) {
         const element = _file[i];

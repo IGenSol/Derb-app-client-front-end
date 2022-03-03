@@ -7,7 +7,7 @@ import {
 } from "../../style/commomStyle";
 
 export const DashboardLayoutStyle = styled.main`
-  ${CommonGridStyle({ columns: "40.4rem auto", align: "flex-start" })}
+  ${CommonGridStyle({ columns: "35rem auto", align: "flex-start" })}
 
   ${CustomContainer};
   ${CommonSpacing};

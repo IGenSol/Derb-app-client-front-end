@@ -1,162 +1,89 @@
 import React, { useEffect, useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Tabs } from "antd";
 
 import {
-  FacebookIcon,
-  InstagramIcon,
-  MoreButtonIcon,
-  TabSettingIcon,
-  TwitterIcon,
+  EditIcon,
   UserTabIcon,
 } from "../../../../svgs";
 import {
   ProfileDetailsStyle,
   ProfileInfoStyle,
   ProfileStyle,
-  UpdateProfileModalStyle,
+
 } from "./Profile.style";
 import { getUserId } from "../../../../utils/Common";
 import axios from "axios";
 
-const UpdateProfileModal = (props) => {
-  const url = "http://localhost:5000/api/users";
-  const id = getUserId();
-  const { handleCancel, handleOk, isModalVisible } = props;
-  const [userData, setUserData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    mobile: "",
+const userId = sessionStorage.getItem("userId")
+
+const ProfileDetails = (props) => {
+  const { first_name, last_name, email, mobile, password, dob, gender } = props;
+  const { TabPane } = Tabs;
+
+  const url = `${process.env.REACT_APP_BASE_URL}/users/${userId}`;
+
+
+  let [user, setuser] = useState({
+    first_name: first_name,
+    last_name: last_name,
+    email: email,
+    gender: gender,
+    dob: dob,
+    password: password,
   });
+  const [image, setimg] = useState([])
 
   useEffect(() => {
-    getUserData();
-  }, []);
+    getuser();
 
-  const getUserData = async () => {
-    await axios
-      .get(`${url}/${id}`)
-      .then((res) => {
-        setUserData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  }, [])
 
-  const onSubmitInput = (e) => {
-    setUserData({
-      ...userData,
+  const getuser = async () => {
+    await axios.get(url).then((res) => {
+      setuser(res.data.data);
+    })
+  }
+
+  const change = (e) => {
+    setuser({
+      ...user,
       [e.target.name]: e.target.value,
     });
   };
 
-  const submitUpdateUser = async (e) => {
-    await axios
-      .put(`${url}/${id}`, userData)
-      .then(() => {
-        console.log("User Udpated");
-      })
-      .catch((err) => {
-        alert(err);
+  const submit = () => {
+    const formData = new FormData();
+    formData.append("user_image", image);
+    formData.append("first_name", user.first_name);
+    formData.append("last_name", user.last_name);
+    formData.append("email", user.email);
+    formData.append("password", user.password);
+    formData.append("gender", user.gender);
+    formData.append("dob", user.dob);
+
+
+    axios.put(url, formData).then((res) => {
+      toast.success("Profile Update Successfully", {
+        theme: 'dark'
       });
+      getuser()
+    }).catch((err) => {
+      toast.error("Please Fill All Field", {
+        theme: 'dark'
+      });
+    })
+  }
 
-    handleOk();
-  };
 
-  return (
-    <UpdateProfileModalStyle
-      title="Update Profile"
-      visible={isModalVisible}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      footer={null}
-    >
-      <form>
-        <input
-          type="text"
-          placeholder="First Name"
-          name="first_name"
-          className="custom-input"
-          value={userData.first_name}
-          onChange={(e) => onSubmitInput(e)}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          name="last_name"
-          className="custom-input"
-          value={userData.last_name}
-          onChange={(e) => onSubmitInput(e)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          className="custom-input"
-          value={userData.email}
-          onChange={(e) => onSubmitInput(e)}
-        />
-        <input
-          type="number"
-          placeholder="Mobile"
-          className="custom-input"
-          name="mobile"
-          value={userData.mobile}
-          onChange={(e) => onSubmitInput(e)}
-        />
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="custom-input"
-          name="password"
-          value={userData.password}
-          onChange={(e) => onSubmitInput(e)}
-        />
 
-        <article className="modal-footer">
-          <button
-            className="update-button"
-            onClick={(e) => submitUpdateUser(e)}
-          >
-            Update
-          </button>
-          <button
-            className="cancel-button"
-            onClick={(e) => {
-              e.preventDefault();
-              handleCancel();
-            }}
-          >
-            Cancel
-          </button>
-        </article>
-      </form>
-    </UpdateProfileModalStyle>
-  );
-};
 
-const ProfileDetails = (props) => {
-  const { first_name, last_name, email, mobile, password } = props;
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const { TabPane } = Tabs;
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
   return (
     <ProfileDetailsStyle>
+      <ToastContainer
+      />
       <Tabs defaultActiveKey="1" tabBarGutter={50}>
         <TabPane
           tab={
@@ -167,92 +94,102 @@ const ProfileDetails = (props) => {
           }
           key="1"
         >
-          <article className="profile-header">
-            <h3 className="heading">Profile</h3>
-            <button className="more-option-button" onClick={showModal}>
-              <MoreButtonIcon />
-            </button>
-
-            <UpdateProfileModal
-              handleOk={handleOk}
-              handleCancel={handleCancel}
-              isModalVisible={isModalVisible}
-            />
-          </article>
+          <h3 className="heading">Profile</h3>
 
           <article className="user-details">
             <article className="user-data">
               <h4 className="data-title">First Name :</h4>
-              <h4>{first_name}</h4>
+              <h4>{user?.first_name}</h4>
             </article>
             <article className="user-data">
               <h4 className="data-title">Last Name :</h4>
-              <h4>{last_name}</h4>
+              <h4>{user?.last_name}</h4>
             </article>
             <article className="user-data">
               <h4 className="data-title">Email :</h4>
-              <h4>{email}</h4>
-            </article>
-            <article className="user-data">
-              <h4 className="data-title">Phone :</h4>
-              <h4>{mobile}</h4>
+              <h4>{user?.email}</h4>
             </article>
             <article className="user-data">
               <h4 className="data-title">Gender :</h4>
-              <h4>Male</h4>
+              <h4>{user?.gender}</h4>
             </article>
             <article className="user-data">
               <h4 className="data-title">DOB :</h4>
-              <h4>17/07/1995</h4>
+              <h4>{user?.first_namedob}</h4>
             </article>
           </article>
         </TabPane>
         <TabPane
           tab={
             <span className="tab">
-              <TabSettingIcon />
-              Setting
+              <EditIcon />
+              Edit
             </span>
           }
           key="2"
         >
-          <h3 className="heading">Notification</h3>
+          <h3 className="heading">Update Your Profile</h3>
           <article className="option-wrapper">
             <label className="setting">
-              <input type="checkbox" name="check" id="Check" />
-              <p className="text">Allow Desktop Notifications</p>
+              <p className="text">First Name</p>
+              <input type="text"
+                name="first_name"
+                value={user?.first_name}
+                onChange={(e) => change(e)} />
             </label>
             <label className="setting">
-              <input type="checkbox" name="check" id="Check" />
-              <p className="text">Enable Notifications</p>
+              <p className="text">Last Name</p>
+              <input type="text"
+                name="last_name"
+                value={user?.last_name}
+                onChange={(e) => change(e)} />
             </label>
             <label className="setting">
-              <input type="checkbox" name="check" id="Check" />
-              <p className="text">Get Notification for my own activity</p>
+              <p className="text">Email</p>
+              <input type="text"
+                name="email"
+                value={user?.email}
+                onChange={(e) => change(e)} />
             </label>
             <label className="setting">
-              <input type="checkbox" name="check" id="Check" />
-              <p className="text">DND</p>
+              <p className="text">Password</p>
+              <input type="password"
+                name="password"
+                value={user?.password}
+                onChange={(e) => change(e)} />
+            </label>
+            <label className="setting">
+              <p className="text">Gender</p>
+              <article>
+                <input className='.input' type="radio" id="Check" name="check" name="gender"
+                  value="Male"
+                  onChange={(e) => change(e)} />
+                <label className='mx-3'>Male</label>
+                <input type="radio" name="check" id="Check" name="gender"
+                  value="Female"
+                  onChange={(e) => change(e)} />
+                <label className='mx-3'>Female</label>
+              </article>
+            </label>
+            <label className="setting">
+              <p className="text">DOB</p>
+              <input type="date"
+                name="dob"
+                onChange={(e) => change(e)} />
+
+            </label>
+            <label className="setting">
+              <p className="text">Update Image</p>
+              <input type="file" placeholder='upload Image'
+                name="image"
+                onChange={(e) => setimg(e.target.files[0])}
+              />
+
             </label>
           </article>
 
-          <h3 className="heading">Deactivate Account</h3>
-          <article className="option-wrapper">
-            <label className="setting">
-              <input type="radio" name="check" id="Check" />
-              <p className="text">I have Privacy concern</p>
-            </label>
-            <label className="setting">
-              <input type="radio" name="check" id="Check" />
-              <p className="text">This is temporary</p>
-            </label>
-            <label className="setting">
-              <input type="radio" name="check" id="Check" />
-              <p className="text">Others</p>
-            </label>
-          </article>
 
-          <button className="deactive-btn">Deactive account</button>
+          <button className="deactive-btn" onClick={submit}>Up Date</button>
         </TabPane>
       </Tabs>
     </ProfileDetailsStyle>
@@ -260,21 +197,22 @@ const ProfileDetails = (props) => {
 };
 
 const ProfileInfo = (props) => {
-  const { first_name, last_name, email } = props;
+  const { last_name, first_name, email, picture } = props;
   return (
     <ProfileInfoStyle>
       <article className="user-details">
         <picture className="user-profile-wrapper">
           <img
-            src="/images/icons/user-icon.png"
+            src={picture}
             alt="User Profile"
             className="user-profile"
           />
         </picture>
 
-        <h2 className="name">{`${first_name} ${last_name}`}</h2>
+        <h2 className="name">{first_name} {last_name}</h2>
         <h3 className="email">{email}</h3>
-        <article className="social-icons-wrapper">
+        <hr className='my-5' />
+        {/* <article className="social-icons-wrapper">
           <a href="#" className="icon">
             <FacebookIcon />
           </a>
@@ -284,7 +222,7 @@ const ProfileInfo = (props) => {
           <a href="#" className="icon">
             <InstagramIcon />
           </a>
-        </article>
+        </article> */}
       </article>
 
       <article className="employee-status">
@@ -309,7 +247,7 @@ const ProfileInfo = (props) => {
 
 function Profile() {
   const [user, setUser] = useState([]);
-  const url = "http://localhost:5000/api/users";
+  const url = `${process.env.REACT_APP_BASE_URL}/users/${userId}`;
 
   const id = getUserId();
 
@@ -317,7 +255,6 @@ function Profile() {
     getUserData();
   }, []);
 
-  console.log(user);
 
   const getUserData = async () => {
     await axios
@@ -334,7 +271,7 @@ function Profile() {
     <ProfileStyle>
       <article className="section-header">
         <h2 className="section-title">Profile</h2>
-        <p className="description">Derb Admin Panel</p>
+        <p className="description">Vendor Panel</p>
       </article>
 
       <section className="profile-body">

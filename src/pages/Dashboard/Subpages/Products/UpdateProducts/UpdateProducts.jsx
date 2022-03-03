@@ -30,8 +30,6 @@ function UpdateProducts(props) {
       });
   };
 
-  console.log(productData);
-
   const editProductValue = (e) => {
     setProductData({
       ...productData,
