@@ -13,6 +13,15 @@ export const LoginFormstyle = styled.main`
   ${CommonSpacing};
   ${CommonGridStyle({ columns: "1fr 1fr", align: "flex-start" })};
 
+  @media (max-width: 600px) {
+    .image-wrapper {
+      display: none;
+    }
+    .form-wrapper {
+      margin-top: 3rem;
+    }
+  }
+
   height: 100vh;
   place-items: center;
 
@@ -23,7 +32,8 @@ export const LoginFormstyle = styled.main`
 
   .form-wrapper {
     .ant-tabs-nav-list {
-      ${CommonGridStyle({ columns: "1fr 1fr", columnGap: "0" })};
+      display: grid;
+      grid-template-columns: 1fr 1fr;
 
       background: ${(p) => p.theme.colors.FADE_COLOR};
       border-radius: 2rem 2rem 0 0;

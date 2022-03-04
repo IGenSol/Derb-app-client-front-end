@@ -161,11 +161,11 @@ const ProfileDetails = (props) => {
             <label className="setting">
               <p className="text">Gender</p>
               <article>
-                <input className='.input' type="radio" id="Check" name="check" name="gender"
+                <input className='.input' type="radio" id="Check" name="check"
                   value="Male"
                   onChange={(e) => change(e)} />
                 <label className='mx-3'>Male</label>
-                <input type="radio" name="check" id="Check" name="gender"
+                <input type="radio" name="check" id="Check"
                   value="Female"
                   onChange={(e) => change(e)} />
                 <label className='mx-3'>Female</label>

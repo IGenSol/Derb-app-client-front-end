@@ -84,6 +84,9 @@ function App() {
     <Router basename="/">
       <ThemeProvider theme={THEMES}>
         <GlobalStyle />
+        <products.Provider value={cartItems.length}>
+          {user && <Navbar />}
+        </products.Provider>
 
         <Switch>
           <products.Provider
@@ -94,9 +97,7 @@ function App() {
             }}
           >
             <PublicRoute path="/login" component={LoginForm} />
-            <products.Provider value={cartItems.length}>
-              <Navbar />
-            </products.Provider>
+
             <PrivateRoute path="/" exact component={Discover} />
             <PrivateRoute path="/feed" exact component={Feed} />
             <PrivateRoute path="/store" exact component={Store} />

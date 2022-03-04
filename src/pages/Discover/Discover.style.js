@@ -19,9 +19,10 @@ export const DiscoverStyle = styled.main`
   }
   .profilewrapper {
     display: flex;
+    align-items: baseline;
     .img {
-      width: 3rem;
-      height: 3rem;
+      width: 4rem;
+      height: 4rem;
       border: 0.1rem solid ${(p) => p.theme.colors.PRIMARY_COLOR};
       border-radius: 50%;
       margin-right: 1rem;

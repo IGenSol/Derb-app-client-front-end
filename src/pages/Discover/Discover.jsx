@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Tabs } from "antd";
-import Card from "../../components/Card/Card";
 import { CommentStyle, DiscoverStyle, FollowingStyle } from "./Discover.style";
-import { trendingItems } from "../../mockData/trendingItems";
 import { LiveCardStyle, PostFooterStyle, VerticalCardStyle } from "../../components/Card/Card.style";
 import { CommentIcon, CrossIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
 import { Link } from "react-router-dom";
@@ -94,48 +92,56 @@ const Following = () => {
           );
         })}  */}
 
-        {following.map((following, index) => {
-          const { post_image, store_id, product_name, product_id } = following;
-          const id = product_id
-          return (
-            <article key={index} className="user-profile">
-              <LiveCardStyle>
-                {store_id >= 1 ? (
-                  <Link to={
-                    {
-                      pathname: `/show-case/${product_name}`,
-                      state: id
-                    }
-                  } className="buynow-btn">
-                    buy Now
-                  </Link>) : (" ")}
+        {following &&
+          following.map((following, index) => {
+            const { user_image, post_image, store_id, product_name, product_id, last_name } = following;
+            const id = product_id
+            return (
+              <article key={index} className="user-profile">
+                <article className="profilewrapper">
+                  <picture className="img my-4">
+                    <img src={following?.user_image} alt="img"></img>
+
+                  </picture>
+                  <h3>ALi{following?.last_name} </h3>
+                </article>
+                <LiveCardStyle>
+                  {store_id >= 1 ? (
+                    <Link to={
+                      {
+                        pathname: `/show-case/${product_name}`,
+                        state: id
+                      }
+                    } className="buynow-btn">
+                      buy Now
+                    </Link>) : (" ")}
 
 
-                <picture className="image-thumbnail" key={index}>
-                  <img src={post_image} alt="image" className="thumbnail" />
-                </picture>
-                <PostFooterStyle>
-                  <article className="post-buttons-wrapper">
-                    <button className="post-button">
-                      <span className="icon">
-                        <LikeIcon />
-                      </span>
-                      5
-                    </button>
-                    <button className="post-button">
-                      <span className="icon">
-                        <CommentIcon />
-                      </span>
-                      4
-                    </button>
-                    <button className="post-button">
-                      <span className="icon">
-                        <ShareIcon />
-                      </span>
-                      12
-                    </button>
-                  </article>
-                  {/* <article className="comment-box-wrapper">
+                  <picture className="image-thumbnail" key={index}>
+                    <img src={post_image} alt="image" className="thumbnail" />
+                  </picture>
+                  <PostFooterStyle>
+                    <article className="post-buttons-wrapper">
+                      <button className="post-button">
+                        <span className="icon">
+                          <LikeIcon />
+                        </span>
+                        5
+                      </button>
+                      <button className="post-button">
+                        <span className="icon">
+                          <CommentIcon />
+                        </span>
+                        4
+                      </button>
+                      <button className="post-button">
+                        <span className="icon">
+                          <ShareIcon />
+                        </span>
+                        12
+                      </button>
+                    </article>
+                    {/* <article className="comment-box-wrapper">
                       <input
                         type="text"
                         className="comment-input-box"
@@ -145,14 +151,14 @@ const Following = () => {
                         <SendButtonIcon />
                       </button>
                     </article> */}
-                </PostFooterStyle>
+                  </PostFooterStyle>
 
 
-                {/* <CardDetails {...props} /> */}
-              </LiveCardStyle>
-            </article>
-          )
-        })}
+                  {/* <CardDetails {...props} /> */}
+                </LiveCardStyle>
+              </article>
+            )
+          })}
       </article>
     </FollowingStyle>
   );
@@ -346,11 +352,11 @@ function Discover() {
               return (
                 <article key={index}>
                   <article className="profilewrapper">
-                    <picture className="img">
+                    <picture className="img my-4">
                       <img src={user_image} alt="img"></img>
 
                     </picture>
-                    <h3>{first_name} {last_name} </h3>
+                    <h3>ALi{last_name} </h3>
                   </article>
                   <LiveCardStyle>
 

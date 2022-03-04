@@ -412,7 +412,8 @@ export const PostFooterStyle = styled.article`
   /* border-top: 0.1rem solid ${({ theme }) => theme.colors.DIM_GRAY_COLOR}; */
   margin-top: 3rem;
   .post-buttons-wrapper {
-    ${CommonGridStyle({ columns: "1fr 1fr 1fr" })};
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 
     border-bottom: 0.1rem solid #f9f9fb;
 
