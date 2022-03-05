@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import { ProductListStyle } from "./ProductList.style";
 import Card from "../../../../../components/Card/Card";
 import { Link } from "react-router-dom";
-import UpdateProducts from "../UpdateProducts/UpdateProducts";
+
+
+const userId = sessionStorage.getItem("userId")
+
 
 function ProductList(props) {
   const [products, setProducts] = useState([]);
+  // const url = `${process.env.REACT_APP_BASE_URL}/products/${userId}`;
   const url = `${process.env.REACT_APP_BASE_URL}/products`;
 
   useEffect(() => {

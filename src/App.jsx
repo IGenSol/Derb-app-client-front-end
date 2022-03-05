@@ -1,10 +1,8 @@
 import { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import axios from "axios";
 import 'antd/dist/antd.min.css';
 import "react-multi-carousel/lib/styles.css";
-
 import THEMES from "./style/theme";
 import Navbar from "./components/Navbar/Navbar";
 import Discover from "./pages/Discover/Discover";
@@ -19,10 +17,8 @@ import UserProfile from "./components/UserProfile/UserProfile";
 import PrivateRoute from "./utils/PrivateRoute";
 import PublicRoute from "./utils/PublicRoute";
 import { getToken, removeUserSession, setUserSession } from "./utils/Common";
-
 import { GlobalStyle } from "./style/globalStyle";
 import Checkout from "./pages/Checkout/Checkout";
-import { trendingItems } from "./mockData/trendingItems";
 import AllProduct from "./pages/AllProduct/AllProduct";
 import UserDashbaord from "./pages/UserDashboard/UserDashbaord";
 
@@ -97,7 +93,6 @@ function App() {
             }}
           >
             <PublicRoute path="/login" component={LoginForm} />
-
             <PrivateRoute path="/" exact component={Discover} />
             <PrivateRoute path="/feed" exact component={Feed} />
             <PrivateRoute path="/store" exact component={Store} />
@@ -107,10 +102,6 @@ function App() {
               <ShowCase />
             </Route>
             <Route path="/all-product" exact component={AllProduct} />
-
-
-
-
             <PrivateRoute path="/dashboard" component={DashboardLayout} />
             <PrivateRoute path="/user-dashboard" component={UserDashbaord} />
             <PrivateRoute path="/cart-list" exact>

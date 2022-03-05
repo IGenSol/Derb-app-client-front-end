@@ -13,7 +13,7 @@ const AddSubCatagoryModal = (props) => {
   const { isModalVisible, handleOk, handleCancel } = props;
   const [primaryCatagory, setPrimaryCatagory] = useState("");
   const [catagory, setCatagory] = useState("");
-  const url = `${process.env.REACT_APP_BASE_URL}/subcategories`;
+  const url = `${process.env.REACT_APP_BASE_URL}/subcategories/${userId}`;
   const caturl = `${process.env.REACT_APP_BASE_URL}/categories`;
 
   const [catagories, setCatagories] = useState([]);

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { CameraIcon, LeftArrowIcon } from "../../../../../svgs";
 import { UpdateProductsStyle } from "./UpdateProducts.style";
 
 function UpdateProducts(props) {
-  const { productSlug } = useParams();
+  const location = useLocation();
+
+  if (location.state !== undefined) {
+    var productId = location.state;
+
+  }
   const [productData, setProductData] = useState({
     productId: "",
     product_name: "",
@@ -21,7 +26,7 @@ function UpdateProducts(props) {
 
   const updateProductData = async () => {
     await axios
-      .get(`${url}/${productSlug}`)
+      .get(`${url}/${productId}`)
       .then((res) => {
         setProductData(res.data);
       })
@@ -37,21 +42,21 @@ function UpdateProducts(props) {
     });
   };
 
-  const onFormSubmit = async (e) => {
-    debugger;
-    e.preventDefault();
+  // const onFormSubmit = async (e) => {
+  //   debugger;
+  //   e.preventDefault();
 
-    await axios
-      .put(`${url}/${productSlug}`, productData)
-      .then(() => {
-        alert("data is updated");
-      })
-      .catch((err) => {
-        console.log(`error >> ${err}`);
-      });
+  //   await axios
+  //     .put(`${url}/${productSlug}`, productData)
+  //     .then(() => {
+  //       alert("data is updated");
+  //     })
+  //     .catch((err) => {
+  //       console.log(`error >> ${err}`);
+  //     });
 
-    props.history.push("/dashboard/products-list");
-  };
+  //   props.history.push("/dashboard/products-list");
+  // };
 
   return (
     <UpdateProductsStyle>
@@ -198,7 +203,7 @@ function UpdateProducts(props) {
           <article className="card-footer">
             <button
               className="add-product-button"
-              onClick={(e) => onFormSubmit(e)}
+            // onClick={(e) => onFormSubmit(e)}
             >
               Update Product
             </button>

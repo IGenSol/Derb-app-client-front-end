@@ -94,17 +94,24 @@ const Following = () => {
 
         {following &&
           following.map((following, index) => {
-            const { user_image, post_image, store_id, product_name, product_id, last_name } = following;
+            const { post_image, store_id, product_name, product_id, user_id } = following;
             const id = product_id
+            const userid = user_id;
             return (
               <article key={index} className="user-profile">
-                <article className="profilewrapper">
+                <Link className="profilewrapper"
+                  to={
+                    {
+                      pathname: "/user-profile",
+                      state: userid
+                    }
+                  }>
                   <picture className="img my-4">
                     <img src={following?.user_image} alt="img"></img>
 
                   </picture>
-                  <h3>ALi{following?.last_name} </h3>
-                </article>
+                  <h3>{following?.first_name} {following?.last_name} </h3>
+                </Link>
                 <LiveCardStyle>
                   {store_id >= 1 ? (
                     <Link to={
@@ -293,11 +300,16 @@ function Discover() {
 
   const getDescoverPost = async () => {
     await axios.get(url).then((res) => {
+
       setdescover(res.data)
+
     }).catch((err) => {
       alert(err)
     })
   }
+
+
+
   const handleLike = (e) => {
     const { product_id, post_id, store_id } = e
     const data = {
@@ -309,8 +321,6 @@ function Discover() {
     }
     if (e.rating_user_id == loginuserid && e.LIKES == 1) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
-        console.log(res)
-
         getDescoverPost();
       }).catch((err) => {
         console.log(err)
@@ -351,13 +361,19 @@ function Discover() {
 
               return (
                 <article key={index}>
-                  <article className="profilewrapper">
+                  <Link className="profilewrapper"
+                    to={
+                      {
+                        pathname: "/user-profile",
+                        state: userid
+                      }
+                    }>
                     <picture className="img my-4">
                       <img src={user_image} alt="img"></img>
 
                     </picture>
-                    <h3>ALi{last_name} </h3>
-                  </article>
+                    <h3>{first_name} {last_name} </h3>
+                  </Link>
                   <LiveCardStyle>
 
                     {store_id >= 1 ? (
@@ -382,9 +398,11 @@ function Discover() {
                     <PostFooterStyle>
                       <article className="post-buttons-wrapper">
                         <button className="post-button">
-                          {rating_user_id == loginuserid && LIKES == "1" ? (<i onClick={() => handleLike(descover)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
-                            <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3`} ></i>
-                          )}
+                          {/* {rating_user_id == loginuserid && LIKES == "1"  */}
+                          {rating_user_id == loginuserid
+                            ? (<i onClick={() => handleLike(descover)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
+                              <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3`} ></i>
+                            )}
 
                           {product_id}{post_id}
                         </button>

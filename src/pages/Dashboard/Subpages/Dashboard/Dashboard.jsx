@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-import { counters, orders } from "../../../../mockData/dashboard";
+import { counters } from "../../../../mockData/dashboard";
 import Card from "../../../../components/Card/Card";
 import { DashboardStyle, RecentOrderStyle } from "./Dashboard.style";
+import { Link } from "react-router-dom";
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState([]);
-  const url =  `${process.env.REACT_APP_BASE_URL}/orders`;
- 
+  const url = `${process.env.REACT_APP_BASE_URL}/orders`;
+
 
   useEffect(() => {
     getOrders();
@@ -22,8 +22,10 @@ const RecentOrders = () => {
 
   return (
     <RecentOrderStyle>
-      <h2 className="table-heading">Recent Orders</h2>
-
+      <article className="heading">
+        <h2 className="table-heading">Recent Orders</h2>
+        <Link to="/dashboard/product-promotion" className="btn">Product Promotion</Link>
+      </article>
       <table className="orders-table">
         <thead>
           <tr>

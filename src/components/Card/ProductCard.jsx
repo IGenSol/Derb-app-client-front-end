@@ -36,15 +36,12 @@ const DeleteModal = (props) => {
 
 function ProductCard(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const showModal = () => {
     setIsModalVisible(true);
   };
-
   const handleOk = () => {
     setIsModalVisible(false);
   };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -60,7 +57,15 @@ function ProductCard(props) {
     <ProductCardStyle>
       <picture className="thumbnail-wrapper">
         <article className="image-hover-buttons">
-          <Link className="icon" to={`/dashboard/update-products/${id}`}>
+          <Link className="icon"
+            to={
+              {
+                pathname: `/dashboard/update-products/${id}`,
+                state: id
+              }
+            }
+
+          >
             <EditIcon />
           </Link>
           <button className="icon" onClick={showModal}>

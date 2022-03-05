@@ -196,8 +196,8 @@ const Login = (props) => {
               return props.history.push("/");
 
             default:
-              props.history.push("/");
-              return;
+              return props.history.push("/");
+
           }
 
           // props.history.push("/dashboard");
@@ -284,13 +284,13 @@ function LoginForm(props) {
           />
         </picture>
 
-        <article className="form-wrapper">
+        <article className="form-wrapper login-colunm">
           <Tabs
             tabBarGutter={100}
             size="large"
             centered="true"
             defaultActiveKey="1"
-            tabBarGutter="0"
+
           >
             <TabPane tab="Login" key="Login">
               <Login {...props} />

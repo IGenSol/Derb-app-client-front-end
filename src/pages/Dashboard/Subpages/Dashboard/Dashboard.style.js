@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CommonGridStyle } from "../../../../style/commomStyle";
+import { CommonButton, CommonGridStyle } from "../../../../style/commomStyle";
 
 export const DashboardStyle = styled.main`
   .title {
@@ -76,6 +76,16 @@ export const DashboardStyle = styled.main`
 `;
 
 export const RecentOrderStyle = styled.section`
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  }
+  .btn {
+    ${CommonButton}
+    font-size: 1.5rem;
+    font-weight: 900;
+  }
   .table-heading {
     font-weight: 800;
     font-size: 2.3rem;
