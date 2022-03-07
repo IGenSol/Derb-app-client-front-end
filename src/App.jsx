@@ -16,14 +16,15 @@ import CartList from "./pages/CartList/CartList";
 import UserProfile from "./components/UserProfile/UserProfile";
 import PrivateRoute from "./utils/PrivateRoute";
 import PublicRoute from "./utils/PublicRoute";
-import { getToken, removeUserSession, setUserSession } from "./utils/Common";
 import { GlobalStyle } from "./style/globalStyle";
 import Checkout from "./pages/Checkout/Checkout";
 import AllProduct from "./pages/AllProduct/AllProduct";
 import UserDashbaord from "./pages/UserDashboard/UserDashbaord";
 
 export const products = createContext();
-const user = getToken();
+
+
+const userId = sessionStorage.getItem("userId")
 
 const getProducts = () => {
   const products = JSON.parse(localStorage.getItem("products"));
@@ -81,7 +82,7 @@ function App() {
       <ThemeProvider theme={THEMES}>
         <GlobalStyle />
         <products.Provider value={cartItems.length}>
-          {user && <Navbar />}
+          {userId && <Navbar />}
         </products.Provider>
 
         <Switch>

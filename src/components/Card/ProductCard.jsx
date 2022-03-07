@@ -51,6 +51,7 @@ function ProductCard(props) {
     product_price,
     product_old_price,
     deleteProduct,
+    image,
     id,
   } = props;
   return (
@@ -73,7 +74,7 @@ function ProductCard(props) {
           </button>
         </article>
         <img
-          src="/images/products-images/cream-image.jpg"
+          src={image}
           alt="Product Image"
           className="thumbnail"
         />

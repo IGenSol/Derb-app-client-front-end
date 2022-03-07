@@ -5,9 +5,87 @@ import axios from "axios";
 
 const userId = sessionStorage.getItem("userId")
 
+const Modal = ({ handleClose, details }) => {
+
+  const url = `${process.env.REACT_APP_BASE_URL}/orders`;
+  const { order_id, status } = details;
+  const [Status, setStatus] = useState(status);
+
+  const data = {
+    status: Status
+  }
+
+  const hanldeClick = async () => {
+    await axios
+      .patch(`${url}/${order_id}`, data)
+      .then(() => {
+        alert("data is updated");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(`error >> ${err}`);
+      });
+  };
+
+
+
+  return (
+
+    <div className="modal display-block">
+      <section className="modal-main">
+        <div className="App">
+          <h2 className="heading">Update Status</h2>
+          <hr></hr>
+          <select
+            className="custom-container"
+            value={Status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option value="PENDING">
+              PENDING
+            </option>
+            <option value="CANCEL">
+              CANCEL
+            </option>
+            <option value="DELIVERED">
+              DELIVERED
+            </option>
+
+          </select>
+        </div>
+        <button className="add-button"
+          onClick={() => {
+            hanldeClick();
+            handleClose();
+          }}
+        >UpDate</button>
+      </section>
+    </div>
+  );
+};
+
+
+
+
+
 function Order() {
   const [orders, setOrders] = useState([]);
-  const ordersUrl = `${process.env.REACT_APP_BASE_URL}/orders/${userId}`;
+  // const ordersUrl = `${process.env.REACT_APP_BASE_URL}/orders/${userId}`;
+  const ordersUrl = `${process.env.REACT_APP_BASE_URL}/orders`;
+
+  const [selectedData, setSelectedData] = useState({});
+  const [show, setShow] = useState(false);
+
+  const hanldeClick = (selectedRec) => {
+    setSelectedData(selectedRec);
+    setShow(true);
+  };
+
+  const hideModal = () => {
+    setShow(false);
+  };
+
+
 
   useEffect(() => {
     getOrders();
@@ -50,7 +128,8 @@ function Order() {
 
                   <td data-label="Action">
                     <article className="action-buttons-wrapper">
-                      <button className="action-button">
+                      <button className="action-button"
+                        onClick={() => hanldeClick(orders)}>
                         <EditIcon />
                       </button>
 
@@ -61,6 +140,7 @@ function Order() {
             })}
         </tbody>
       </table>
+      {show && <Modal details={selectedData} handleClose={hideModal} />}
     </OrderStyle>
   );
 }

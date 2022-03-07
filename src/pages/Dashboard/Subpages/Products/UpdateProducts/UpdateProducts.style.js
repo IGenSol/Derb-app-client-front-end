@@ -29,6 +29,13 @@ export const UpdateProductsStyle = styled.main`
       }
     }
 
+    .preview-image {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      border: 0.1rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
+    }
+
     .title {
       margin-bottom: 5rem;
     }

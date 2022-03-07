@@ -17,6 +17,7 @@ function UpdateProducts(props) {
     product_name: "",
     product_price: "",
   });
+  const [productImages, setProductImages] = useState();
 
   const url = `${process.env.REACT_APP_BASE_URL}/products`;
 
@@ -29,6 +30,7 @@ function UpdateProducts(props) {
       .get(`${url}/${productId}`)
       .then((res) => {
         setProductData(res.data);
+        setProductImages(res.data.product_images)
       })
       .catch((err) => {
         console.log(`error >> ${err}`);
@@ -77,17 +79,25 @@ function UpdateProducts(props) {
           />
 
           <label htmlFor="upload-product-photo" className="upload-photo">
-            <span className="icon">
-              <CameraIcon />
-            </span>
+            {productImages ? (
+              <img className="preview-image" src={productImages}></img>
+            ) : (
+              <span className="icon">
+                <CameraIcon />
+              </span>
+            )}
             <input type="file" id="upload-product-photo" />
           </label>
 
           <article className="product-images-list">
             <label htmlFor="upload-product-photo" className="upload-photo">
-              <span className="silde-icon">
-                <CameraIcon />
-              </span>
+              {productImages ? (
+                <img className="preview-image" src={productImages}></img>
+              ) : (
+                <span className="icon">
+                  <CameraIcon />
+                </span>
+              )}
               <input type="file" id="upload-product-photo" />
             </label>
             <label htmlFor="upload-product-photo" className="upload-photo">

@@ -5,6 +5,7 @@
   "homepage": "./",
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^3.0.3",
+    "@paypal/react-paypal-js": "^7.6.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -17,6 +18,7 @@
     "react-dom": "^17.0.2",
     "react-google-maps": "^7.3.0",
     "react-multi-carousel": "^2.6.5",
+    "react-paypal-button-v2": "^2.6.3",
     "react-places-autocomplete": "^7.3.0",
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.2.1",
@@ -27,7 +29,6 @@
     "video-react": "^0.15.0",
     "web-vitals": "^1.1.2"
   },
-  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

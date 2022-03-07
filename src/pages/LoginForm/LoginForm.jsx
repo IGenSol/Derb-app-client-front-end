@@ -286,7 +286,7 @@ function LoginForm(props) {
 
         <article className="form-wrapper login-colunm">
           <Tabs
-            tabBarGutter={100}
+            // tabBarGutter={100}
             size="large"
             centered="true"
             defaultActiveKey="1"

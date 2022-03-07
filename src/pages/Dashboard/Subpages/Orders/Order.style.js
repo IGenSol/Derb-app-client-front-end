@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { CommonSpacing, FlexboxStyle } from "../../../../style/commomStyle";
+import {
+  CommonButton,
+  CommonSpacing,
+  FlexboxStyle,
+} from "../../../../style/commomStyle";
 
 export const OrderStyle = styled.main`
   ${CommonSpacing};
@@ -126,5 +130,56 @@ export const OrderStyle = styled.main`
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .modal-main {
+    position: fixed;
+    background: white;
+    width: 30%;
+    text-align: center;
+    height: auto;
+    border-radius: 1rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .display-block {
+    display: block !important;
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  .custom-container {
+    width: 80%;
+    padding: 1rem;
+    margin: 2rem;
+    border: 0.1rem solid;
+    border-radius: 0.5rem;
+  }
+  .heading {
+    margin: 1rem;
+  }
+
+  .add-button {
+    ${CommonButton};
+    padding: 1.5rem 5rem;
+    margin: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  hr {
+    background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
   }
 `;

@@ -1,16 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import PlacesAutocomplete from "react-places-autocomplete/dist/PlacesAutocomplete";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { Collapse, Switch } from "antd";
 import axios from "axios";
-// import {
-//   GoogleMap,
-//   withGoogleMap,
-//   withScriptjs,
-//   Marker,
-// } from "react-google-maps";
-
-import { getLat, getLng, setLatLong } from "../../utils/Common";
 import { products } from "../../App";
 
 import {
@@ -21,6 +11,7 @@ import {
   PaymentPopupStyle,
   PersonalDetailsStyle,
 } from "./Checkout.style";
+import Paypal from "../PayPal/Paypal";
 
 const ItemList = (props) => {
   const { cartItems } = props;
@@ -149,12 +140,20 @@ const PaymentDetails = (props) => {
             terms and conditions.
           </a>
         </p>
+        <article className="paymentbtn">
+          <PaymentPopup
+            stripeKey={stripKey}
+            token={makePayments}
+            amount={product.price * 100}
+          />
+          <article className="paypal-button-container">
+            <Paypal
+              amount={product.price * 100}
+              cart_Item={cartItems}
+            />
+          </article>
+        </article>
 
-        <PaymentPopup
-          stripeKey={stripKey}
-          token={makePayments}
-          amount={product.price * 100}
-        />
 
         <p className="description">
           I agree and I demand that you execute the ordered service before the
@@ -266,174 +265,50 @@ const PersonalDetails = () => {
 //const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 const DeliveryDetails = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const getAddress = JSON.parse(sessionStorage.getItem("address"));
-  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
 
-  const handleSelect = async (value) => {
-    const result = await geocodeByAddress(value);
-    const latLang = await getLatLng(result[0]);
 
-    setLatLong(latLang.lat, latLang.lng);
-  };
-
-  useEffect(() => {
-    setAddress(getAddress);
-  }, []);
-
-  const onLoad = () => {
-    sessionStorage.setItem("address", JSON.stringify(address));
-    window.location.reload();
-  };
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
 
   return (
     <DeliveryDetailsStyle>
       <article className="title">
         <h2 className="section-title">Dilvery details</h2>
       </article>
+      <article className="missing-street-wrapper">
+        <h3 className="heading">Enter Your Dilvery Details</h3>
+        <article className="title">
 
-      {/* <PlacesAutocomplete
-        // apiKey="AIzaSyDy-XbDbZylrWFPmTl4JnEpOTKgXvbPZXY"
-        value={address}
-        onChange={setAddress}
-        onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <article className="search-location">
-            <input
-              {...getInputProps({ placeholder: "Enter your address" })}
-              type="text"
-              className="custom-container"
-              name="search"
-            />
-
-            <button className="search-button" onClick={onLoad}>
-              Search
-            </button>
-
-            <article className="dropdown-list">
-              {loading ? <div>...Loading</div> : null}
-
-              {suggestions &&
-                suggestions.map((suggestion) => {
-                  const style = {
-                    backgroundColor: suggestion.active ? "#ffb602" : "#fff",
-                  };
-
-                  return (
-                    <article
-                      className="place-suggestion"
-                      {...getSuggestionItemProps(suggestion, { style })}
-                    >
-                      {suggestion.description}
-                    </article>
-                  );
-                })}
-            </article>
-          </article>
-        )}
-      </PlacesAutocomplete> */}
-
-      {/* <article className="label-wrapper">
-        <article className="label-details">
-          <h3 className="heading">Contactless delivery</h3>
-          <h4 className="description">Contactless delivery</h4>
-        </article>
-        <Switch />
-      </article>
-
-      <article className="delevery-time-form">
-        <label className="heading">Delivery time :</label>
-
-        <article className="dropdown-wrapper">
-          <select name="date" className="date-selection">
-            <option value="">Wed, DEC 22</option>
-          </select>
-
-          <select name="date" className="time-selection">
-            <option value="">ASAP</option>
-          </select>
-        </article>
-      </article> */}
-
-      <article className="delivery-address-wrapper">
-        {getAddress && <label className="heading">Deliver address</label>}
-
-        {/* {getAddress && (
-          <article className="map-container">
-            <WrappedMap
-              googleMapURL={
-                "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDy-XbDbZylrWFPmTl4JnEpOTKgXvbPZXY"
-              }
-              loadingElement={<div style={{ height: "100%" }} />}
-              containerElement={<div style={{ height: "100%" }} />}
-              mapElement={<div style={{ height: "100%" }} />}
-            />
-          </article>
-        )} */}
-
-        {/* <article className="address-info-wrapper">
-          <article className="address-container">
-            <article className="address-details">
-              <h3 className="zip-code">2206</h3>
-              <h3 className="place-name">{getAddress}</h3>
-            </article>
-
-            <article className="map-modal">
-              <button className="edit-modal" onClick={showModal}>
-                Edit
-              </button>
-              <MapModel
-                isModalVisible={isModalVisible}
-                handleOk={handleOk}
-                handleCancel={handleCancel}
-              />
-            </article>
-          </article> */}
-
-        {/* <article className="missing-street-wrapper">
-            <label className="heading">We're missing your street</label>
-            <input
-              type="text"
-              name="streeName"
-              placeholder="Street"
-              className="custom-container"
-            />
-          </article>
-        </article>
-
-        <article className="optional-details">
           <input
             type="text"
-            placeholder="Floor(Optional)"
-            className="custom-input"
-            name="floor"
+            name="Country Name"
+            placeholder="Enter your contry"
+            className="custom-container"
+            onChange={(e) => setCountry(e.target.value)}
+          />
+          <input
+            type="text"
+            name="Country Name"
+            placeholder="Enter your city"
+            className="custom-container"
+            onChange={(e) => setCity(e.target.value)}
           />
 
-          <textarea
-            name="note"
-            placeholder="Note to rider -e.g directions/landmark"
-            cols="30"
-            className="custom-input"
-            rows="5"
-          ></textarea> */}
-        {/* </article> */}
+          <input
+            type="text"
+            name="Country Name"
+            placeholder="Enter your street"
+            className="custom-container"
+            onChange={(e) => setStreet(e.target.value)}
+          />
+          <button className="submit-button">Submit</button>
+        </article>
       </article>
 
-      {/* <button className="submit-button">Submit</button> */}
-    </DeliveryDetailsStyle>
+
+
+    </DeliveryDetailsStyle >
   );
 };
 

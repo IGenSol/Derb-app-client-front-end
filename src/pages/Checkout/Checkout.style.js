@@ -47,170 +47,39 @@ export const CheckoutStyle = styled.section`
 `;
 
 export const DeliveryDetailsStyle = styled.article`
-  .title {
-    .section-title {
-      font-size: 2rem;
-      font-weight: 400;
-    }
+  .heading {
+    margin-bottom: 2rem;
   }
-
-  .search-location {
-    ${FlexboxStyle};
-
-    position: relative;
+  .missing-street-wrapper {
+    width: 100%;
     margin-top: 1rem;
 
     .custom-container {
-      width: 100%;
-      padding: 1.4rem;
-      border-radius: 0.5rem 0 0 0.5rem;
-      border: 0.1rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
+      border: 0.2rem solid ${({ theme }) => theme.colors.PRIMARY_COLOR};
 
+      border-radius: 0.5rem;
+      width: 100%;
+      padding: 1rem;
       outline: none;
     }
-
-    .search-button {
-      background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
-      color: ${({ theme }) => theme.colors.WHITE_COLOR};
-
-      padding: 1.5rem;
-      border: none;
-
-      cursor: pointer;
-    }
-
-    .dropdown-list {
-      position: absolute;
-      top: 6rem;
-      left: 1rem;
-
-      width: 100%;
-
-      background: ${({ theme }) => theme.colors.WHITE_COLOR};
-      z-index: 2;
-      cursor: pointer;
-
-      .place-suggestion {
-        padding: 1rem;
-      }
-    }
   }
 
-  .label-wrapper {
-    ${FlexboxStyle};
-
-    background: ${({ theme }) => theme.colors.DIM_GRAY_COLOR};
-    border-left: 0.3rem solid ${({ theme }) => theme.colors.SECONDARY_COLOR};
-    margin: 3rem 0;
-    padding: 2rem 1rem;
-
-    .heading {
-      font-size: 1.8rem;
-    }
-
-    .description {
-      font-size: 1.4rem;
-      font-weight: 400;
-      margin-top: 0.5rem;
-
-      color: ${({ theme }) => theme.colors.SONIC_SILVER_COLOR};
-    }
-  }
-
-  .delevery-time-form {
-    .heading {
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-    .dropdown-wrapper {
-      ${FlexboxStyle};
-
+  .title {
+    width: 87%;
+    margin: auto;
+    input {
       margin-top: 1rem;
-
-      select {
-        width: 50%;
-        padding: 1.5rem;
-
-        cursor: pointer;
-      }
-    }
-  }
-
-  .delivery-address-wrapper {
-    margin: 3rem 0;
-
-    .heading {
       margin-bottom: 1rem;
-      font-size: 1.5rem;
-      font-weight: 600;
     }
-
-    .map-container {
-      border-radius: 1rem;
-      overflow: hidden;
-      height: 40rem;
-    }
-
-    .address-info-wrapper {
-      margin: 1rem 5rem;
-
-      .address-container {
-        ${FlexboxStyle};
-
-        .address-details {
-          .zip-code {
-            font-size: 1.8rem;
-            font-weight: 600;
-          }
-
-          .place-name {
-            font-size: 1.6rem;
-            font-weight: 300;
-          }
-        }
-
-        .map-modal {
-          .edit-modal {
-            background: none;
-            border: none;
-            color: ${({ theme }) => theme.colors.PRIMARY_COLOR};
-
-            cursor: pointer;
-          }
-        }
-      }
-
-      .missing-street-wrapper {
-        width: 100%;
-        margin-top: 1rem;
-
-        .custom-container {
-          border: 0.2rem solid ${({ theme }) => theme.colors.ALTO_GRAY_COLOR};
-
-          border-radius: 0.5rem;
-          width: 100%;
-          padding: 1rem;
-          outline: none;
-        }
-      }
-    }
-
-    .optional-details {
-      .custom-input {
-        border: 0.2rem solid ${({ theme }) => theme.colors.ALTO_GRAY_COLOR};
-
-        border-radius: 0.5rem;
-        width: 100%;
-        padding: 1rem;
-        outline: none;
-        margin-bottom: 1rem;
-      }
-    }
+    /* display: grid;
+    grid-template-columns: 20rem 1fr;
+    align-items: baseline;
+    row-gap: 2rem; */
   }
 
   .submit-button {
     ${CommonButton};
+    margin-top: 2rem;
 
     width: 100%;
   }
@@ -333,6 +202,13 @@ export const PaymentDetailsStyle = styled.section`
       font-size: 1.7rem;
       font-weight: 300;
       padding: 1rem 0;
+    }
+
+    .paymentbtn {
+      width: 87%;
+      margin: auto;
+      position: relative;
+      z-index: 0;
     }
 
     .term-and-conditions {

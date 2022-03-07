@@ -38,6 +38,9 @@ export const LoginFormstyle = styled.main`
       background: ${(p) => p.theme.colors.FADE_COLOR};
       border-radius: 2rem 2rem 0 0;
       width: 40rem;
+      @media (max-width: 600px) {
+        width: 100%;
+      }
 
       overflow: hidden;
 
@@ -67,6 +70,10 @@ export const LoginFormstyle = styled.main`
 
 export const LoginStyle = styled.form`
   width: 40rem;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 
   margin: 0 auto;
 
@@ -119,6 +126,9 @@ export const LoginStyle = styled.form`
       width: 11rem;
       margin: -0.5rem 1rem;
       transform: translateY(-1rem);
+      @media (max-width: 600px) {
+        width: 6rem;
+      }
     }
   }
 
@@ -135,6 +145,10 @@ export const LoginStyle = styled.form`
 export const Signupstyle = styled.main`
   width: 40rem;
   margin: 0 auto;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 
   .input-container {
     ${FlexboxStyle({ justify: "flex-start" })};
@@ -196,6 +210,9 @@ export const Signupstyle = styled.main`
       width: 11rem;
       margin: -0.5rem 1rem;
       transform: translateY(-1rem);
+      @media (max-width: 600px) {
+        width: 6rem;
+      }
     }
   }
 

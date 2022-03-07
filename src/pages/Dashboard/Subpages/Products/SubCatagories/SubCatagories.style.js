@@ -138,6 +138,78 @@ export const SubCatagoriesStyle = styled.main`
       text-transform: uppercase;
     }
   }
+  .modal-main {
+    position: fixed;
+    background: white;
+    width: 35%;
+    text-align: center;
+    height: auto;
+    border-radius: 1rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0rem 0.3rem 2rem 0.6rem rgba(3, 3, 3, 0.1);
+  }
+
+  .display-block {
+    display: block !important;
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  .custom-container {
+    width: 80%;
+    padding: 1rem;
+    margin: 2rem;
+    border: 0.1rem solid;
+    border-radius: 0.5rem;
+  }
+  .heading {
+    margin: 1rem;
+  }
+
+  .add-button {
+    ${CommonButton};
+    padding: 1.5rem 5rem;
+    margin: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  hr {
+    background: ${({ theme }) => theme.colors.PRIMARY_COLOR};
+  }
+`;
+
+export const UpdatePopupStyle = styled.section`
+  margin: 2rem;
+  .description {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  input,
+  .dropdown {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border: 0.1rem solid;
+    border-radius: 0.5rem;
+  }
+
+  .submit-btn {
+    ${CommonButton};
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    border-radius: 0;
+  }
+  .btn {
+    ${FlexboxStyle}
+  }
 `;
 
 export const AddSubCatagoryModalStyle = styled(Modal)`
