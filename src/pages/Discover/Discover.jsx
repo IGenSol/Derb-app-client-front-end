@@ -14,6 +14,16 @@ const Following = () => {
 
   const [following, setfollowing] = useState([])
   const [follower, setFollower] = useState([]);
+  const [show, setShow] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const hanldeClick = (data) => {
+    setSelectedData(data);
+    setShow(true);
+  };
+
+  const hideModal = () => {
+    setShow(false);
+  };
   const url = `${process.env.REACT_APP_BASE_URL}/follower/posts/${id}`
   const followerurl = `${process.env.REACT_APP_BASE_URL}/follower/${id}`;
 
@@ -136,7 +146,7 @@ const Following = () => {
                         5
                       </button>
                       <button className="post-button">
-                        <span className="icon">
+                        <span className="icon" onClick={() => hanldeClick(following)}>
                           <CommentIcon />
                         </span>
                         4
@@ -160,7 +170,7 @@ const Following = () => {
                     </article> */}
                   </PostFooterStyle>
 
-
+                  {show && <Modal data={selectedData} handleClose={hideModal} />}
                   {/* <CardDetails {...props} /> */}
                 </LiveCardStyle>
               </article>
@@ -287,7 +297,6 @@ function Discover() {
     setSelectedData(data);
     setShow(true);
   };
-
   const hideModal = () => {
     setShow(false);
   };

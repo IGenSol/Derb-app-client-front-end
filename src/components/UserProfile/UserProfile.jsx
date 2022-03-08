@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Tabs } from "antd";
-
-import { discoverItems } from "../../mockData/discoverData";
-import Card from "../Card/Card";
 import {
   LivePost,
   ProfileModalStyle,
@@ -12,7 +9,9 @@ import {
 import axios from "axios";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { PostFooterStyle } from "../Card/Card.style";
-import { CommentIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
+import { CommentIcon, CrossIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
+import { Modelstyle } from "../../pages/Feed/Feed.style";
+import { CommentStyle } from "../../pages/Discover/Discover.style";
 
 function UserProfile() {
   const location = useLocation();
@@ -170,6 +169,112 @@ function UserProfile() {
 
 export default UserProfile;
 
+const Modal = ({ handleClose, data }) => {
+
+  const loginuserid = sessionStorage.getItem("userId")
+  const [comment, setcomment] = useState()
+  const [text, settext] = useState("")
+  const [productid, setproductid] = useState()
+  const [postid, setpostid] = useState()
+  const [storeid, setstoreid] = useState()
+  const url = `${process.env.REACT_APP_BASE_URL}/posts/comments/''/7`
+  const posturl = `${process.env.REACT_APP_BASE_URL}/posts/comments`
+
+  useEffect(() => {
+
+    getcomments()
+  }, [])
+
+
+
+
+  const getcomments = async () => {
+    await axios.get(url).then((res) => {
+      setcomment(res.data)
+    }).catch((err) => {
+      alert(err)
+    })
+  }
+
+
+
+  const postcomment = async () => {
+    setproductid(data.product_id)
+    setpostid(data.post_id)
+    setstoreid(data.store_id)
+
+
+    const postdata = {
+      user_id: loginuserid,
+      product_id: productid,
+      post_id: postid,
+
+    }
+
+    axios.post(posturl, postdata).then((res) => {
+      alert("add")
+    }).catch((err) => {
+      alert(err)
+    })
+  }
+
+  return (
+    <Modelstyle>
+      <div className="modal display-block">
+        <section className="modal-main">
+
+          <div className="container">
+            <p className="heading">Add Comment</p>
+            <article className="cancel" onClick={handleClose}><CrossIcon /></article>
+          </div>
+          <hr className="mb-3"></hr>
+          <CommentStyle>
+            <article className="comments">
+              {comment &&
+                comment.map((data, index) => {
+                  return (
+                    <article key={index}>
+                      <article className="profilewrapper">
+                        <picture className="img">
+                          <img src={data?.user_image} alt="img"></img>
+
+                        </picture>
+                        <h3>{data?.first_name} {data?.last_name}</h3>
+                      </article>
+                      <h4 className="text">{data.comment}</h4>
+                    </article>
+
+                  )
+                })
+              }
+
+            </article>
+
+            <hr className="mt-4"></hr>
+            <article className="comment-box-wrapper">
+              <input
+                type="text"
+                className="comment-input-box"
+                placeholder="Write your comment..."
+                onChange={(e) => settext(e.target.value)}
+              />
+              <button className="send-button" onClick={postcomment}>
+                <SendButtonIcon />
+              </button>
+            </article>
+
+          </CommentStyle>
+
+
+
+
+        </section>
+      </div>
+    </Modelstyle >
+  );
+};
+
+
 
 const PorfileModal = (props) => {
 
@@ -177,15 +282,16 @@ const PorfileModal = (props) => {
   const { isModalVisible, handleCancel, handleOk, user } = props;
   const [image, setImage] = useState([]);
   const [postimage, setpostimage] = useState();
+  const { first_name, last_name, mobile, password, status, picture, id } = user;
   const [userData, setUserData] = useState({
-    first_name: "",
-    last_name: "",
-    mobile: "",
-    password: "",
-    status: "",
+    first_name: first_name,
+    last_name: last_name,
+    mobile: mobile,
+    password: password,
+    status: status,
   });
 
-  const { first_name, last_name, mobile, password, status, picture, id } = user;
+
 
   const url = `${process.env.REACT_APP_BASE_URL}/users/${id}`;
 
@@ -253,7 +359,7 @@ const PorfileModal = (props) => {
 
           </label>
 
-          <h2 className="profile-name">{`${first_name} ${last_name}`}</h2>
+          <h2 className="profile-name">{`${userData?.first_name} ${userData?.last_name}`}</h2>
         </article>
 
         <article className="profile-form-data">
@@ -265,7 +371,7 @@ const PorfileModal = (props) => {
               <input
                 type="text"
                 name="first_name"
-                value={first_name}
+                value={userData?.first_name}
                 onChange={(e) => onInputSubmit(e)}
                 className="custom-input"
               />
@@ -275,7 +381,7 @@ const PorfileModal = (props) => {
               <input
                 type="text"
                 name="last_name"
-                value={last_name}
+                value={userData?.last_name}
                 onChange={(e) => onInputSubmit(e)}
                 className="custom-input"
               />
@@ -283,9 +389,9 @@ const PorfileModal = (props) => {
             <article className="form-content">
               <label>Mobile</label>
               <input
-                type="number"
-                name="email"
-                value={mobile}
+                type="tel"
+                name="mobile"
+                value={userData?.mobile}
                 onChange={(e) => onInputSubmit(e)}
                 className="custom-input"
               />
@@ -295,7 +401,7 @@ const PorfileModal = (props) => {
               <input
                 type="password"
                 name="password"
-                value={password}
+                value={userData?.password}
                 onChange={(e) => onInputSubmit(e)}
                 className="custom-input"
               />
@@ -313,7 +419,7 @@ const PorfileModal = (props) => {
               <textarea
                 name="status"
                 className="custom-input"
-                value={status}
+                value={userData?.status}
                 onChange={(e) => onInputSubmit(e)}
                 cols="30"
                 rows="5"
@@ -343,6 +449,15 @@ const PorfileModal = (props) => {
 
 const ProfileTabs = (props) => {
   const location = useLocation();
+  const [show, setShow] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const hanldeClick = (data) => {
+    setSelectedData(data);
+    setShow(true);
+  };
+  const hideModal = () => {
+    setShow(false);
+  };
 
   if (location.state !== undefined) {
     var userid = location.state;
@@ -396,7 +511,7 @@ const ProfileTabs = (props) => {
                         5
                       </button>
                       <button className="post-button">
-                        <span className="icon">
+                        <span className="icon" onClick={() => hanldeClick(postsData)}>
                           <CommentIcon />
                         </span>
                         4
@@ -419,6 +534,7 @@ const ProfileTabs = (props) => {
                       </button>
                     </article>
                   </PostFooterStyle>
+                  {show && <Modal data={selectedData} handleClose={hideModal} />}
 
 
                   {/* <CardDetails {...props} /> */}
