@@ -46,16 +46,16 @@ function UserProfile() {
         alert(err);
       });
   };
-  let follows = "";
-  const geFollowers = async( )=>{
-    await axios.get(getfollowers).than((res)=>{
+  let follows = ""
+  const geFollowers = async () => {
+    await axios.get(getfollowers).then((res) => {
       const data = res.data.data
-      follows = data.find(function(post, index) {
-        console.log(post)
-        if(post.following_id == loginuserid)
-          return true;
+      follows = data.find(function (post, index) {
+
+        if (post.following_id == loginuserid)
+          return setfollow(!follow);
       });
-       console.log(follows)
+
     })
   };
   const getfollowerCount = async () => {
@@ -87,9 +87,10 @@ function UserProfile() {
   const onclickactive = () => {
 
     // if (rating_user_id == loginuserid) {
-    if (follows) {
+    if (follow) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/follower/${loginuserid}`, follower).then((res) => {
-        console.log(res)
+        setfollow(!follow)
+
       }).catch((err) => {
         console.log(err)
       })
@@ -97,7 +98,9 @@ function UserProfile() {
     }
     else {
       axios.post(`${process.env.REACT_APP_BASE_URL}/follower`, follower).then((res) => {
-        console.log(res)
+
+        setfollow(!follow)
+
       }).catch((err) => {
         console.log(err)
       })
@@ -134,11 +137,11 @@ function UserProfile() {
               </button>
             }
             {/* {rating_user_id == loginuserid ? */}
-            {follows ?
+            {follow ?
               (
                 <button className="profile-button" onClick={onclickactive}>Unfollow</button>
-                ):
-                (<button className="profile-button" onClick={onclickactive}>Follow</button>) 
+              ) :
+              (<button className="profile-button" onClick={onclickactive}>Follow</button>)
             }
             <PorfileModal
               handleOk={handleOk}

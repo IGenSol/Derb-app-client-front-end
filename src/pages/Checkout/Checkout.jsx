@@ -93,7 +93,6 @@ const PaymentDetails = (props) => {
   const [product, setProduct] = useState({
     name: cartItems,
     price: totalPrice,
-    productby: "Jahangir",
     user_id: user_id
   });
 
@@ -268,6 +267,11 @@ const DeliveryDetails = () => {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
+
+  sessionStorage.setItem("country", country);
+  sessionStorage.setItem("city", city);
+  sessionStorage.setItem("street", street);
+
 
 
 

@@ -49,16 +49,21 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const Paypal = (props) => {
   const { cart_Item } = props;
-  console.log(props);
 
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
   const userId = sessionStorage.getItem("userId");
   const url = `${process.env.REACT_APP_BASE_URL}/payment/paypal`;
+  const country = sessionStorage.getItem("country");
+  const city = sessionStorage.getItem("city");
+  const street = sessionStorage.getItem("street");
   const data = {
     amount: props.amount.toFixed(2),
     product: cart_Item,
     user_Id: userId,
+    country: country,
+    city: city,
+    street: street,
   };
 
   const handleApprove = (orderId) => {
