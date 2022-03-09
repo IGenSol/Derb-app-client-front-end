@@ -114,7 +114,17 @@ const ProductFooter = (props) => {
 };
 
 const ProductDetial = (props) => {
+  const { addItem } = useContext(products);
   const { product } = props;
+  const [promocode, setpromocode] = useState("")
+
+  const handlediscount = () => {
+    // if (product.promocode === promocode) {
+    if (promocode) {
+      sessionStorage.setItem("promocode", promocode)
+    }
+  }
+
 
   return (
     <ProductDetailStyle>
@@ -126,7 +136,55 @@ const ProductDetial = (props) => {
         <p className="description">
           {product?.description}
         </p>
-        <ProductFooter {...props} />
+        {/* <ProductFooter {...props} /> */}
+        <ProductFooterStyle>
+          <article className="product-properties">
+            <article className="ingrediants-wrapper">
+              <h4 className="heading">key Ingredients</h4>
+              <ul className="ingrediants">
+                <li className="ingrediant">Bamboo Fibers</li>
+                <li className="ingrediant">Castor Oil</li>
+                <li className="ingrediant">Neem Oil</li>
+              </ul>
+            </article>
+
+            {/* <article className="quantity">
+          <h4 className="heading">Quantitiy</h4>
+          <QuantityCounter {...props} />
+        </article> */}
+
+            <article className="share-link">
+              <h4 className="heading">Share it </h4>
+              <article className="icons-wrapper">
+                <a href="#" target="_blank" className="icon">
+                  <FacebookIcon />
+                </a>
+                <a href="#" target="_blank" className="icon">
+                  <InstagramIcon />
+                </a>
+                <a href="#" target="_blank" className="icon">
+                  <TwitterIcon />
+                </a>
+              </article>
+            </article>
+          </article>
+          <article className="discountbtn">
+            <article className="input-layout">
+              <h3>Promo Code:</h3>
+              <input type="text" className="custom-input" onChange={(e) => setpromocode(e.target.value)} ></input>
+              <button className="btn" onClick={handlediscount}>Add</button>
+
+            </article>
+          </article>
+          <article className="buttons-wrapper">
+            <button className="action-btn" onClick={() => addItem(product)}>
+              Add to cart
+            </button>
+            <Link to="/cart-list" className="action-btn">
+              Buy Now
+            </Link>
+          </article>
+        </ProductFooterStyle>
       </article>
       <ProductSideBar {...props} />
     </ProductDetailStyle>

@@ -322,6 +322,8 @@ function Checkout() {
   const product = useContext(products);
   const { cartItems } = product;
 
+  let promocode = sessionStorage.getItem("promocode")
+
   const itemsPrice = cartItems.reduce(
     (accumaltor, currentItem) =>
       accumaltor + currentItem.product_price * currentItem.qty,

@@ -106,6 +106,37 @@ export const ProductFooterStyle = styled.article`
     }
   }
 
+  .discountbtn {
+    margin-top: 2rem;
+    .custom-input {
+      width: 90%;
+      padding: 1rem 0.5rem;
+      outline: none;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      border: 0.1rem solid ${(p) => p.theme.colors.CADET_GREY_COLOR};
+    }
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    .btn {
+      ${CommonButton}
+      font-size: 2rem;
+      padding: 1rem;
+    }
+
+    .input-layout {
+      ${CommonGridStyle({
+        columns: "18rem 1fr 1fr",
+        columnGap: "1rem",
+      })};
+      align-items: baseline;
+    }
+  }
+
   .quantity {
     .heading {
       margin-bottom: 2rem;
