@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Collapse, Switch } from "antd";
 import axios from "axios";
 import { products } from "../../App";
-
 import {
   CheckoutStyle,
   DeliveryDetailsStyle,
@@ -12,6 +11,7 @@ import {
   PersonalDetailsStyle,
 } from "./Checkout.style";
 import Paypal from "../PayPal/Paypal";
+
 
 const ItemList = (props) => {
   const { cartItems } = props;
@@ -273,11 +273,12 @@ const DeliveryDetails = () => {
 
   return (
     <DeliveryDetailsStyle>
-      <article className="title">
+      <article>
         <h2 className="section-title">Dilvery details</h2>
       </article>
       <article className="missing-street-wrapper">
         <h3 className="heading">Enter Your Dilvery Details</h3>
+
         <article className="title">
 
           <input

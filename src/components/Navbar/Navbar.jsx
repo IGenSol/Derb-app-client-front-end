@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { products } from "../../App";
 import {
   CartIcon,
+  DashboardIcon,
   DownArrow,
   LogoutIcon,
   SearchIcon,
@@ -107,6 +108,8 @@ const UserProfile = (props) => {
 
   }
 
+  const id = sessionStorage.getItem("userId")
+
   return (
     <UserProfileStyle dropdownActive={dropdown}>
       <article className="user-profile-placeholder-wrapper" onClick={isDropDownActive}>
@@ -122,13 +125,27 @@ const UserProfile = (props) => {
         <ul className="dropdown-menu-wrapper">
 
           <li className="drop">
-            <a onClick={handlepush} className="dropdown-menu-link">
+            <Link to={
+              {
+                pathname: "/user-profile",
+                state: id
+              }} className="dropdown-menu-link">
               <span className="icon">
                 <UserIcon />
               </span>
               <p className="link-text">Profile</p>
+            </Link>
+          </li>
+
+          <li className="drop">
+            <a onClick={handlepush} className="dropdown-menu-link">
+              <span className="icon">
+                <DashboardIcon />
+              </span>
+              <p className="link-text">Dashboard</p>
             </a>
           </li>
+
           <li className="drop">
             <Link
               to="/cart-list"

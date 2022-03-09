@@ -331,7 +331,7 @@ function Feed() {
             </Link>
           </article>
           <h3 className="name">{followerCount?.first_name}</h3>
-          <h4 className="username">@jahangirkhan</h4>
+          <h4 className="username">{followerCount?.email}</h4>
 
           <article className="profile-details">
             <article className="details">
