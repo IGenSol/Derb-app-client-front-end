@@ -23,6 +23,7 @@ function UserProfile() {
 
   const url = `${process.env.REACT_APP_BASE_URL}/users/${userid}`;
   const followerCounturl = `${process.env.REACT_APP_BASE_URL}/follower/AllFollowerCount/${userid}`;
+  const getfollowers = `${process.env.REACT_APP_BASE_URL}/follower/${userid}`;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [user, setUser] = useState([]);
   const [follow, setfollow] = useState(false)
@@ -31,6 +32,7 @@ function UserProfile() {
   const loginuserid = sessionStorage.getItem("userId")
 
   useEffect(() => {
+    geFollowers();
     getUserData();
     getfollowerCount();
   }, []);
@@ -46,10 +48,21 @@ function UserProfile() {
       });
   };
   let follows = "";
+  const geFollowers = async( )=>{
+    await axios.get(getfollowers).than((res)=>{
+      const data = res.data.data
+      follows = data.find(function(post, index) {
+        console.log(post)
+        if(post.following_id == loginuserid)
+          return true;
+      });
+       console.log(follows)
+    })
+  };
   const getfollowerCount = async () => {
     await axios.get(followerCounturl).then((res) => {
       setFollowerCount(res.data.data[0]);
-      follows = followerCount.find(({ user_id }) => user_id === loginuserid);
+      // follows = data.find(({ following_id }) => following_id == loginuserid);  
     });
   };
 
@@ -123,10 +136,10 @@ function UserProfile() {
             }
             {/* {rating_user_id == loginuserid ? */}
             {follows ?
-              (<button className="profile-button" onClick={onclickactive}>Follow</button>) :
               (
                 <button className="profile-button" onClick={onclickactive}>Unfollow</button>
-              )
+                ):
+                (<button className="profile-button" onClick={onclickactive}>Follow</button>) 
             }
             <PorfileModal
               handleOk={handleOk}
@@ -143,7 +156,7 @@ function UserProfile() {
             <p className="counter-text">Post</p>
           </article>
           <article className="counter">
-            <h2 className="counter-no">80</h2>
+            <h2 className="counter-no">{followerCount?.total_following}</h2>
             <p className="counter-text">Following</p>
           </article>
           <article className="counter">
