@@ -5,9 +5,6 @@ import { CartListStyle } from "./CartList.style";
 
 function CartList(props) {
   const { cartItems } = props;
-
-
-
   const itemsPrice = cartItems.reduce(
     (accumaltor, currentItem) =>
       accumaltor + currentItem.product_price * currentItem.qty,

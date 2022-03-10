@@ -29,7 +29,8 @@ export const setUserSession = (
   email,
   mobile,
   role,
-  picture
+  picture,
+  vendor_id
 ) => {
   //set user infromation in session storage
   sessionStorage.setItem("token", token);
@@ -40,6 +41,7 @@ export const setUserSession = (
   sessionStorage.setItem("mobile", mobile);
   sessionStorage.setItem("userrole", JSON.stringify(role));
   sessionStorage.setItem("image", picture);
+  sessionStorage.setItem("storeid", vendor_id);
 };
 
 export const removeUserSession = () => {

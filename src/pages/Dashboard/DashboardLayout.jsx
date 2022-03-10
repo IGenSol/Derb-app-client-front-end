@@ -16,6 +16,7 @@ import { DashboardLayoutStyle, SidebarStyle } from "./DashboardLayout.style";
 import UpdateProducts from "./Subpages/Products/UpdateProducts/UpdateProducts";
 import { useEffect } from "react";
 import ProductPromtion from "./Subpages/Products/ProductPromotion/ProductPromtion";
+import CreateStore from "./Subpages/Products/CreateStore/CreateStore";
 const image = sessionStorage.getItem("image")
 
 const Sidebar = (props) => {
@@ -155,6 +156,7 @@ function DashboardLayout(props) {
 
           <Route path="/dashboard/orders" exact component={Order} />
           <Route path="/dashboard/profile" exact component={Profile} />
+          <Route path="/dashboard/createstore" exact component={CreateStore} />
           <Route path="/dashboard/product-promotion" exact component={ProductPromtion} />
         </Switch>
       </Router>

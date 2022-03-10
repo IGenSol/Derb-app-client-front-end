@@ -26,8 +26,19 @@ export const ProductPromotionStyle = styled.main`
 
   .input-layout {
     ${CommonGridStyle({
-      columns: "18rem 1fr",
+      columns: "25rem 1fr",
       columnGap: "1rem",
     })};
+    margin-top: 2rem;
+  }
+  .addbtn {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    .btn {
+      ${CommonButton}
+      padding: 1rem 5rem;
+      font-size: 2rem;
+    }
   }
 `;

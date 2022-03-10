@@ -256,44 +256,46 @@ function SubCatagories() {
         />
       </section>
 
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Catagory</th>
-            <th scope="col">Subcatagory</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {subCatagories.map((catagory, index) => {
-            return (
-              <tr key={index}>
-                <td data-label="No">{index + 1}</td>
-                <td data-label="Product Name">{catagory.sub_category_name}</td>
-                <td data-label="Price">{catagory.primary_category_name}</td>
+      <article className="tableoverflow">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Catagory</th>
+              <th scope="col">Subcatagory</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {subCatagories.map((catagory, index) => {
+              return (
+                <tr key={index}>
+                  <td data-label="No">{index + 1}</td>
+                  <td data-label="Product Name">{catagory.sub_category_name}</td>
+                  <td data-label="Price">{catagory.primary_category_name}</td>
 
-                <td data-label="Action">
-                  <article className="action-buttons-wrapper">
-                    <button className="action-button"
-                      onClick={() => hanldeClick(catagory)}>
-                      <EditIcon />
-                    </button>
-                    <button
-                      className="action-button"
-                      onClick={() =>
-                        deleteSubCatagory(catagory.sub_category_id)
-                      }
-                    >
-                      <DeleteIcon />
-                    </button>
-                  </article>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                  <td data-label="Action">
+                    <article className="action-buttons-wrapper">
+                      <button className="action-button"
+                        onClick={() => hanldeClick(catagory)}>
+                        <EditIcon />
+                      </button>
+                      <button
+                        className="action-button"
+                        onClick={() =>
+                          deleteSubCatagory(catagory.sub_category_id)
+                        }
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </article>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </article>
       {show && <Modal details={selectedData} handleClose={hideModal} />}
     </SubCatagoriesStyle>
   );

@@ -172,6 +172,7 @@ const Login = (props) => {
       })
       .then((res) => {
         setLoading(false);
+        console.log(res)
         if (res.data.message == "Login successfully") {
           setUserSession(
             res.data.token,
@@ -181,7 +182,8 @@ const Login = (props) => {
             res.data.data.email,
             res.data.data.mobile,
             res.data.data.role,
-            res.data.data.picture
+            res.data.data.picture,
+            res.data.data.vendor_id
           );
 
           setRole(res.data.data.role);

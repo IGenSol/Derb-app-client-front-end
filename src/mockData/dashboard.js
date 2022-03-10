@@ -41,6 +41,11 @@ export const sideMenus = [
   },
   {
     icon: <UserIcon />,
+    linkText: "Create Store",
+    url: "/dashboard/createstore",
+  },
+  {
+    icon: <UserIcon />,
     linkText: "Profile",
     url: "/dashboard/profile",
   },

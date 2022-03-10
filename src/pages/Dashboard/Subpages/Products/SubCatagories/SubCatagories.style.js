@@ -12,11 +12,34 @@ export const SubCatagoriesStyle = styled.main`
     }
   }
 
+  .tableoverflow {
+    height: 40rem;
+    overflow: auto;
+    margin-top: 5rem;
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${(p) => p.theme.colors.PRIMARY_COLOR};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+
   table {
     border: 1px solid #ccc;
     border-collapse: collapse;
     margin: 0;
-    margin-top: 5rem;
     padding: 0;
     width: 100%;
     table-layout: fixed;
