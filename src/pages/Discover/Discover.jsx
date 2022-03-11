@@ -189,7 +189,7 @@ const Modal = ({ handleClose, data }) => {
   const [productid, setproductid] = useState()
   const [postid, setpostid] = useState()
   const [storeid, setstoreid] = useState()
-  const url = `${process.env.REACT_APP_BASE_URL}/posts/comments/''/7`
+  const url = `${process.env.REACT_APP_BASE_URL}/posts/comments/${data?.post_id} || ""/${data?.product_id}`
   const posturl = `${process.env.REACT_APP_BASE_URL}/posts/comments`
 
   useEffect(() => {

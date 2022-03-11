@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import { LiveCardStyle, PostFooterStyle } from "../../components/Card/Card.style";
-import { CommentIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
+import { CommentIcon, LikeIcon, ShareIcon } from "../../svgs";
 import { Link } from "react-router-dom";
 import { AllProductStyle } from './AllProduct.Style'
 import { NavgationCarousalStyle } from "../../components/Carousal/Carousal";

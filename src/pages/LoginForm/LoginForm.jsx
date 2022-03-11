@@ -183,7 +183,7 @@ const Login = (props) => {
             res.data.data.mobile,
             res.data.data.role,
             res.data.data.picture,
-            res.data.data.vendor_id
+            res.data.data.store_id
           );
 
           setRole(res.data.data.role);

@@ -71,7 +71,8 @@ const Modal = ({ handleClose, details }) => {
 function Order() {
   const [orders, setOrders] = useState([]);
   // const ordersUrl = `${process.env.REACT_APP_BASE_URL}/orders/${userId}`;
-  const ordersUrl = `${process.env.REACT_APP_BASE_URL}/orders`;
+  const storeid = sessionStorage.getItem("storeid");
+  const ordersUrl = `${process.env.REACT_APP_BASE_URL}/orders/${storeid}`;
 
   const [selectedData, setSelectedData] = useState({});
   const [show, setShow] = useState(false);

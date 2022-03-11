@@ -212,9 +212,10 @@ function SubCatagories() {
   useEffect(() => {
     getSubCatagories();
   }, []);
+  const storeid = sessionStorage.getItem("storeid");
 
   const getSubCatagories = async () => {
-    await axios.get(`${url}/${userId}`).then((res) => {
+    await axios.get(`${url}/${storeid}`).then((res) => {
       setSubCatagories(res.data.data);
     });
   };

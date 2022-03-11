@@ -169,12 +169,14 @@ const ProductDetial = (props) => {
             </article>
           </article>
           <article className="discountbtn">
-            <article className="input-layout">
-              <h3>Promo Code:</h3>
-              <input type="text" className="custom-input" onChange={(e) => setpromocode(e.target.value)} ></input>
-              <button className="btn" onClick={handlediscount}>Add</button>
+            {product?.discount >= 1 &&
+              <article className="input-layout">
+                <h3>Promo Code:</h3>
+                <input type="text" className="custom-input" onChange={(e) => setpromocode(e.target.value)} ></input>
+                <button className="btn" onClick={handlediscount}>Add</button>
 
-            </article>
+              </article>}
+
           </article>
           <article className="buttons-wrapper">
             <button className="action-btn" onClick={() => addItem(product)}>

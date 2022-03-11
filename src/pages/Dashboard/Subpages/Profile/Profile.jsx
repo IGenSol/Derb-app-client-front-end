@@ -249,7 +249,7 @@ function Profile() {
   const [user, setUser] = useState([]);
   const url = `${process.env.REACT_APP_BASE_URL}/users/${userId}`;
 
-  const id = getUserId();
+
 
   useEffect(() => {
     getUserData();
@@ -258,7 +258,7 @@ function Profile() {
 
   const getUserData = async () => {
     await axios
-      .get(`${url}/${id}`)
+      .get(url)
       .then((res) => {
         setUser(res.data.data);
       })

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Collapse, Switch } from "antd";
+import { Collapse } from "antd";
 import axios from "axios";
 import { products } from "../../App";
 import {

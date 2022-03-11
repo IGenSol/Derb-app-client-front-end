@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState([]);
-  const url = `${process.env.REACT_APP_BASE_URL}/orders`;
+  const storeid = sessionStorage.getItem("storeid");
+  const url = `${process.env.REACT_APP_BASE_URL}/orders/${storeid}`;
 
 
   useEffect(() => {

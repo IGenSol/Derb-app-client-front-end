@@ -11,7 +11,9 @@ const userId = sessionStorage.getItem("userId")
 function ProductList(props) {
   const [products, setProducts] = useState([]);
   // const url = `${process.env.REACT_APP_BASE_URL}/products/${userId}`;
-  const url = `${process.env.REACT_APP_BASE_URL}/products`;
+  const storeid = sessionStorage.getItem("storeid");
+  const deleteurl = `${process.env.REACT_APP_BASE_URL}/products`;
+  const url = `${process.env.REACT_APP_BASE_URL}/products/store/${storeid}`;
 
   useEffect(() => {
     getProducts();
@@ -23,7 +25,7 @@ function ProductList(props) {
   };
 
   const deleteProduct = async (id) => {
-    await axios.delete(`${url}/${id}`).then((res) => {
+    await axios.delete(`${deleteurl}/${id}`).then((res) => {
       console.log(`item Deleted >> ${JSON.stringify(res)}`);
     });
 

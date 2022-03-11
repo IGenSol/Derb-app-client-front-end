@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 import { CameraIcon, LeftArrowIcon } from "../../../../../svgs";
 import { AddProductsStyle } from "./AddProducts.style";
-import { imagecapture } from "caniuse-lite/data/features";
+
 
 function AddProducts(props) {
   const [productId, setProductId] = useState(0);
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState(0);
-  const [productDiscount, setProductDiscount] = useState(0);
   const [productCatagory, setProductCatagory] = useState("");
   const [productSize, setProductSize] = useState("");
   const [productColor, setProductColor] = useState("");
   const [image, setImage] = useState([]);
-  const [productImage, setProductImage] = useState([]);
   const [productDescription, setProductDescription] = useState("");
 
   const url = `${process.env.REACT_APP_BASE_URL}/products`;
@@ -65,13 +62,6 @@ function AddProducts(props) {
       });
 
   };
-
-
-
-
-
-
-
 
   return (
     <AddProductsStyle>
@@ -139,13 +129,6 @@ function AddProducts(props) {
               )}
               <input type="file" id="upload-product-photo" onChange={uploadMultipleimage} />
             </label>
-
-
-
-
-
-
-
 
           </article>
 
