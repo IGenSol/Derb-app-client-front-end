@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
-
 import Carousal from "../../components/Carousal/Carousal.jsx";
 
 import {
@@ -117,13 +117,27 @@ const ProductDetial = (props) => {
   const { addItem } = useContext(products);
   const { product } = props;
   const [promocode, setpromocode] = useState("")
+  const [discount, setdiscount] = useState(false)
+
 
   const handlediscount = () => {
     // if (product.promocode === promocode) {
-    if (promocode) {
+    if (product.promo_code == promocode) {
       sessionStorage.setItem("promocode", promocode)
+      toast.success("Promo code Added", {
+        theme: 'dark'
+      });
+      setdiscount(true)
+    }
+    else {
+      sessionStorage.setItem("promocode", "")
+      toast.error("Promo code Not Valid", {
+        theme: 'dark'
+      });
     }
   }
+
+
 
 
   return (
@@ -132,7 +146,15 @@ const ProductDetial = (props) => {
         <article className="header">
           <h3 className="heading">{product?.product_name}</h3>
           <h3 className="price">${product?.product_price}</h3>
+
         </article>
+        {discount &&
+          <article className="header my-3">
+            <h3 className="heading">Discount</h3>
+            <h3 className="price">{product?.discount.toString().slice(1)}%</h3>
+          </article>
+        }
+
         <p className="description">
           {product?.description}
         </p>
@@ -219,20 +241,25 @@ function ShowCase(props) {
 
 
   return (
-    <ShowCaseStyle>
-      <section className="product-container">
-        <picture className="product-placeholder">
-          <img
-            src={product?.product_images}
-            alt="image"
-            className="product-image"
-          />
-        </picture>
-        <ProductDetial product={product} />
-      </section>
+    <>
+      <ToastContainer
+      />
+      <ShowCaseStyle>
 
-      {/* <LiveChannels /> */}
-    </ShowCaseStyle>
+        <section className="product-container">
+          <picture className="product-placeholder">
+            <img
+              src={product?.product_images}
+              alt="image"
+              className="product-image"
+            />
+          </picture>
+          <ProductDetial product={product} />
+        </section>
+
+        {/* <LiveChannels /> */}
+      </ShowCaseStyle>
+    </>
   );
 }
 

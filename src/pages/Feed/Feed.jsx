@@ -48,13 +48,8 @@ const Modal = ({ handleClose }) => {
   const url = `${process.env.REACT_APP_BASE_URL}/posts`;
 
 
-
-
-
-
-
   const feedPost = () => {
-    debugger
+
     const formData = new FormData();
     formData.append("post_description", description);
     formData.append("post_video", vedio);
@@ -281,6 +276,8 @@ function Feed() {
               cols="30"
               rows="3"
               placeholder="Share Your thoughts.."
+              onClick={() => hanldeClick()}
+              readOnly
             ></textarea>
           </article>
 
@@ -348,7 +345,7 @@ function Feed() {
         {show && <Modal handleClose={hideModal} />}
       </aside>
 
-    </FeedStyle>
+    </FeedStyle >
   );
 }
 

@@ -317,7 +317,22 @@ function Discover() {
     })
   }
 
+  console.log(descover)
 
+  let filterpostdata = [
+    ...new Map(descover.map((item) => [item["post_id"], item])).values(),
+  ];
+
+  console.log("PostData", filterpostdata);
+
+  let filterproductData = [
+    ...new Map(descover.map((item) => [item["product_id"], item])).values(),
+  ];
+  console.log("filterproductData", filterproductData);
+
+  const filterdata = [...filterpostdata, ...filterproductData];
+
+  console.log("filterData", filterdata);
 
   const handleLike = (e) => {
     const { product_id, post_id, store_id } = e
@@ -328,7 +343,7 @@ function Discover() {
       store_id: store_id
 
     }
-    if (e.rating_user_id == loginuserid && e.LIKES == 1) {
+    if (e.rating_user_id == loginuserid) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
         getDescoverPost();
       }).catch((err) => {
@@ -340,11 +355,9 @@ function Discover() {
     else {
       axios.post(`${process.env.REACT_APP_BASE_URL}/reviews/likes`, data).then((res) => {
         console.log(res)
-        alert(`like ${e.post_id} ${e.product_id}`)
         getDescoverPost();
       }).catch((err) => {
         console.log(err)
-        alert(`likeer ${e.post_id} ${e.product_id}`)
       })
     }
 
@@ -363,7 +376,9 @@ function Discover() {
       >
         <TabPane tab="Discover" key="descover">
           <article className="discover-prducts-wrapper">
-            {descover.map((descover, index) => {
+
+            {/* {descover.map((descover, index) => { */}
+            {filterdata.map((descover, index) => {
               const { post_image, user_id, post_id, store_id, product_name, first_name, last_name, product_id, user_image, rating_user_id, LIKES } = descover;
               const id = product_id
               const userid = user_id;

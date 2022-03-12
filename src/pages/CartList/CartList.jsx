@@ -5,11 +5,25 @@ import { CartListStyle } from "./CartList.style";
 
 function CartList(props) {
   const { cartItems } = props;
-  const itemsPrice = cartItems.reduce(
-    (accumaltor, currentItem) =>
-      accumaltor + currentItem.product_price * currentItem.qty,
-    0
-  );
+  const promocode = sessionStorage.getItem("promocode")
+
+
+  if (promocode !== "") {
+
+    var itemsPrice = cartItems.reduce(
+
+      (accumaltor, currentItem) =>
+        accumaltor + (currentItem.product_price - (currentItem.product_price * currentItem.discount)) * currentItem.qty,
+      0
+    );
+  }
+  else {
+    var itemsPrice = cartItems.reduce(
+      (accumaltor, currentItem) =>
+        accumaltor + currentItem.product_price * currentItem.qty,
+      0
+    );
+  }
 
   return (
     <CartListStyle>

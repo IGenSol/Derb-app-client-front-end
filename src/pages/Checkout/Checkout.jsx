@@ -15,11 +15,25 @@ import Paypal from "../PayPal/Paypal";
 
 const ItemList = (props) => {
   const { cartItems } = props;
-  const itemsPrice = cartItems.reduce(
-    (accumaltor, currentItem) =>
-      accumaltor + currentItem.product_price * currentItem.qty,
-    0
-  );
+  const promocode = sessionStorage.getItem("promocode")
+
+
+  if (promocode !== "") {
+
+    var itemsPrice = cartItems.reduce(
+
+      (accumaltor, currentItem) =>
+        accumaltor + (currentItem.product_price - (currentItem.product_price * currentItem.discount)) * currentItem.qty,
+      0
+    );
+  }
+  else {
+    var itemsPrice = cartItems.reduce(
+      (accumaltor, currentItem) =>
+        accumaltor + currentItem.product_price * currentItem.qty,
+      0
+    );
+  }
 
   const taxPrice = itemsPrice * 0.14;
   const shippingPrice = itemsPrice > 2000 ? 0 : 50;
@@ -322,13 +336,25 @@ function Checkout() {
   const product = useContext(products);
   const { cartItems } = product;
 
-  let promocode = sessionStorage.getItem("promocode")
+  const promocode = sessionStorage.getItem("promocode")
 
-  const itemsPrice = cartItems.reduce(
-    (accumaltor, currentItem) =>
-      accumaltor + currentItem.product_price * currentItem.qty,
-    0
-  );
+
+  if (promocode !== "") {
+
+    var itemsPrice = cartItems.reduce(
+
+      (accumaltor, currentItem) =>
+        accumaltor + (currentItem.product_price - (currentItem.product_price * currentItem.discount)) * currentItem.qty,
+      0
+    );
+  }
+  else {
+    var itemsPrice = cartItems.reduce(
+      (accumaltor, currentItem) =>
+        accumaltor + currentItem.product_price * currentItem.qty,
+      0
+    );
+  }
 
 
 
