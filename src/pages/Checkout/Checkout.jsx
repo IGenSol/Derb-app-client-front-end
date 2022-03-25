@@ -91,7 +91,7 @@ const PaymentPopup = (props) => {
   const { stripeKey, token, amount } = props;
   return (
     <PaymentPopupStyle stripeKey={stripeKey} token={token} amount={amount}>
-      <button className="place-order-button">Place Order</button>
+      <button className="place-order-button">Strip</button>
     </PaymentPopupStyle>
   );
 };
@@ -282,9 +282,13 @@ const DeliveryDetails = () => {
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
 
+
+
+
   sessionStorage.setItem("country", country);
   sessionStorage.setItem("city", city);
   sessionStorage.setItem("street", street);
+
 
 
 
@@ -305,6 +309,7 @@ const DeliveryDetails = () => {
             placeholder="Enter your contry"
             className="custom-container"
             onChange={(e) => setCountry(e.target.value)}
+            required
           />
           <input
             type="text"
@@ -312,6 +317,7 @@ const DeliveryDetails = () => {
             placeholder="Enter your city"
             className="custom-container"
             onChange={(e) => setCity(e.target.value)}
+            required
           />
 
           <input
@@ -320,8 +326,9 @@ const DeliveryDetails = () => {
             placeholder="Enter your street"
             className="custom-container"
             onChange={(e) => setStreet(e.target.value)}
+            required
           />
-          <button className="submit-button">Submit</button>
+
         </article>
       </article>
 

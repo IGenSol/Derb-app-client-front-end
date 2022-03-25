@@ -221,7 +221,10 @@ export const PaymentDetailsStyle = styled.section`
       ${CommonButton};
 
       margin: 2rem 0;
+      background-color: red;
       width: 100%;
+      font-size: 2rem;
+      font-weight: 900;
     }
 
     .description {
@@ -233,6 +236,8 @@ export const PaymentDetailsStyle = styled.section`
 
 export const PaymentPopupStyle = styled(StripeCheckout)`
   background: red;
+  font-size: 2rem;
+  font-weight: 900;
 `;
 
 export const ItemListStyle = styled.aside`

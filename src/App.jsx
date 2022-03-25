@@ -61,16 +61,16 @@ function App() {
   };
 
   const onRemove = (product) => {
-    const exist = cartItems.find((item) => item.url === product.url);
+    const exist = cartItems.find((item) => item.id === product.id);
 
     if (exist.qty === 1) {
       setCartItems(
-        cartItems.filter((currentItem) => currentItem.url !== product.url)
+        cartItems.filter((currentItem) => currentItem.id !== product.id)
       );
     } else {
       setCartItems(
         cartItems.map((currentItem) =>
-          currentItem.url === product.url
+          currentItem.id === product.id
             ? { ...exist, qty: exist.qty - 1 }
             : currentItem
         )
