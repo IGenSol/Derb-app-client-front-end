@@ -17,6 +17,17 @@ export const DiscoverStyle = styled.main`
 
     margin-bottom: 2rem;
   }
+
+  .postimagecontainer {
+    width: 100%;
+    display: block;
+    height: 45rem;
+    background: #818181;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
   .profilewrapper {
     display: flex;
     align-items: baseline;

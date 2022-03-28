@@ -244,6 +244,12 @@ export const Modelstyle = styled.main`
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 1rem;
+    @media (max-width: 580px) {
+      width: 80%;
+    }
+    @media (max-width: 400px) {
+      width: 95%;
+    }
   }
 
   .display-block {

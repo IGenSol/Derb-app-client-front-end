@@ -288,17 +288,76 @@ const Modal = ({ handleClose, data }) => {
   );
 };
 
+const PostModal = ({ handleClose, data }) => {
+
+  console.log(data[0])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return (
+    <Modelstyle>
+      <div className="modal display-block">
+        <section className="modal-main">
+
+          <DiscoverStyle>
+            <div className="container">
+
+              <article className="profilewrapper">
+                <picture className="img my-4">
+                  <img src={data?.[0]} alt="img"></img>
+
+                </picture>
+                <h3>{data?.[1]} {data?.[2]} </h3>
+              </article>
+              <article className="cancel" onClick={handleClose}><CrossIcon /></article>
+            </div>
+            <hr className="mb-3"></hr>
+
+            <article className="postimagecontainer mb-2">
+              <img src={data?.[3]} alt="img"></img>
+            </article>
+
+          </DiscoverStyle>
+
+
+
+
+        </section>
+      </div>
+    </Modelstyle >
+  );
+};
+
 function Discover() {
   const { TabPane } = Tabs;
   const [descover, setdescover] = useState([])
   const [show, setShow] = useState(false);
+  const [Postshow, setPostShow] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const hanldeClick = (data) => {
     setSelectedData(data);
     setShow(true);
   };
+  const hanldePostClick = (data) => {
+    setSelectedData(data);
+    setPostShow(true)
+  };
   const hideModal = () => {
     setShow(false);
+    setPostShow(false)
   };
   const url = `${process.env.REACT_APP_BASE_URL}/posts/discovery/data`
   const loginuserid = sessionStorage.getItem("userId")
@@ -317,7 +376,6 @@ function Discover() {
     })
   }
 
-  console.log(descover)
 
   let filterpostdata = [
     ...new Map(descover.map((item) => [item["post_id"], item])).values(),
@@ -328,11 +386,9 @@ function Discover() {
   let filterproductData = [
     ...new Map(descover.map((item) => [item["product_id"], item])).values(),
   ];
-  console.log("filterproductData", filterproductData);
 
   const filterdata = [...filterpostdata, ...filterproductData];
 
-  console.log("filterData", filterdata);
 
   const handleLike = (e) => {
     const { product_id, post_id, store_id } = e
@@ -411,14 +467,16 @@ function Discover() {
                       </Link>) : (" ")}
 
 
-                    <Link className="image-thumbnail" to={
+                    {/* <Link to={
                       {
                         pathname: "/user-profile",
                         state: userid
                       }
-                    } >
+                    } > */}
+                    <article className="image-thumbnail" onClick={() => hanldePostClick([user_image, first_name, last_name, post_image])}>
                       <img src={post_image} alt="image" className="thumbnail" />
-                    </Link>
+                    </article>
+                    {/* </Link> */}
                     <PostFooterStyle>
                       <article className="post-buttons-wrapper">
                         <button className="post-button">
@@ -464,6 +522,7 @@ function Discover() {
             })}
           </article>
           {show && <Modal data={selectedData} handleClose={hideModal} />}
+          {Postshow && <PostModal data={selectedData} handleClose={hideModal} />}
         </TabPane>
         <TabPane tab="Following" key="following">
           <Following />

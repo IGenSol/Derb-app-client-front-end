@@ -53,6 +53,7 @@ export const LiveCardStyle = styled.figure`
     display: block;
     width: 100%;
     height: 40rem;
+    cursor: pointer;
 
     &::after {
       content: "";
