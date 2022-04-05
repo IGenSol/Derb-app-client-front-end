@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classNames from "classnames";
 import { Menu } from "antd";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
@@ -17,6 +17,7 @@ import UpdateProducts from "./Subpages/Products/UpdateProducts/UpdateProducts";
 import { useEffect } from "react";
 import ProductPromtion from "./Subpages/Products/ProductPromotion/ProductPromtion";
 import CreateStore from "./Subpages/Products/CreateStore/CreateStore";
+import { GlobalContext } from "../../reducer/GlobalState";
 const image = sessionStorage.getItem("image")
 
 const Sidebar = (props) => {
@@ -28,9 +29,10 @@ const Sidebar = (props) => {
   const toggleActive = () => {
     return setBarActive(!isBarActive);
   };
-
+  const { logout } = useContext(GlobalContext);
   const handleLogout = () => {
     removeUserSession();
+    logout();
     props.history.push("/login");
   };
 

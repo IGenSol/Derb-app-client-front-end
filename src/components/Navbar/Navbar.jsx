@@ -14,6 +14,7 @@ import { removeUserSession } from "../../utils/Common";
 import { menubarItems } from "../../mockData/navbarData";
 // import { SearchIcon, UploadImageIcon } from "../../svgs";
 import { Imagestyle, Modelstyle, NavbarStyle, SiteMenuStyle, UserProfileStyle } from "./Navbar.style";
+import { GlobalContext } from "../../reducer/GlobalState";
 const image = sessionStorage.getItem("image")
 
 
@@ -240,7 +241,10 @@ const SiteMenu = () => {
 };
 
 function Navbar(props) {
+  const { userId } = useContext(GlobalContext);
   return (
+    <>{
+    userId &&
     <NavbarStyle>
       <section className="navbar-container">
         <Link to="/">
@@ -268,6 +272,8 @@ function Navbar(props) {
         <UserProfile {...props} />
       </section>
     </NavbarStyle>
+}
+    </>
   );
 }
 
