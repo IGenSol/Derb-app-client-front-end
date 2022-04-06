@@ -6,6 +6,7 @@ import { LiveCardStyle, PostFooterStyle, VerticalCardStyle } from "../../compone
 import { CommentIcon, CrossIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
 import { Link } from "react-router-dom";
 import { Modelstyle } from "../Feed/Feed.style";
+import Carousel from "react-multi-carousel";
 
 
 const Following = () => {
@@ -290,22 +291,28 @@ const Modal = ({ handleClose, data }) => {
 
 const PostModal = ({ handleClose, data }) => {
 
-  console.log(data[0])
 
+  const img = data[5]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
 
   return (
     <Modelstyle>
@@ -327,7 +334,21 @@ const PostModal = ({ handleClose, data }) => {
             <hr className="mb-3"></hr>
 
             <article className="postimagecontainer mb-2">
-              <img src={data?.[3]} alt="img"></img>
+              <Carousel responsive={responsive}>
+                {
+                  img.filter(img => img.user_id == data[4]).map((img, index) => {
+                    return (
+
+                      <article key={index}>
+                        <img src={img?.post_image} alt="img"></img>
+                        {/* <p>{img.post_image}</p> */}
+                      </article>
+
+                    )
+
+                  })
+                }
+              </Carousel>
             </article>
 
           </DiscoverStyle>
@@ -381,7 +402,6 @@ function Discover() {
     ...new Map(descover.map((item) => [item["post_id"], item])).values(),
   ];
 
-  console.log("PostData", filterpostdata);
 
   let filterproductData = [
     ...new Map(descover.map((item) => [item["product_id"], item])).values(),
@@ -397,13 +417,15 @@ function Discover() {
       product_id: product_id,
       post_id: post_id,
       store_id: store_id
-
     }
+    console.log(e.rating_user_id, loginuserid)
     if (e.rating_user_id == loginuserid) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
         getDescoverPost();
+        alert("Likes")
       }).catch((err) => {
         console.log(err)
+        alert("Likes err")
 
       })
 
@@ -412,8 +434,10 @@ function Discover() {
       axios.post(`${process.env.REACT_APP_BASE_URL}/reviews/likes`, data).then((res) => {
         console.log(res)
         getDescoverPost();
+        alert("Dislike ")
       }).catch((err) => {
         console.log(err)
+        alert("Dislikes err")
       })
     }
 
@@ -434,8 +458,8 @@ function Discover() {
           <article className="discover-prducts-wrapper">
 
             {/* {descover.map((descover, index) => { */}
-            {filterdata.map((descover, index) => {
-              const { post_image, user_id, post_id, store_id, product_name, first_name, last_name, product_id, user_image, rating_user_id, LIKES } = descover;
+            {filterdata.map((data, index) => {
+              const { post_image, user_id, post_id, store_id, product_name, first_name, last_name, product_id, user_image, rating_user_id, LIKES } = data;
               const id = product_id
               const userid = user_id;
 
@@ -473,7 +497,7 @@ function Discover() {
                         state: userid
                       }
                     } > */}
-                    <article className="image-thumbnail" onClick={() => hanldePostClick([user_image, first_name, last_name, post_image])}>
+                    <article className="image-thumbnail" onClick={() => hanldePostClick([user_image, first_name, last_name, post_image, user_id, descover])}>
                       <img src={post_image} alt="image" className="thumbnail" />
                     </article>
                     {/* </Link> */}
@@ -482,15 +506,15 @@ function Discover() {
                         <button className="post-button">
                           {/* {rating_user_id == loginuserid && LIKES == "1"  */}
                           {rating_user_id == loginuserid
-                            ? (<i onClick={() => handleLike(descover)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
-                              <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3`} ></i>
+                            ? (<i onClick={() => handleLike(data)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
+                              <i onClick={() => handleLike(data)} className={`fa fa-heart  mx-3`} ></i>
                             )}
 
                           {product_id}{post_id}
                         </button>
 
                         <button className="post-button">
-                          <span className="icon" onClick={() => hanldeClick(descover)}>
+                          <span className="icon" onClick={() => hanldeClick(data)}>
                             <CommentIcon />
                           </span>
                           4
