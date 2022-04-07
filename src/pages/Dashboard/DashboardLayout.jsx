@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import ProductPromtion from "./Subpages/Products/ProductPromotion/ProductPromtion";
 import CreateStore from "./Subpages/Products/CreateStore/CreateStore";
 import { GlobalContext } from "../../reducer/GlobalState";
+import StreamPage from "../Stream/Stream.page";
 const image = sessionStorage.getItem("image")
 
 const Sidebar = (props) => {
@@ -108,7 +109,7 @@ const Sidebar = (props) => {
         </button>
       </Menu>
 
-      <button className="live-button">Go Live</button>
+      <Link className="live-button btn" to={"/dashboard/go-live"}>Go Live</Link>
     </SidebarStyle>
   );
 };
@@ -155,7 +156,7 @@ function DashboardLayout(props) {
             exact
             component={SubCatagories}
           />
-
+          <Route path="/dashboard/go-live" exact  component={StreamPage}/>
           <Route path="/dashboard/orders" exact component={Order} />
           <Route path="/dashboard/profile" exact component={Profile} />
           <Route path="/dashboard/createstore" exact component={CreateStore} />
