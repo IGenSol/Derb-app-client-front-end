@@ -26,6 +26,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.2.1",
     "react-scripts": "^5.0.0",
+    "react-share": "^4.4.0",
     "react-stripe-checkout": "^2.6.3",
     "react-toastify": "^8.1.1",
     "source-map-loader": "^3.0.1",
