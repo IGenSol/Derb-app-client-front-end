@@ -8,7 +8,7 @@ import { LogoutIcon } from "../../svgs";
 import Profile from "./Subpages/Profile/Profile";
 import Order from "./Subpages/Orders/Order";
 import Dashboard from "./Subpages/Dashboard/Dashboard";
-import ProductList from "./Subpages/Products/porductList/ProductList";
+import ProductList from "./Subpages/Products/PorductList/ProductList";
 import AddProducts from "./Subpages/Products/AddProducts/AddProducts";
 import Catagories from "./Subpages/Products/Catagories/Catagories";
 import SubCatagories from "./Subpages/Products/SubCatagories/SubCatagories";
@@ -156,7 +156,7 @@ function DashboardLayout(props) {
             exact
             component={SubCatagories}
           />
-          <Route path="/dashboard/go-live" exact  component={StreamPage}/>
+          <Route path="/dashboard/go-live" exact component={StreamPage} />
           <Route path="/dashboard/orders" exact component={Order} />
           <Route path="/dashboard/profile" exact component={Profile} />
           <Route path="/dashboard/createstore" exact component={CreateStore} />
