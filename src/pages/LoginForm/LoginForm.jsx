@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Tabs } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,6 +15,7 @@ import {
   PhoneIcon,
 } from "../../svgs/index";
 import { setUserSession } from "../../utils/Common";
+import { GlobalContext } from "../../reducer/GlobalState";
 
 const Signup = () => {
   const url = `${process.env.REACT_APP_BASE_URL}/users`;
@@ -160,7 +161,7 @@ const Login = (props) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
   const [Role, setRole] = useState("")
-
+  const { signIn } = useContext(GlobalContext);
   const handleLogin = () => {
     setError(null);
     setLoading(true);
@@ -185,7 +186,7 @@ const Login = (props) => {
             res.data.data.picture,
             res.data.data.store_id
           );
-
+          signIn({userId:res.data.data.id});
           setRole(res.data.data.role);
 
           let path = res.data.data.role;

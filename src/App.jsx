@@ -20,6 +20,9 @@ import { GlobalStyle } from "./style/globalStyle";
 import Checkout from "./pages/Checkout/Checkout";
 import AllProduct from "./pages/AllProduct/AllProduct";
 import UserDashbaord from "./pages/UserDashboard/UserDashbaord";
+import StreamPage from "./pages/Stream/Stream.page";
+import AudiencePage from "./pages/Stream/Audience.page";
+import { GlobalProvider } from "./reducer/GlobalState";
 
 export const products = createContext();
 
@@ -80,9 +83,10 @@ function App() {
   return (
     <Router basename="/">
       <ThemeProvider theme={THEMES}>
+        <GlobalProvider>
         <GlobalStyle />
         <products.Provider value={cartItems.length}>
-          {userId && <Navbar />}
+          <Navbar />
         </products.Provider>
 
         <Switch>
@@ -110,8 +114,11 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/user-profile" exact component={UserProfile} />
             <PrivateRoute path="/checkout" exact component={Checkout} />
+            <PrivateRoute path="/streamer" exact component={StreamPage}/>
+            <PrivateRoute path="/watch" exact component={AudiencePage}/>
           </products.Provider>
         </Switch>
+        </GlobalProvider>
       </ThemeProvider>
     </Router>
   );
