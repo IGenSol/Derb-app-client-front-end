@@ -51,14 +51,46 @@ const Sidebar = (props) => {
         <div className="bar"></div>
       </article>
       <picture className="profile-placeholder">
-        <img
-          src={image}
-          alt="User Image"
-          className="profile-image"
-        />
+        <article className="img-container">
+          <img
+            src={image}
+            alt="User Image"
+            className="profile-image"
+          />
+        </article>
 
-        <span className="user-status">Live Now</span>
+        <span type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="user-status">Live Now</span>
       </picture>
+
+
+      {/* *********************Live Modal***************************** */}
+
+
+
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="staticBackdropLabel">Live Now</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <StreamPage></StreamPage>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
 
       <h3 className="name">{`${JSON.parse(fname)} ${JSON.parse(lname)}`}</h3>
       <article className="dashboard-details">

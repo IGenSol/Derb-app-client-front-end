@@ -30,7 +30,7 @@ export const SidebarStyle = styled.aside`
     left: ${(p) => (p.toggleActive ? "0rem" : "-50rem")};
 
     width: 30rem;
-    height: 100vh;
+    height: 50vh;
     overflow-y: auto;
 
     transition: ${(p) => p.theme.transitions.customTransition};
@@ -238,14 +238,14 @@ export const SidebarStyle = styled.aside`
     }
   }
 
-  .live-button {
+  .live-now {
     background: ${(p) => p.theme.colors.PRIMARY_COLOR};
     color: ${(p) => p.theme.colors.WHITE_COLOR};
 
     padding: 1.5rem;
     width: 100%;
     border: none;
-    margin-top: 3rem;
+    margin-bottom: 1rem;
     font-size: 2rem;
     text-transform: uppercase;
     font-weight: 800;

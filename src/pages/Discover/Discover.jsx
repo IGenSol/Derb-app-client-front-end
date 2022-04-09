@@ -4,6 +4,8 @@ import { Tabs } from "antd";
 import { CommentStyle, DiscoverStyle, FollowingStyle } from "./Discover.style";
 import { LiveCardStyle, PostFooterStyle, VerticalCardStyle } from "../../components/Card/Card.style";
 import { CommentIcon, CrossIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
+import { FacebookShareButton, TwitterShareButton, TelegramShareButton, LinkedinShareButton } from "react-share";
+import { FacebookIcon, TelegramIcon, LinkedinIcon, TwitterIcon } from "react-share";
 import { Link } from "react-router-dom";
 import { Modelstyle } from "../Feed/Feed.style";
 import Carousel from "react-multi-carousel";
@@ -519,13 +521,68 @@ function Discover() {
                           </span>
                           4
                         </button>
-                        <button className="post-button">
+                        <button className="post-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           <span className="icon">
                             <ShareIcon />
                           </span>
                           12
                         </button>
                       </article>
+
+
+                      {/* *************Share Model************************* */}
+
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h3 class="modal-title" id="exampleModalLabel">Share Now</h3>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <article class="d-flex justify-content-center aligns-items-center">
+                                <article>
+                                  <FacebookShareButton
+                                    url={"http://www.igensolution.com/"}
+                                    quote={"I-Gen Soultion"}
+                                    hashtag={"#hashtag"}
+                                    description={"aiueo"}
+                                    className="Demo__some-network__share-button"
+                                  >
+                                    <FacebookIcon class="" size={45} round />
+                                  </FacebookShareButton>
+                                </article>
+
+                                <article class="mx-3">
+                                  <TwitterShareButton
+                                    title={"test"}
+                                    url={"http://www.igensolution.com/"}
+                                    hashtags={["hashtag1", "hashtag2"]}
+                                  >
+                                    <TwitterIcon size={45} round />
+
+                                  </TwitterShareButton>
+
+                                </article>
+                                <article>
+                                  <LinkedinShareButton>
+                                    <LinkedinIcon size={45} round></LinkedinIcon>
+                                  </LinkedinShareButton>
+                                </article>
+                                <article className="mx-3">
+                                  <TelegramShareButton>
+                                    <TelegramIcon size={45} round></TelegramIcon>
+                                  </TelegramShareButton>
+                                </article>
+                              </article>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
                       {/* <article className="comment-box-wrapper">
                       <input
                         type="text"
@@ -536,6 +593,19 @@ function Discover() {
                         <SendButtonIcon />
                       </button>
                     </article> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
                     </PostFooterStyle>
 
 

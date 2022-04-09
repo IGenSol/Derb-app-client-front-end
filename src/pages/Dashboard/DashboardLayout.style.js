@@ -75,6 +75,17 @@ export const SidebarStyle = styled.aside`
     }
   }
 
+  .img-container {
+    width: 15rem;
+    height: 15rem;
+    border: 0.1rem solid ${(p) => p.theme.colors.PRIMARY_COLOR};
+    border-radius: 50%;
+    @media (max-width: ${(p) => p.theme.breakPoints.laptops}) {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+
   .profile-placeholder {
     position: absolute;
     left: 50%;
@@ -104,7 +115,7 @@ export const SidebarStyle = styled.aside`
       position: absolute;
       bottom: 0;
       right: -2rem;
-
+      cursor: pointer;
       width: 8rem;
       padding: 0.5rem 1rem;
       border-radius: 5rem;
