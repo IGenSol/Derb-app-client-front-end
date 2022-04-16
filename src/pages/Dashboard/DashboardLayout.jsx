@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classNames from "classnames";
 import { Menu } from "antd";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
@@ -17,6 +17,8 @@ import UpdateProducts from "./Subpages/Products/UpdateProducts/UpdateProducts";
 import { useEffect } from "react";
 import ProductPromtion from "./Subpages/Products/ProductPromotion/ProductPromtion";
 import CreateStore from "./Subpages/Products/CreateStore/CreateStore";
+import { GlobalContext } from "../../reducer/GlobalState";
+import StreamPage from "../Stream/Stream.page";
 const image = sessionStorage.getItem("image")
 
 const Sidebar = (props) => {
@@ -28,9 +30,10 @@ const Sidebar = (props) => {
   const toggleActive = () => {
     return setBarActive(!isBarActive);
   };
-
+  const { logout } = useContext(GlobalContext);
   const handleLogout = () => {
     removeUserSession();
+    logout();
     props.history.push("/login");
   };
 
@@ -48,14 +51,46 @@ const Sidebar = (props) => {
         <div className="bar"></div>
       </article>
       <picture className="profile-placeholder">
-        <img
-          src={image}
-          alt="User Image"
-          className="profile-image"
-        />
+        <article className="img-container">
+          <img
+            src={image}
+            alt="User Image"
+            className="profile-image"
+          />
+        </article>
 
-        <span className="user-status">Live Now</span>
+        <span type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="user-status">Live Now</span>
       </picture>
+
+
+      {/* *********************Live Modal***************************** */}
+
+
+
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="staticBackdropLabel">Live Now</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <StreamPage></StreamPage>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
 
       <h3 className="name">{`${JSON.parse(fname)} ${JSON.parse(lname)}`}</h3>
       <article className="dashboard-details">
@@ -106,7 +141,7 @@ const Sidebar = (props) => {
         </button>
       </Menu>
 
-      <button className="live-button">Go Live</button>
+      <Link className="live-button btn" to={"/dashboard/go-live"}>Go Live</Link>
     </SidebarStyle>
   );
 };
@@ -153,7 +188,7 @@ function DashboardLayout(props) {
             exact
             component={SubCatagories}
           />
-
+          <Route path="/dashboard/go-live" exact component={StreamPage} />
           <Route path="/dashboard/orders" exact component={Order} />
           <Route path="/dashboard/profile" exact component={Profile} />
           <Route path="/dashboard/createstore" exact component={CreateStore} />

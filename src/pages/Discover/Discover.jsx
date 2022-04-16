@@ -4,8 +4,11 @@ import { Tabs } from "antd";
 import { CommentStyle, DiscoverStyle, FollowingStyle } from "./Discover.style";
 import { LiveCardStyle, PostFooterStyle, VerticalCardStyle } from "../../components/Card/Card.style";
 import { CommentIcon, CrossIcon, LikeIcon, SendButtonIcon, ShareIcon } from "../../svgs";
+import { FacebookShareButton, TwitterShareButton, TelegramShareButton, LinkedinShareButton } from "react-share";
+import { FacebookIcon, TelegramIcon, LinkedinIcon, TwitterIcon } from "react-share";
 import { Link } from "react-router-dom";
 import { Modelstyle } from "../Feed/Feed.style";
+import Carousel from "react-multi-carousel";
 
 
 const Following = () => {
@@ -288,17 +291,96 @@ const Modal = ({ handleClose, data }) => {
   );
 };
 
+const PostModal = ({ handleClose, data }) => {
+
+
+  const img = data[5]
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+  return (
+    <Modelstyle>
+      <div className="modal display-block">
+        <section className="modal-main">
+
+          <DiscoverStyle>
+            <div className="container">
+
+              <article className="profilewrapper">
+                <picture className="img my-4">
+                  <img src={data?.[0]} alt="img"></img>
+
+                </picture>
+                <h3>{data?.[1]} {data?.[2]} </h3>
+              </article>
+              <article className="cancel" onClick={handleClose}><CrossIcon /></article>
+            </div>
+            <hr className="mb-3"></hr>
+
+            <article className="postimagecontainer mb-2">
+              <Carousel responsive={responsive}>
+                {
+                  img.filter(img => img.user_id == data[4]).map((img, index) => {
+                    return (
+
+                      <article key={index}>
+                        <img src={img?.post_image} alt="img"></img>
+                        {/* <p>{img.post_image}</p> */}
+                      </article>
+
+                    )
+
+                  })
+                }
+              </Carousel>
+            </article>
+
+          </DiscoverStyle>
+
+
+
+
+        </section>
+      </div>
+    </Modelstyle >
+  );
+};
+
 function Discover() {
   const { TabPane } = Tabs;
   const [descover, setdescover] = useState([])
   const [show, setShow] = useState(false);
+  const [Postshow, setPostShow] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const hanldeClick = (data) => {
     setSelectedData(data);
     setShow(true);
   };
+  const hanldePostClick = (data) => {
+    setSelectedData(data);
+    setPostShow(true)
+  };
   const hideModal = () => {
     setShow(false);
+    setPostShow(false)
   };
   const url = `${process.env.REACT_APP_BASE_URL}/posts/discovery/data`
   const loginuserid = sessionStorage.getItem("userId")
@@ -317,22 +399,18 @@ function Discover() {
     })
   }
 
-  console.log(descover)
 
   let filterpostdata = [
     ...new Map(descover.map((item) => [item["post_id"], item])).values(),
   ];
 
-  console.log("PostData", filterpostdata);
 
   let filterproductData = [
     ...new Map(descover.map((item) => [item["product_id"], item])).values(),
   ];
-  console.log("filterproductData", filterproductData);
 
   const filterdata = [...filterpostdata, ...filterproductData];
 
-  console.log("filterData", filterdata);
 
   const handleLike = (e) => {
     const { product_id, post_id, store_id } = e
@@ -341,13 +419,15 @@ function Discover() {
       product_id: product_id,
       post_id: post_id,
       store_id: store_id
-
     }
+    console.log(e.rating_user_id, loginuserid)
     if (e.rating_user_id == loginuserid) {
       axios.put(`${process.env.REACT_APP_BASE_URL}/reviews/likes/Dislike/${loginuserid}`, data).then((res) => {
         getDescoverPost();
+        alert("Likes")
       }).catch((err) => {
         console.log(err)
+        alert("Likes err")
 
       })
 
@@ -356,8 +436,10 @@ function Discover() {
       axios.post(`${process.env.REACT_APP_BASE_URL}/reviews/likes`, data).then((res) => {
         console.log(res)
         getDescoverPost();
+        alert("Dislike ")
       }).catch((err) => {
         console.log(err)
+        alert("Dislikes err")
       })
     }
 
@@ -378,8 +460,8 @@ function Discover() {
           <article className="discover-prducts-wrapper">
 
             {/* {descover.map((descover, index) => { */}
-            {filterdata.map((descover, index) => {
-              const { post_image, user_id, post_id, store_id, product_name, first_name, last_name, product_id, user_image, rating_user_id, LIKES } = descover;
+            {filterdata.map((data, index) => {
+              const { post_image, user_id, post_id, store_id, product_name, first_name, last_name, product_id, user_image, rating_user_id, LIKES } = data;
               const id = product_id
               const userid = user_id;
 
@@ -411,39 +493,96 @@ function Discover() {
                       </Link>) : (" ")}
 
 
-                    <Link className="image-thumbnail" to={
+                    {/* <Link to={
                       {
                         pathname: "/user-profile",
                         state: userid
                       }
-                    } >
+                    } > */}
+                    <article className="image-thumbnail" onClick={() => hanldePostClick([user_image, first_name, last_name, post_image, user_id, descover])}>
                       <img src={post_image} alt="image" className="thumbnail" />
-                    </Link>
+                    </article>
+                    {/* </Link> */}
                     <PostFooterStyle>
                       <article className="post-buttons-wrapper">
                         <button className="post-button">
                           {/* {rating_user_id == loginuserid && LIKES == "1"  */}
                           {rating_user_id == loginuserid
-                            ? (<i onClick={() => handleLike(descover)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
-                              <i onClick={() => handleLike(descover)} className={`fa fa-heart  mx-3`} ></i>
+                            ? (<i onClick={() => handleLike(data)} className='fa fa-heart  mx-3 likecolor' ></i>) : (
+                              <i onClick={() => handleLike(data)} className={`fa fa-heart  mx-3`} ></i>
                             )}
 
                           {product_id}{post_id}
                         </button>
 
                         <button className="post-button">
-                          <span className="icon" onClick={() => hanldeClick(descover)}>
+                          <span className="icon" onClick={() => hanldeClick(data)}>
                             <CommentIcon />
                           </span>
                           4
                         </button>
-                        <button className="post-button">
+                        <button className="post-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           <span className="icon">
                             <ShareIcon />
                           </span>
                           12
                         </button>
                       </article>
+
+
+                      {/* *************Share Model************************* */}
+
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h3 class="modal-title" id="exampleModalLabel">Share Now</h3>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <article class="d-flex justify-content-center aligns-items-center">
+                                <article>
+                                  <FacebookShareButton
+                                    url={"http://www.igensolution.com/"}
+                                    quote={"I-Gen Soultion"}
+                                    hashtag={"#hashtag"}
+                                    description={"aiueo"}
+                                    className="Demo__some-network__share-button"
+                                  >
+                                    <FacebookIcon class="" size={45} round />
+                                  </FacebookShareButton>
+                                </article>
+
+                                <article class="mx-3">
+                                  <TwitterShareButton
+                                    title={"test"}
+                                    url={"http://www.igensolution.com/"}
+                                    hashtags={["hashtag1", "hashtag2"]}
+                                  >
+                                    <TwitterIcon size={45} round />
+
+                                  </TwitterShareButton>
+
+                                </article>
+                                <article>
+                                  <LinkedinShareButton>
+                                    <LinkedinIcon size={45} round></LinkedinIcon>
+                                  </LinkedinShareButton>
+                                </article>
+                                <article className="mx-3">
+                                  <TelegramShareButton>
+                                    <TelegramIcon size={45} round></TelegramIcon>
+                                  </TelegramShareButton>
+                                </article>
+                              </article>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
                       {/* <article className="comment-box-wrapper">
                       <input
                         type="text"
@@ -454,6 +593,19 @@ function Discover() {
                         <SendButtonIcon />
                       </button>
                     </article> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
                     </PostFooterStyle>
 
 
@@ -464,6 +616,7 @@ function Discover() {
             })}
           </article>
           {show && <Modal data={selectedData} handleClose={hideModal} />}
+          {Postshow && <PostModal data={selectedData} handleClose={hideModal} />}
         </TabPane>
         <TabPane tab="Following" key="following">
           <Following />
